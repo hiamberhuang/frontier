@@ -42,7 +42,10 @@ BUILDER_FIELDS = {
 
 # Editor's notes for hero picks (keyed by substring of title). Human-curated = the POV.
 EDITOR_NOTES = {
-    "Jensen Huang": "Jensen with Sequoia on AI factories and compute as the new industrial base. If you want to grasp why this cycle is 'the largest infrastructure buildout in history' — and where the money flows — start here.",
+    "Jensen Huang": {
+        "note": "Jensen with Sequoia on AI factories and compute as the new industrial base. If you want to grasp why this cycle is 'the largest infrastructure buildout in history' — and where the money flows — start here.",
+        "tags": ["Sequoia", "AI infrastructure", "Investing", "Jensen Huang"],
+    },
 }
 
 def yt_id(url):
@@ -66,7 +69,7 @@ def editor_note(title):
     for k, v in EDITOR_NOTES.items():
         if k in (title or ""):
             return v
-    return ""
+    return {}
 
 pods = json.load(open(FB / "feed-podcasts.json")).get("podcasts", [])
 xs = json.load(open(FB / "feed-x.json")).get("x", [])
@@ -105,7 +108,7 @@ for b in xs:
 
 hero = pod_items[0] if pod_items else None
 rest_pods = pod_items[1:7]
-x_items = x_items[:10]
+x_items = [b for b in x_items if len(b["tweet"]) >= 70][:8]  # 轻精修：滤掉碎片短推
 
 def thumb(vid):  # maxres, fall back to hq on error
     return (f'<img src="https://img.youtube.com/vi/{vid}/maxresdefault.jpg" '
@@ -125,13 +128,17 @@ def x_card(b):
 
 hero_html = ""
 if hero:
-    note = editor_note(hero["title"])
-    note_html = f'<div class="ednote"><span>Editor\'s note</span>{esc(note)}</div>' if note else ""
+    ed = editor_note(hero["title"])
+    note_html = ""
+    if ed.get("note"):
+        tags = "".join(f'<span class="edtag">{esc(t)}</span>' for t in ed.get("tags", []))
+        note_html = (f'<div class="ednote"><div class="ednote-h"><i class="star">★</i>'
+                     f'Editor\'s choice — why this today</div>{esc(ed["note"])}'
+                     f'<div class="edtags">{tags}</div></div>')
     hero_html = f"""<a class="hero" href="{esc(hero['url'])}" target="_blank">
       <div class="thumb">{thumb(hero['vid'])}</div>
-      <span class="kicker">Editor's choice · {esc(hero['name'])}</span>
-      <h1>{esc(hero['title'])}</h1></a>{note_html}
-      <p class="lede">{esc(hero['teaser'])}</p>"""
+      <span class="kicker"><i class="star">★</i> Editor's choice · {esc(hero['name'])}</span>
+      <h1>{esc(hero['title'])}</h1></a>{note_html}"""
 
 page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -152,9 +159,11 @@ header{{text-align:center;border-bottom:2px solid var(--ink);padding:30px 0 16px
 .hero{{display:block;text-decoration:none;margin-bottom:8px}}
 .kicker{{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin:16px 0 6px;font-weight:600}}
 .hero h1{{font-family:Georgia,serif;font-size:40px;line-height:1.12;margin:0;font-weight:700}}
-.ednote{{background:#fff;border-left:3px solid var(--accent);padding:12px 16px;margin:14px 0;font-size:15px;line-height:1.55;color:#333;border-radius:0 6px 6px 0}}
-.ednote span{{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:600;margin-bottom:4px}}
-.lede{{font-family:Georgia,serif;font-style:italic;font-size:17px;line-height:1.55;color:#444;margin:0 0 44px}}
+.ednote{{background:#fff;border:1px solid var(--accent);border-left:4px solid var(--accent);padding:14px 18px;margin:16px 0 44px;font-size:15px;line-height:1.6;color:#222;border-radius:8px}}
+.ednote-h{{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:600;margin-bottom:8px}}
+.star{{color:var(--accent);font-style:normal}}
+.edtags{{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}}
+.edtag{{font-size:12px;color:var(--accent);background:#f6e7e3;border:0.5px solid #e3b9ae;padding:2px 10px;border-radius:20px}}
 .sec{{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);border-bottom:1px solid var(--ink);padding-bottom:6px;margin:0 0 24px;font-weight:600}}
 .pods{{display:grid;gap:26px;margin-bottom:48px}}
 .pod{{display:flex;gap:18px;text-decoration:none;align-items:start}}
@@ -177,7 +186,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 <div class="tag">AI news, curated from builders — not influencers</div>
 <div class="byl">{esc(gen)} · created by <a href="{PORTFOLIO}" target="_blank">Amber Huang</a> · <a href="{TWITTER}" target="_blank">follow on X</a></div></header>
 {hero_html}
-<div class="sec">Podcasts</div>
+<div class="sec">Long-form picks</div>
 {('<div class="pods">' + ''.join(pod_card(p) for p in rest_pods) + '</div>') if rest_pods else '<div class="empty">Quiet feed today — only the Editor\'s choice above. More as builders publish.</div>'}
 <div class="sec">Builders on X</div>
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
