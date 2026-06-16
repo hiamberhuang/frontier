@@ -82,6 +82,14 @@ for p in pods:
         "vid": vid, "teaser": clean(p.get("transcript", ""), 320),
     })
 
+# Merge Amber's custom YouTube sources (from fetch_sources.py → custom_feed.json)
+_cf = OUT / "custom_feed.json"
+if _cf.exists():
+    for c in json.load(open(_cf)).get("youtube", []):
+        if c.get("vid"):
+            pod_items.append({"name": c["name"], "title": c.get("title", ""),
+                              "url": c.get("url", ""), "vid": c["vid"], "teaser": ""})
+
 x_items = []
 for b in xs:
     tw = (b.get("tweets") or [])
