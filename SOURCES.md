@@ -14,9 +14,12 @@
 - AI & I · Every / Dan Shipper
 
 ### Amber 加（要单独抓，不在 Zara feed 里）
-- ⭐ Lenny's Podcast `@LennysPodcast` · 产品/增长
+- ⭐ Lenny's Podcast `@LennysPodcast` · 产品/增长（实操工作流向，最贴 Amber）
 - Uncapped `@uncappedpod`
+- a16z Podcast `@a16z` · Andreessen Horowitz，VC 视角（科技+AI 大盘 + 创始人对谈）
 - _（待 Amber 补充更多）_
+
+> 调性分类：**VC 视角**=Training Data(红杉)/No Priors/Unsupervised(红点)/a16z；**技术 builder**=Latent Space；**生态版图**=MAD；**实操工作流(最贴 Amber)**=AI & I / Lenny's
 
 ## B 站 AI 区（来源：B站【综合品类部】26 年端午礼盒关怀名单 = B站重点 AI UP 主）
 > 用 yt-dlp 可抓（和小红书同一套工具）。"可进一步优化"——下面先全收，后续按 builder/科普 取舍。
