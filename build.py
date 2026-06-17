@@ -8,7 +8,7 @@ import json, re, html, pathlib
 FB = pathlib.Path.home() / ".claude/skills/follow-builders"
 OUT = pathlib.Path(__file__).resolve().parent
 PORTFOLIO = "https://amberhuang.world/"
-TWITTER = "https://x.com/amber168196"   # TODO: swap to @hiamberhuang after rename
+TWITTER = "https://x.com/hiamberhuang_ai"
 
 # Builder field tags — so readers know who's who (handle -> "field · who")
 BUILDER_FIELDS = {
@@ -196,6 +196,7 @@ if hero:
 page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Frontier · AI daily</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <style>
 :root{{--ink:#111;--muted:#666;--line:#e4e2dc;--accent:#b8341a;--bg:#faf9f6}}
 *{{box-sizing:border-box}}
