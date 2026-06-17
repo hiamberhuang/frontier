@@ -14,3 +14,10 @@ git push -q >> "$LOG" 2>&1 && PUSH="✓ pushed" || PUSH="⚠ push failed (本地
 echo "[$(date '+%F %T')] $PUSH" >> "$LOG"
 
 osascript -e 'display notification "今日 AI 日报已更新 · https://7amberhuang.github.io/frontier/" with title "Frontier 📰" sound name "Glass"' 2>/dev/null
+
+# 飞书推送（双保险，跨设备必达）
+LARK="/Users/amber/.local/share/fnm/node-versions/v24.15.0/installation/bin/lark-cli"
+[ -x "$LARK" ] && "$LARK" im +messages-send --user-id "ou_e71b8550edc0acc975ef9682aa3a0bc6" \
+  --text "📰 Frontier 今日 AI 日报已更新
+https://7amberhuang.github.io/frontier/
+$PUSH" --as user >> "$LOG" 2>&1 || true
