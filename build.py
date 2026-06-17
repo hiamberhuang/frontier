@@ -49,56 +49,50 @@ EDITOR_NOTES = {
 }
 
 CAT = r'''
-<div id="pet">
-  <svg width="92" height="92" viewBox="0 0 92 92">
-    <path id="tail" d="M70 62 q16 -3 13 -24 q-1 -9 -8 -8" fill="none" stroke="#a9aeb6" stroke-width="7" stroke-linecap="round"/>
-    <ellipse cx="46" cy="68" rx="23" ry="17" fill="#b8bcc4"/>
-    <ellipse cx="36" cy="84" rx="6" ry="4" fill="#a9aeb6"/>
-    <ellipse cx="56" cy="84" rx="6" ry="4" fill="#a9aeb6"/>
-    <g id="playpaw"><ellipse cx="65" cy="72" rx="6" ry="5" fill="#c6cad1"/></g>
-    <polygon id="earL" points="31,29 27,9 43,23" fill="#b8bcc4"/>
-    <polygon id="earR" points="61,29 65,9 49,23" fill="#b8bcc4"/>
-    <polygon points="32,26 30,15 40,23" fill="#f0b9c4"/>
-    <polygon points="60,26 62,15 52,23" fill="#f0b9c4"/>
-    <circle cx="46" cy="42" r="19" fill="#b8bcc4"/>
-    <g class="eye"><ellipse cx="39" cy="42" rx="5" ry="6.2" fill="#fff"/><circle id="lpupil" cx="39" cy="42" r="3" fill="#2b2b2b"/></g>
-    <g class="eye"><ellipse cx="53" cy="42" rx="5" ry="6.2" fill="#fff"/><circle id="rpupil" cx="53" cy="42" r="3" fill="#2b2b2b"/></g>
-    <polygon points="46,47 43,50 49,50" fill="#f0a0b0"/>
-    <path id="mouthC" d="M41 52 q5 4 10 0" fill="none" stroke="#8a8f97" stroke-width="1.4"/>
-    <ellipse id="mouthO" cx="46" cy="53" rx="4" ry="5.5" fill="#e08494"/>
+<div id="pet" title="drag me anywhere 🐾">
+  <svg width="104" height="104" viewBox="0 0 104 104">
+    <path id="tail" d="M74 74 q22 -2 22 -28 q0 -12 -10 -12 q-7 0 -7 8" fill="#e8c878" stroke="none"/>
+    <ellipse cx="52" cy="74" rx="26" ry="20" fill="#f3dca0"/>
+    <ellipse cx="52" cy="80" rx="15" ry="12" fill="#fbf0cf"/>
+    <ellipse cx="40" cy="92" rx="7" ry="5" fill="#f3dca0"/>
+    <ellipse cx="64" cy="92" rx="7" ry="5" fill="#f3dca0"/>
+    <path d="M30 56 q-8 -10 -2 -18" fill="none" stroke="#f3dca0" stroke-width="6" stroke-linecap="round"/>
+    <path d="M74 56 q8 -10 2 -18" fill="none" stroke="#f3dca0" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="34,34 27,12 47,28" fill="#ecca78"/>
+    <polygon points="70,34 77,12 57,28" fill="#ecca78"/>
+    <polygon points="35,31 31,18 44,28" fill="#f5b9c4"/>
+    <polygon points="69,31 73,18 60,28" fill="#f5b9c4"/>
+    <circle cx="52" cy="46" r="23" fill="#f6e0a6"/>
+    <path d="M30 44 q-6 3 -8 8" stroke="#fff7e0" stroke-width="2" fill="none" opacity=".8"/>
+    <path d="M74 44 q6 3 8 8" stroke="#fff7e0" stroke-width="2" fill="none" opacity=".8"/>
+    <g class="eye"><ellipse cx="43" cy="45" rx="6.5" ry="8" fill="#fff"/><circle cx="43" cy="46" r="5.3" fill="#caa23c"/><circle id="lpupil" cx="43" cy="46" r="3" fill="#22323a"/><circle cx="44.5" cy="44" r="1.3" fill="#fff"/></g>
+    <g class="eye"><ellipse cx="61" cy="45" rx="6.5" ry="8" fill="#fff"/><circle cx="61" cy="46" r="5.3" fill="#caa23c"/><circle id="rpupil" cx="61" cy="46" r="3" fill="#22323a"/><circle cx="62.5" cy="44" r="1.3" fill="#fff"/></g>
+    <path d="M49 54 q3 3 6 0" fill="#f08a9a"/>
+    <path d="M52 56 q-4 4 -9 3 M52 56 q4 4 9 3" fill="none" stroke="#c9914a" stroke-width="1.3"/>
+    <path d="M20 48 h13 M21 53 h12 M71 48 h13 M71 53 h12" stroke="#e8d4a0" stroke-width="1" opacity=".8"/>
   </svg>
 </div>
 <style>
-#pet{position:fixed;right:16px;bottom:0;z-index:60;width:92px;height:92px;pointer-events:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.12))}
-#tail{transform-box:fill-box;transform-origin:top center;animation:sway 3.2s ease-in-out infinite}
-@keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(11deg)}}
-.eye{transform-box:fill-box;transform-origin:center;transition:transform .12s}
-#pet.blink .eye,#pet.yawn .eye{transform:scaleY(.12)}
-#mouthO{opacity:0}
-#pet.yawn #mouthO{opacity:1}
-#pet.yawn #mouthC{opacity:0}
-#earL,#earR{transition:transform .2s;transform-box:fill-box;transform-origin:bottom center}
-#pet.alert #earL{transform:rotate(-7deg)}
-#pet.alert #earR{transform:rotate(7deg)}
-#playpaw{transform-box:fill-box;transform-origin:bottom right}
-#pet.play #playpaw{animation:bat .32s ease-in-out 2}
-@keyframes bat{0%,100%{transform:rotate(0)}50%{transform:rotate(-38deg) translateY(-6px)}}
+#pet{position:fixed;right:16px;bottom:6px;z-index:60;width:104px;height:104px;cursor:grab;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 4px 7px rgba(0,0,0,.16))}
+#pet.grab{cursor:grabbing}
+#tail{transform-box:fill-box;transform-origin:bottom left;animation:sway 3.4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(9deg)}}
+.eye{transform-box:fill-box;transform-origin:center;transition:transform .14s}
+#pet.blink .eye{transform:scaleY(.12)}
+#pet.grab .eye{transform:scale(1.18)}
 </style>
 <script>
 (function(){var pet=document.getElementById('pet'),lp=document.getElementById('lpupil'),rp=document.getElementById('rpupil');
-setInterval(function(){pet.classList.add('blink');setTimeout(function(){pet.classList.remove('blink')},150)},5200);
-var lx=0,ly=0,still,pt;
+var s=localStorage.getItem('frontier-pet-pos');if(s){try{var q=JSON.parse(s);pet.style.left=q.x+'px';pet.style.top=q.y+'px';pet.style.right='auto';pet.style.bottom='auto';}catch(e){}}
+setInterval(function(){pet.classList.add('blink');setTimeout(function(){pet.classList.remove('blink')},150)},5400);
+var drag=false,ox=0,oy=0;
+pet.addEventListener('mousedown',function(e){drag=true;pet.classList.add('grab');var r=pet.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;e.preventDefault();});
+document.addEventListener('mouseup',function(){if(!drag)return;drag=false;pet.classList.remove('grab');var r=pet.getBoundingClientRect();localStorage.setItem('frontier-pet-pos',JSON.stringify({x:Math.round(r.left),y:Math.round(r.top)}));});
 document.addEventListener('mousemove',function(e){
-  var r=pet.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*0.42;
-  var dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy),a=Math.atan2(dy,dx);
-  var px=Math.cos(a)*2.2,py=Math.sin(a)*2.2;
-  lp.setAttribute('transform','translate('+px.toFixed(1)+','+py.toFixed(1)+')');
-  rp.setAttribute('transform','translate('+px.toFixed(1)+','+py.toFixed(1)+')');
-  var near=d<180;pet.classList.toggle('alert',near);
-  var moved=Math.hypot(e.clientX-lx,e.clientY-ly);lx=e.clientX;ly=e.clientY;
-  if(near&&moved>4){pet.classList.remove('yawn');pet.classList.add('play');clearTimeout(pt);pt=setTimeout(function(){pet.classList.remove('play')},640);}
-  clearTimeout(still);
-  if(near){still=setTimeout(function(){pet.classList.add('yawn');setTimeout(function(){pet.classList.remove('yawn')},1500);},2600);}
+  if(drag){pet.style.left=(e.clientX-ox)+'px';pet.style.top=(e.clientY-oy)+'px';pet.style.right='auto';pet.style.bottom='auto';return;}
+  var r=pet.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*0.44,a=Math.atan2(e.clientY-cy,e.clientX-cx);
+  var px=(Math.cos(a)*2.6).toFixed(1),py=(Math.sin(a)*2.6).toFixed(1);
+  lp.setAttribute('transform','translate('+px+','+py+')');rp.setAttribute('transform','translate('+px+','+py+')');
 });})();
 </script>
 '''
@@ -277,8 +271,80 @@ footer a{{color:var(--accent);text-decoration:none}}
 <div class="sec">Builders on X</div>
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
 <footer>Pick your own builders. Read AI like a magazine.<br>
-<a href="https://github.com/7amberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="{TWITTER}" target="_blank">@amber</a> · <a href="manual.html">how to file this in Obsidian</a></footer>
+<a href="https://github.com/7amberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="{TWITTER}" target="_blank">@amber</a> · <a href="manual.html">how to file this in Obsidian</a> · <a href="prophet.html">📜 Daily Prophet edition</a></footer>
 </div>{CAT}</body></html>"""
 
 (OUT / "index.html").write_text(page, encoding="utf-8")
 print(f"✓ built {OUT/'index.html'}  | {len(pod_items)} podcasts, {len(x_items)} builders ({sum(1 for b in x_items if b['field'])} tagged)")
+
+# ---- Daily Prophet edition (Hogwarts newspaper skin, same data) ----
+_ed = editor_note(hero["title"]) if hero else {}
+
+def prophet_pod(p):
+    return (f'<a class="pcol" href="{esc(p["url"])}" target="_blank">'
+            f'<div class="pframe">{thumb(p["vid"])}<span class="pcap">moving photograph</span></div>'
+            f'<div class="psrc">{esc(p["name"])}</div><h3>{esc(p["title"])}</h3></a>')
+
+def prophet_x(b):
+    fld = (" · " + esc(b["field"])) if b["field"] else ""
+    return (f'<div class="powl"><div class="pwho">{esc(b["name"])} '
+            f'<span>@{esc(b["handle"])}{fld}</span></div><p>{esc(b["tweet"])}</p></div>')
+
+phero = ""
+if hero:
+    phero = (f'<a class="plead" href="{esc(hero["url"])}" target="_blank">'
+             f'<div class="pframe big">{thumb(hero["vid"])}<span class="pcap">moving photograph · {esc(hero["name"])}</span></div>'
+             f'<div class="pkick">★ Editor\'s choice</div><h1>{esc(hero["title"])}</h1></a>'
+             f'<p class="pnote">{esc(_ed.get("note",""))}</p>')
+
+prophet = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Frontier Prophet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+*{{box-sizing:border-box}}
+body{{margin:0;background:#dccfa8;color:#2c2114;font-family:'IM Fell English',Georgia,serif;font-size:17px;line-height:1.55}}
+.pw{{max-width:860px;margin:0 auto;padding:0 26px 90px;background:#efe3c4;box-shadow:0 0 60px rgba(80,60,30,.3);border-left:1px solid #cbb88a;border-right:1px solid #cbb88a}}
+.prule{{border:0;border-top:3px double #2c2114;margin:0}}
+.pmast{{font-family:'UnifrakturMaguntia',serif;font-size:72px;text-align:center;line-height:1;margin:16px 0 4px}}
+.pmeta{{display:flex;justify-content:space-between;font-size:12px;font-style:italic;text-transform:uppercase;letter-spacing:.08em;padding:6px 0}}
+.ptag{{text-align:center;font-style:italic;font-size:15px;margin:6px 0 12px}}
+.plead{{display:block;text-decoration:none;color:inherit;margin:24px 0 8px}}
+.pframe{{position:relative;border:6px double #2c2114;padding:5px;background:#d9c79a}}
+.pframe img{{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:sepia(.6) contrast(1.05) brightness(.95);animation:flick 7s ease-in-out infinite}}
+@keyframes flick{{0%,100%{{filter:sepia(.6) contrast(1.05) brightness(.95)}}50%{{filter:sepia(.46) contrast(1.13) brightness(1.04)}}}}
+.pcap{{position:absolute;bottom:9px;left:11px;font-size:11px;font-style:italic;background:#efe3c4;padding:1px 8px;border:1px solid #2c2114}}
+.pkick{{text-align:center;font-variant:small-caps;letter-spacing:.1em;color:#7a1d12;margin:12px 0 0;font-size:14px}}
+.plead h1{{font-family:'UnifrakturMaguntia',serif;font-size:42px;text-align:center;line-height:1.08;margin:4px 0}}
+.pnote{{font-size:17px;column-count:2;column-gap:28px;text-align:justify;margin:0 0 34px}}
+.pnote::first-letter{{font-family:'UnifrakturMaguntia',serif;font-size:56px;float:left;line-height:.78;padding:6px 8px 0 0;color:#7a1d12}}
+.psec{{font-family:'UnifrakturMaguntia',serif;font-size:27px;text-align:center;margin:28px 0 16px;border-top:1px solid #2c2114;border-bottom:1px solid #2c2114;padding:6px 0}}
+.pcols{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-bottom:28px}}
+.pcol{{text-decoration:none;color:inherit}}
+.pcol .psrc{{font-variant:small-caps;letter-spacing:.06em;color:#7a1d12;font-size:13px;margin-top:7px}}
+.pcol h3{{font-size:18px;line-height:1.2;margin:2px 0 0;font-weight:400}}
+.powls{{column-count:2;column-gap:30px}}
+.powl{{break-inside:avoid;margin:0 0 16px;border-top:1px solid #b8a474;padding-top:8px}}
+.pwho{{font-size:15px}}.pwho span{{font-style:italic;color:#6a5a3a;font-size:13px}}
+.powl p{{font-size:15px;margin:3px 0 0;text-align:justify}}
+.pfoot{{text-align:center;border-top:3px double #2c2114;margin-top:40px;padding-top:16px;font-size:13px;font-style:italic}}
+.pfoot a{{color:#7a1d12}}
+@media(max-width:640px){{.pmast{{font-size:44px}}.plead h1{{font-size:30px}}.pcols{{grid-template-columns:1fr}}.pnote,.powls{{column-count:1}}}}
+</style></head>
+<body><div class="pw">
+<div class="pmeta"><span>{esc(gen)}</span><span>Wizarding AI · Daily</span><span>Price: 5 Knuts</span></div>
+<hr class="prule">
+<div class="pmast">The Frontier Prophet</div>
+<div class="ptag">~ the wizarding world's AI news · by builders, not influencers ~</div>
+<hr class="prule">
+{phero}
+<div class="psec">✦ Moving Pictures ✦</div>
+<div class="pcols">{''.join(prophet_pod(p) for p in rest_pods)}</div>
+<div class="psec">✦ Owl Post from the Builders ✦</div>
+<div class="powls">{''.join(prophet_x(b) for b in x_items)}</div>
+<div class="pfoot">Mischief managed. · <a href="index.html">← back to the Muggle edition</a> · <a href="{PORTFOLIO}" target="_blank">Amber Huang</a></div>
+</div>{CAT}</body></html>"""
+
+(OUT / "prophet.html").write_text(prophet, encoding="utf-8")
+print(f"✓ built {OUT/'prophet.html'} (Daily Prophet edition)")
