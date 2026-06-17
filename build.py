@@ -255,7 +255,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 {hero_html}
 <div class="sec">Deep dives</div>
 {('<div class="pods">' + ''.join(pod_card(p) for p in rest_pods) + '</div>') if rest_pods else '<div class="empty">Quiet feed today — only the Editor\'s choice above. More as builders publish.</div>'}
-{('<div class="sec">From the labs</div><div class="pods">' + ''.join(prod_card(p) for p in prod) + '</div>') if prod else ''}
+{('<div class="sec">Product pulse · official accounts</div><div class="pods">' + ''.join(prod_card(p) for p in prod) + '</div>') if prod else ''}
 <div class="sec">Builders on X</div>
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
 <footer>Pick your own builders. Read AI like a magazine.<br>
