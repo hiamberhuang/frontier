@@ -6,8 +6,9 @@ cd "$HOME/Developer/frontier" || exit 1
 LOG="$HOME/Developer/frontier/.daily.log"
 
 echo "[$(date '+%F %T')] start" >> "$LOG"
-python3 fetch_sources.py >> "$LOG" 2>&1
-python3 build.py          >> "$LOG" 2>&1
+python3 fetch_sources.py          >> "$LOG" 2>&1
+uv run python3 fetch_products.py  >> "$LOG" 2>&1   # uv = 干净 python（系统 expat 坏）
+python3 build.py                  >> "$LOG" 2>&1
 git add -A >> "$LOG" 2>&1
 git commit -q -m "daily: $(date '+%Y-%m-%d') refresh" >> "$LOG" 2>&1
 git push -q >> "$LOG" 2>&1 && PUSH="✓ pushed" || PUSH="⚠ push failed (本地已更新)"

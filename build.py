@@ -179,6 +179,19 @@ def x_card(b):
       <div><div class="xn">{esc(b['name'])} <span>@{esc(b['handle'])}</span></div>{field}
       <p>{esc(b['tweet'])}</p><a href="{esc(b['url'])}" target="_blank">read on X →</a></div></div>"""
 
+# Product / lab updates (official blogs via RSS → fetch_products.py)
+prod = []
+_pf = OUT / "product_feed.json"
+if _pf.exists():
+    prod = json.load(open(_pf)).get("product", [])
+
+def prod_card(p):
+    img = (f'<img loading="lazy" src="{esc(p["img"])}" alt="" '
+           f'onerror="this.parentNode.style.display=\'none\'">') if p.get("img") else ""
+    return (f'<a class="pod" href="{esc(p["url"])}" target="_blank">'
+            f'<div class="thumb sm">{img}</div>'
+            f'<div><span class="src">{esc(p["name"])}</span><h3>{esc(p["title"])}</h3></div></a>')
+
 hero_html = ""
 if hero:
     ed = editor_note(hero["title"])
@@ -242,6 +255,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 {hero_html}
 <div class="sec">Deep dives</div>
 {('<div class="pods">' + ''.join(pod_card(p) for p in rest_pods) + '</div>') if rest_pods else '<div class="empty">Quiet feed today — only the Editor\'s choice above. More as builders publish.</div>'}
+{('<div class="sec">From the labs</div><div class="pods">' + ''.join(prod_card(p) for p in prod) + '</div>') if prod else ''}
 <div class="sec">Builders on X</div>
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
 <footer>Pick your own builders. Read AI like a magazine.<br>
