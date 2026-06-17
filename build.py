@@ -49,39 +49,57 @@ EDITOR_NOTES = {
 }
 
 CAT = r'''
-<div id="pet" title="click me">
-  <div id="pet-bubble"></div>
-  <svg width="72" height="72" viewBox="0 0 72 72">
-    <ellipse id="cat-tail" cx="58" cy="56" rx="4" ry="13" fill="#d98a5b"/>
-    <ellipse cx="36" cy="56" rx="20" ry="13" fill="#e89b6c"/>
-    <circle cx="36" cy="34" r="17" fill="#e89b6c"/>
-    <polygon points="22,22 20,6 34,18" fill="#e89b6c"/>
-    <polygon points="50,22 52,6 38,18" fill="#e89b6c"/>
-    <polygon points="23,19 22,11 30,18" fill="#f4c4a0"/>
-    <polygon points="49,19 50,11 42,18" fill="#f4c4a0"/>
-    <ellipse class="eye" cx="29" cy="34" rx="3.2" ry="4.4" fill="#2b2b2b"/>
-    <ellipse class="eye" cx="43" cy="34" rx="3.2" ry="4.4" fill="#2b2b2b"/>
-    <polygon points="36,38 33,41 39,41" fill="#c96a4a"/>
-    <path d="M30 44 q6 5 12 0" stroke="#c96a4a" stroke-width="1.3" fill="none"/>
+<div id="pet">
+  <svg width="92" height="92" viewBox="0 0 92 92">
+    <path id="tail" d="M70 62 q16 -3 13 -24 q-1 -9 -8 -8" fill="none" stroke="#a9aeb6" stroke-width="7" stroke-linecap="round"/>
+    <ellipse cx="46" cy="68" rx="23" ry="17" fill="#b8bcc4"/>
+    <ellipse cx="36" cy="84" rx="6" ry="4" fill="#a9aeb6"/>
+    <ellipse cx="56" cy="84" rx="6" ry="4" fill="#a9aeb6"/>
+    <g id="playpaw"><ellipse cx="65" cy="72" rx="6" ry="5" fill="#c6cad1"/></g>
+    <polygon id="earL" points="31,29 27,9 43,23" fill="#b8bcc4"/>
+    <polygon id="earR" points="61,29 65,9 49,23" fill="#b8bcc4"/>
+    <polygon points="32,26 30,15 40,23" fill="#f0b9c4"/>
+    <polygon points="60,26 62,15 52,23" fill="#f0b9c4"/>
+    <circle cx="46" cy="42" r="19" fill="#b8bcc4"/>
+    <g class="eye"><ellipse cx="39" cy="42" rx="5" ry="6.2" fill="#fff"/><circle id="lpupil" cx="39" cy="42" r="3" fill="#2b2b2b"/></g>
+    <g class="eye"><ellipse cx="53" cy="42" rx="5" ry="6.2" fill="#fff"/><circle id="rpupil" cx="53" cy="42" r="3" fill="#2b2b2b"/></g>
+    <polygon points="46,47 43,50 49,50" fill="#f0a0b0"/>
+    <path id="mouthC" d="M41 52 q5 4 10 0" fill="none" stroke="#8a8f97" stroke-width="1.4"/>
+    <ellipse id="mouthO" cx="46" cy="53" rx="4" ry="5.5" fill="#e08494"/>
   </svg>
 </div>
 <style>
-#pet{position:fixed;right:20px;bottom:20px;z-index:60;cursor:pointer;user-select:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.15))}
-#pet .eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
-@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
-#cat-tail{transform-box:fill-box;transform-origin:top center;animation:wag 2.4s ease-in-out infinite}
-@keyframes wag{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(13deg)}}
-#pet:hover{animation:hop .5s}
-@keyframes hop{50%{transform:translateY(-7px)}}
-#pet-bubble{position:absolute;bottom:80px;right:0;width:185px;background:#fff;border:1px solid #b8341a;color:#222;font:13px/1.5 -apple-system,sans-serif;padding:9px 12px;border-radius:12px;opacity:0;transform:translateY(6px);transition:.25s;pointer-events:none}
-#pet-bubble.show{opacity:1;transform:translateY(0)}
+#pet{position:fixed;right:16px;bottom:0;z-index:60;width:92px;height:92px;pointer-events:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.12))}
+#tail{transform-box:fill-box;transform-origin:top center;animation:sway 3.2s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(11deg)}}
+.eye{transform-box:fill-box;transform-origin:center;transition:transform .12s}
+#pet.blink .eye,#pet.yawn .eye{transform:scaleY(.12)}
+#mouthO{opacity:0}
+#pet.yawn #mouthO{opacity:1}
+#pet.yawn #mouthC{opacity:0}
+#earL,#earR{transition:transform .2s;transform-box:fill-box;transform-origin:bottom center}
+#pet.alert #earL{transform:rotate(-7deg)}
+#pet.alert #earR{transform:rotate(7deg)}
+#playpaw{transform-box:fill-box;transform-origin:bottom right}
+#pet.play #playpaw{animation:bat .32s ease-in-out 2}
+@keyframes bat{0%,100%{transform:rotate(0)}50%{transform:rotate(-38deg) translateY(-6px)}}
 </style>
 <script>
-(function(){var p=document.getElementById('pet'),b=document.getElementById('pet-bubble');
-if(localStorage.getItem('frontier-pet')==='off'){p.style.display='none';return;}
-var L=["miao~ today's picks are in 🐾","read one deep dive, skip the doomscroll","builders, not influencers 😼","psst… fork me on GitHub","go log today's learning in Obsidian 📝"],t;
-p.addEventListener('click',function(){b.textContent=L[Math.floor(Math.random()*L.length)];b.classList.add('show');clearTimeout(t);t=setTimeout(function(){b.classList.remove('show')},3600)});
-p.addEventListener('contextmenu',function(e){e.preventDefault();if(confirm('Hide the cat? (clear site data to bring it back)')){p.style.display='none';localStorage.setItem('frontier-pet','off')}});})();
+(function(){var pet=document.getElementById('pet'),lp=document.getElementById('lpupil'),rp=document.getElementById('rpupil');
+setInterval(function(){pet.classList.add('blink');setTimeout(function(){pet.classList.remove('blink')},150)},5200);
+var lx=0,ly=0,still,pt;
+document.addEventListener('mousemove',function(e){
+  var r=pet.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*0.42;
+  var dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy),a=Math.atan2(dy,dx);
+  var px=Math.cos(a)*2.2,py=Math.sin(a)*2.2;
+  lp.setAttribute('transform','translate('+px.toFixed(1)+','+py.toFixed(1)+')');
+  rp.setAttribute('transform','translate('+px.toFixed(1)+','+py.toFixed(1)+')');
+  var near=d<180;pet.classList.toggle('alert',near);
+  var moved=Math.hypot(e.clientX-lx,e.clientY-ly);lx=e.clientX;ly=e.clientY;
+  if(near&&moved>4){pet.classList.remove('yawn');pet.classList.add('play');clearTimeout(pt);pt=setTimeout(function(){pet.classList.remove('play')},640);}
+  clearTimeout(still);
+  if(near){still=setTimeout(function(){pet.classList.add('yawn');setTimeout(function(){pet.classList.remove('yawn')},1500);},2600);}
+});})();
 </script>
 '''
 
@@ -260,7 +278,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
 <footer>Pick your own builders. Read AI like a magazine.<br>
 <a href="https://github.com/7amberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="{TWITTER}" target="_blank">@amber</a> · <a href="manual.html">how to file this in Obsidian</a></footer>
-</div></body></html>"""
+</div>{CAT}</body></html>"""
 
 (OUT / "index.html").write_text(page, encoding="utf-8")
 print(f"✓ built {OUT/'index.html'}  | {len(pod_items)} podcasts, {len(x_items)} builders ({sum(1 for b in x_items if b['field'])} tagged)")
