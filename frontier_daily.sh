@@ -14,11 +14,17 @@ git commit -q -m "daily: $(date '+%Y-%m-%d') refresh" >> "$LOG" 2>&1
 git push -q >> "$LOG" 2>&1 && PUSH="✓ pushed" || PUSH="⚠ push failed (本地已更新)"
 echo "[$(date '+%F %T')] $PUSH" >> "$LOG"
 
-osascript -e 'display notification "今日 AI 日报已更新 · https://7amberhuang.github.io/frontier/" with title "Frontier 📰" sound name "Glass"' 2>/dev/null
+# 视频预习：抓 Deep-dive 字幕 → claude 蒸馏成"预习" → 写进 Brain，取飞书预览
+PREVIEW=$(python3 digest_videos.py 2>>"$LOG" | sed -n '/---FEISHU---/,$p' | tail -n +2)
+echo "[$(date '+%F %T')] preview done" >> "$LOG"
 
-# 飞书推送（双保险，跨设备必达）
+osascript -e 'display notification "今日 AI 日报 + 预习已更新" with title "Frontier 📰" sound name "Glass"' 2>/dev/null
+
+# 飞书推送（带视频预习 + obsidian 链接，跨设备必达）
 LARK="/Users/amber/.local/share/fnm/node-versions/v24.15.0/installation/bin/lark-cli"
 [ -x "$LARK" ] && "$LARK" im +messages-send --user-id "ou_e71b8550edc0acc975ef9682aa3a0bc6" \
   --text "📰 Frontier 今日 AI 日报已更新
 https://7amberhuang.github.io/frontier/
-$PUSH" --as user >> "$LOG" 2>&1 || true
+$PUSH
+
+$PREVIEW" --as user >> "$LOG" 2>&1 || true
