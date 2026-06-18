@@ -4,7 +4,7 @@ For each Deep-dive YouTube video: grab auto-captions (fast, no whisper) →
 claude distills a knowledge-ified preview → write one daily note into Brain.
 Prints a short Feishu-ready preview to stdout. Run after build.py.
 """
-import json, subprocess, pathlib, tempfile, re, datetime, urllib.parse
+import json, subprocess, pathlib, tempfile, re, datetime, urllib.parse, time
 
 HERE = pathlib.Path(__file__).resolve().parent
 BRAIN = pathlib.Path.home() / "Documents/Brain"
@@ -48,11 +48,18 @@ def summarize(name, title, transcript):
 
 字幕（可能有口语错字，按上下文理解）：
 {transcript[:14000]}"""
-    r = subprocess.run([CLAUDE, "-p", prompt], capture_output=True, text=True,
-                       timeout=240, stdin=subprocess.DEVNULL)
-    if not r.stdout.strip():
-        print(f"     (claude err: {r.stderr.strip()[:160]})")
-    return r.stdout.strip()
+    for attempt in range(3):              # 重试：claude -p 偶发空/超时，别让视频被静默丢掉
+        try:
+            r = subprocess.run([CLAUDE, "-p", prompt], capture_output=True, text=True,
+                               timeout=300, stdin=subprocess.DEVNULL)
+            out = r.stdout.strip()
+            if out:
+                return out
+            print(f"     (claude 空，重试 {attempt+1}/3：{r.stderr.strip()[:120]})")
+        except subprocess.TimeoutExpired:
+            print(f"     (claude 超时，重试 {attempt+1}/3)")
+        time.sleep(3)
+    return ""
 
 _all = json.load(open(HERE / "custom_feed.json")).get("youtube", [])
 _seen, vids = set(), []
