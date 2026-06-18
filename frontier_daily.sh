@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Frontier 日更：抓源 → build → push → 本地通知。launchd 每天 10:00 触发。
 set -uo pipefail
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin"
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin:$HOME/.local/share/fnm/node-versions/v24.15.0/installation/bin"
 cd "$HOME/Developer/frontier" || exit 1
 LOG="$HOME/Developer/frontier/.daily.log"
 
