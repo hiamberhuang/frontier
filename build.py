@@ -3,7 +3,7 @@
 Real images (YouTube maxres thumbnails + X avatars), builder field tags,
 Editor's Choice notes. No deps, stdlib only.  Run: python3 build.py
 """
-import json, re, html, pathlib
+import json, re, html, pathlib, datetime
 
 FB = pathlib.Path.home() / ".claude/skills/follow-builders"
 OUT = pathlib.Path(__file__).resolve().parent
@@ -107,9 +107,18 @@ def editor_note(title):
 
 pods = json.load(open(FB / "feed-podcasts.json")).get("podcasts", [])
 xs = json.load(open(FB / "feed-x.json")).get("x", [])
-gen = json.load(open(FB / "feed-podcasts.json")).get("generatedAt", "")[:10]
+gen = datetime.date.today().isoformat()      # 这期日报的发布日 = 今天
 
+# Fresh first: Amber's custom YouTube sources (yt-dlp, fetched today) lead the edition;
+# the follow-builders central feed (refreshed less often) fills in behind them.
 pod_items = []
+_cf = OUT / "custom_feed.json"
+if _cf.exists():
+    for c in json.load(open(_cf)).get("youtube", []):
+        if c.get("vid"):
+            pod_items.append({"name": c["name"], "title": c.get("title", ""),
+                              "url": c.get("url", ""), "vid": c["vid"], "teaser": ""})
+N_FRESH = len(pod_items)
 for p in pods:
     vid = yt_id(p.get("url", ""))
     if not vid:
@@ -118,14 +127,6 @@ for p in pods:
         "name": p.get("name", ""), "title": p.get("title", ""), "url": p.get("url", ""),
         "vid": vid, "teaser": clean(p.get("transcript", ""), 320),
     })
-
-# Merge Amber's custom YouTube sources (from fetch_sources.py → custom_feed.json)
-_cf = OUT / "custom_feed.json"
-if _cf.exists():
-    for c in json.load(open(_cf)).get("youtube", []):
-        if c.get("vid"):
-            pod_items.append({"name": c["name"], "title": c.get("title", ""),
-                              "url": c.get("url", ""), "vid": c["vid"], "teaser": ""})
 
 x_items = []
 for b in xs:
@@ -148,7 +149,7 @@ AI_KW = ["ai", " model", "agent", "foundation", "llm", "venture", "gpt", "openai
 def ai_score(title):
     t = (title or "").lower()
     return sum(t.count(k) for k in AI_KW)
-rest_pods = sorted(pod_items[1:], key=lambda p: -ai_score(p["title"]))[:3]
+rest_pods = (pod_items[1:N_FRESH] + sorted(pod_items[N_FRESH:], key=lambda p: -ai_score(p["title"])))[:3]
 
 # Builders on X: keep ORIGINAL TECH/AI takes — drop reposts, reactions, and chit-chat.
 REACTION_STARTS = ("great post", "this is the most", "this is the best", "counterpoint",
@@ -225,7 +226,7 @@ CAT = CAT.replace("/*__MAPS__*/", f"var FPS={_cm['fps']},N={_cm['n1']},C1TOC2={_
 page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Frontier · AI daily</title>
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{{--ink:#111;--muted:#666;--line:#e4e2dc;--accent:#b8341a;--bg:#faf9f6}}
 *{{box-sizing:border-box}}
@@ -278,7 +279,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 {('<div class="pods">' + ''.join(pod_card(p) for p in rest_pods) + '</div>') if rest_pods else '<div class="empty">Quiet feed today — only the Editor\'s choice above. More as builders publish.</div>'}
 <div class="sec">Builders on X</div>
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
-{('<div class="sec" style="margin-top:48px">Product posts · official accounts</div><div class="plogos">' + ''.join(prod_chip(p) for p in prod) + '</div>') if prod else ''}
+{('<div class="sec" style="margin-top:48px">Products on X</div><div class="plogos">' + ''.join(prod_chip(p) for p in prod) + '</div>') if prod else ''}
 <footer>Pick your own builders. Read AI like a magazine.<br>
 <a href="https://github.com/7amberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="manual.html">store it in Obsidian</a></footer>
 </div>{CAT}</body></html>"""
