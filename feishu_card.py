@@ -49,7 +49,15 @@ card = {
     ],
 }
 
-r = subprocess.run([LARK, "im", "+messages-send", "--user-id", OID,
-                    "--msg-type", "interactive", "--content", json.dumps(card, ensure_ascii=False),
-                    "--as", "user"], capture_output=True, text=True)
-print(r.stdout.strip()[:300] or r.stderr.strip()[:300])
+content = json.dumps(card, ensure_ascii=False)
+# 收件人：.subscribers（每行一个 ou_（用户）或 oc_（群）；# 注释）；默认只发给 Amber 自己
+subs = pathlib.Path(__file__).resolve().parent / ".subscribers"
+recips = ([l.strip() for l in subs.read_text(encoding="utf-8").splitlines()
+           if l.strip() and not l.startswith("#")] if subs.exists() else [OID])
+for rid in recips:
+    flag = "--chat-id" if rid.startswith("oc_") else "--user-id"
+    r = subprocess.run([LARK, "im", "+messages-send", flag, rid,
+                        "--msg-type", "interactive", "--content", content, "--as", "bot"],
+                       capture_output=True, text=True)
+    ok = '"message_id"' in r.stdout
+    print(f"  {'✓' if ok else '✗'} {rid}: {(r.stdout or r.stderr).strip()[:140]}")
