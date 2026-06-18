@@ -49,41 +49,35 @@ EDITOR_NOTES = {
 }
 
 CAT = r'''
-<div id="pet" title="戳我 / 拖我 🐾"><div id="petlean"><img src="cat.png" alt="" draggable="false"></div></div>
+<div id="pet"><div id="petlean">
+<video id="cdef" class="cv" autoplay loop muted playsinline><source src="cat1.webm" type="video/webm"><source src="cat1.mp4" type="video/mp4"></video>
+<video id="cact" class="cv" autoplay loop muted playsinline><source src="cat2.webm" type="video/webm"><source src="cat2.mp4" type="video/mp4"></video>
+</div></div>
 <style>
-#pet{position:fixed;right:16px;bottom:10px;z-index:60;width:64px;cursor:grab;user-select:none;-webkit-user-select:none}
-#petlean{transform-origin:bottom center;transition:transform .4s cubic-bezier(.34,1.4,.64,1);will-change:transform}
-#pet img{width:100%;display:block;pointer-events:none;transform-origin:bottom center;filter:drop-shadow(0 6px 9px rgba(0,0,0,.22));animation:breathe 3.8s ease-in-out infinite;will-change:transform}
-@keyframes breathe{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-3px) scale(1.012,.99)}}
-#pet.stretch img{animation:stretch 1.5s ease-in-out}
-@keyframes stretch{0%,100%{transform:translateY(0) scale(1,1)}28%{transform:translateY(2px) scale(1.13,.85)}55%{transform:translateY(-6px) scale(.9,1.13)}78%{transform:translateY(0) scale(1.05,.97)}}
-#pet.hop img{animation:hop .7s ease-out}
-@keyframes hop{0%{transform:translateY(0) scale(1,1)}20%{transform:translateY(0) scale(1.16,.84)}46%{transform:translateY(-26px) scale(.9,1.12)}72%{transform:translateY(0) scale(1.16,.84)}100%{transform:translateY(0) scale(1,1)}}
-#pet.walk img{animation:walk 3.2s ease-in-out}
-@keyframes walk{0%{transform:translateX(0) translateY(0)}12%{transform:translateX(-12px) translateY(-2px) rotate(-3deg)}26%{transform:translateX(-36px) translateY(0)}42%{transform:translateX(-60px) translateY(-2px) rotate(-3deg)}50%{transform:translateX(-66px) translateY(0) scaleX(-1)}62%{transform:translateX(-44px) translateY(-2px) scaleX(-1) rotate(3deg)}82%{transform:translateX(-14px) translateY(0) scaleX(-1)}92%{transform:translateX(-3px) translateY(-2px) scaleX(-1) rotate(3deg)}100%{transform:translateX(0) translateY(0)}}
-#pet.pounce img{animation:pounce .55s ease-out}
-@keyframes pounce{0%{transform:translateY(0) scale(1,1)}30%{transform:translateY(2px) scale(1.18,.82)}60%{transform:translateY(-15px) scale(.87,1.15) rotate(6deg)}100%{transform:translateY(0) scale(1,1)}}
+#pet{position:fixed;right:30px;top:165px;z-index:60;width:150px;cursor:grab;user-select:none;-webkit-user-select:none}
+#petlean{position:relative}
+.cv{display:block;width:100%;pointer-events:none;filter:drop-shadow(0 5px 7px rgba(0,0,0,.18));transition:opacity .28s ease}
+#cact{position:absolute;left:0;top:0;opacity:0}
+#pet.hot #cdef{opacity:0}
+#pet.hot #cact{opacity:1}
 #pet.grab{cursor:grabbing}
-#pet.grab img{animation:none;transform:rotate(-5deg) scale(1.06)}
+#pet.grab .cv{transform:scale(1.04)}
+#pet.tap .cv{animation:tap .5s ease-out}
+@keyframes tap{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
 </style>
 <script>
-(function(){var pet=document.getElementById('pet'),lean=document.getElementById('petlean');
+(function(){/*__MAPS__*/var pet=document.getElementById('pet'),cdef=document.getElementById('cdef'),cact=document.getElementById('cact');
 var s=localStorage.getItem('frontier-pet-pos');if(s){try{var q=JSON.parse(s);pet.style.left=q.x+'px';pet.style.top=q.y+'px';pet.style.right='auto';pet.style.bottom='auto';}catch(e){}}
-var drag=false,moved=false,ox=0,oy=0,busy=false;
-function play(cls,ms){if(busy||drag)return;busy=true;pet.classList.add(cls);setTimeout(function(){pet.classList.remove(cls);busy=false;},ms);}
-var tx=0,ty=0,raf=0;
-function applyLean(){raf=0;if(drag){return;}lean.style.transform='rotate('+(tx*7).toFixed(1)+'deg) translateX('+(tx*4).toFixed(1)+'px) translateY('+(ty*-2).toFixed(1)+'px)';}
+var drag=false,moved=false,ox=0,oy=0;
+function clampF(t){var f=Math.round(t*FPS);return f<0?0:(f>=N?N-1:f);}
+pet.addEventListener('mouseenter',function(){try{cact.currentTime=(C1TOC2[clampF(cdef.currentTime)]||0)/FPS;cact.play();}catch(e){}pet.classList.add('hot');});
+pet.addEventListener('mouseleave',function(){try{cdef.currentTime=(C2TOC1[clampF(cact.currentTime)]||0)/FPS;cdef.play();}catch(e){}pet.classList.remove('hot');});
 document.addEventListener('mousemove',function(e){
-  if(drag){moved=true;pet.style.left=(e.clientX-ox)+'px';pet.style.top=(e.clientY-oy)+'px';pet.style.right='auto';pet.style.bottom='auto';return;}
-  var r=pet.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
-  tx=Math.max(-1,Math.min(1,(e.clientX-cx)/320));ty=Math.max(-1,Math.min(1,(e.clientY-cy)/420));
-  if(!raf)raf=requestAnimationFrame(applyLean);
+  if(!drag)return;
+  moved=true;pet.style.left=(e.clientX-ox)+'px';pet.style.top=(e.clientY-oy)+'px';pet.style.right='auto';pet.style.bottom='auto';
 });
-pet.addEventListener('mousedown',function(e){drag=true;moved=false;pet.classList.add('grab');lean.style.transform='';var r=pet.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;e.preventDefault();});
-document.addEventListener('mouseup',function(){if(!drag)return;drag=false;pet.classList.remove('grab');var r=pet.getBoundingClientRect();localStorage.setItem('frontier-pet-pos',JSON.stringify({x:Math.round(r.left),y:Math.round(r.top)}));if(!moved)play('pounce',560);});
-var acts=[['stretch',1520],['hop',720],['walk',3220]];
-function idle(){var a=acts[Math.floor(Math.random()*acts.length)];play(a[0],a[1]);setTimeout(idle,8000+Math.random()*12000);}
-setTimeout(idle,6000+Math.random()*6000);
+pet.addEventListener('mousedown',function(e){drag=true;moved=false;pet.classList.add('grab');var r=pet.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;e.preventDefault();});
+document.addEventListener('mouseup',function(){if(!drag)return;drag=false;pet.classList.remove('grab');var r=pet.getBoundingClientRect();localStorage.setItem('frontier-pet-pos',JSON.stringify({x:Math.round(r.left),y:Math.round(r.top)}));if(!moved){pet.classList.add('tap');setTimeout(function(){pet.classList.remove('tap')},520);}});
 })();
 </script>
 '''
@@ -224,6 +218,10 @@ if hero:
       <span class="kicker"><i class="star">★</i> Editor's choice · {esc(hero['name'])}</span>
       <h1>{esc(hero['title'])}</h1></a>{note_html}"""
 
+_cmf = OUT / "cat_maps.json"
+_cm = json.load(open(_cmf)) if _cmf.exists() else {"fps": 16, "n1": 1, "c1ToC2": [0], "c2ToC1": [0]}
+CAT = CAT.replace("/*__MAPS__*/", f"var FPS={_cm['fps']},N={_cm['n1']},C1TOC2={_cm['c1ToC2']},C2TOC1={_cm['c2ToC1']};")
+
 page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Frontier · AI daily</title>
@@ -282,7 +280,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
 {('<div class="sec" style="margin-top:48px">Product posts · official accounts</div><div class="plogos">' + ''.join(prod_chip(p) for p in prod) + '</div>') if prod else ''}
 <footer>Pick your own builders. Read AI like a magazine.<br>
-<a href="https://github.com/7amberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="{TWITTER}" target="_blank">@amber</a> · <a href="manual.html">how to file this in Obsidian</a></footer>
+<a href="https://github.com/7amberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="manual.html">store it in Obsidian</a></footer>
 </div>{CAT}</body></html>"""
 
 (OUT / "index.html").write_text(page, encoding="utf-8")
