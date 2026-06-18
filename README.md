@@ -5,7 +5,7 @@ researchers, founders, PMs, engineers — and presents their podcasts, posts, an
 writing as a clean, image-forward daily you actually want to read (think Wired/NYT,
 not a Telegram dump).
 
-**Live:** https://7amberhuang.github.io/frontier/
+**Live:** https://hiamberhuang.github.io/frontier/
 
 ## Why
 

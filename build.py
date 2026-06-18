@@ -282,7 +282,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
 {('<div class="sec" style="margin-top:48px">Products on X</div><div class="plogos">' + ''.join(prod_chip(p) for p in prod) + '</div>') if prod else ''}
 <footer>Pick your own builders. Read AI like a magazine.<br>
-<a href="https://github.com/7amberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="manual.html">store it in Obsidian</a></footer>
+<a href="https://github.com/hiamberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="manual.html">store it in Obsidian</a></footer>
 </div>{CAT}</body></html>"""
 
 (OUT / "index.html").write_text(page, encoding="utf-8")

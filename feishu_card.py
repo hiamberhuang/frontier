@@ -9,7 +9,7 @@ OID = "ou_e71b8550edc0acc975ef9682aa3a0bc6"
 LARK = str(pathlib.Path.home() / ".local/share/fnm/node-versions/v24.15.0/installation/bin/lark-cli")
 NOTE = (pathlib.Path.home() / "Documents/Brain/wiki/行业通用/每日预习"
         / f"{datetime.date.today().isoformat()}.md")
-SITE = "https://7amberhuang.github.io/frontier/"
+SITE = "https://hiamberhuang.github.io/frontier/"
 
 def blocks():
     if not NOTE.exists():
