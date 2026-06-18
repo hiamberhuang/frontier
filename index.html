@@ -36,6 +36,11 @@ header{text-align:center;border-bottom:2px solid var(--ink);padding:30px 0 16px;
 .field{font-size:11px;color:var(--accent);margin:1px 0 5px}
 .xc p{font-size:14px;line-height:1.55;color:#333;margin:0 0 4px}
 .xc a{font-size:12px;color:var(--accent);text-decoration:none}
+.plogos{display:flex;flex-wrap:wrap;gap:12px}
+.plogo{display:flex;align-items:center;gap:9px;text-decoration:none;border:1px solid var(--line);border-radius:26px;padding:5px 16px 5px 5px;background:#fff;transition:border-color .15s,transform .15s}
+.plogo:hover{border-color:var(--accent);transform:translateY(-1px)}
+.plogo img{width:30px;height:30px;border-radius:50%;object-fit:cover;background:var(--line)}
+.plogo span{font-size:13px;font-weight:600}.plogo i{color:var(--muted);font-weight:400;font-style:normal}
 footer{text-align:center;border-top:2px solid var(--ink);margin-top:52px;padding-top:20px;font-size:13px;color:var(--muted)}
 footer a{color:var(--accent);text-decoration:none}
 @media(max-width:640px){.mast{font-size:46px}.hero h1{font-size:29px}.pod{flex-direction:column}.thumb.sm{width:100%}.xs{grid-template-columns:1fr}}
@@ -55,8 +60,7 @@ footer a{color:var(--accent);text-decoration:none}
       <div class="thumb sm"><img src="https://img.youtube.com/vi/2-TDqn-8i-c/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2-TDqn-8i-c/hqdefault.jpg'" alt=""></div>
       <div><span class="src">Uncapped</span><h3>Mike Volpi on Why AI Breaks Traditional Venture Capital | Ep. 52</h3></div></a><a class="pod" href="https://www.youtube.com/watch?v=RJjl1TwyfWM" target="_blank">
       <div class="thumb sm"><img src="https://img.youtube.com/vi/RJjl1TwyfWM/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/RJjl1TwyfWM/hqdefault.jpg'" alt=""></div>
-      <div><span class="src">Lenny&#x27;s Podcast</span><h3>Tony Fadell on the product judgment AI can’t replace</h3></div></a></div>
-
+      <div><span class="src">Lenny&#x27;s Podcast</span><h3>Tony Fadell: How to build real taste (and why AI makes it matter more)</h3></div></a></div>
 <div class="sec">Builders on X</div>
 <div class="xs"><div class="xc">
       <img loading="lazy" class="av" src="https://unavatar.io/x/swyx" alt="" onerror="this.style.visibility='hidden'">
@@ -68,26 +72,45 @@ footer a{color:var(--accent);text-decoration:none}
       <img loading="lazy" class="av" src="https://unavatar.io/x/garrytan" alt="" onerror="this.style.visibility='hidden'">
       <div><div class="xn">Garry Tan <span>@garrytan</span></div><div class="field">Y Combinator · president</div>
       <p>Open source is the escape hatch for businesses to be able to continue to control their own destiny long term https://t.co/9hVUR5w6Lp</p><a href="https://x.com/garrytan/status/2066307697574862905" target="_blank">read on X →</a></div></div></div>
+<div class="sec" style="margin-top:48px">Product posts · official accounts</div><div class="plogos"><a class="plogo" href="https://x.com/AnthropicAI" target="_blank" title="Anthropic on X"><img loading="lazy" src="https://unavatar.io/x/AnthropicAI" alt="Anthropic" onerror="this.style.visibility='hidden'"><span>Anthropic</span></a><a class="plogo" href="https://x.com/OpenAI" target="_blank" title="OpenAI on X"><img loading="lazy" src="https://unavatar.io/x/OpenAI" alt="OpenAI" onerror="this.style.visibility='hidden'"><span>OpenAI</span></a><a class="plogo" href="https://x.com/HeyGen" target="_blank" title="HeyGen on X"><img loading="lazy" src="https://unavatar.io/x/HeyGen" alt="HeyGen" onerror="this.style.visibility='hidden'"><span>HeyGen</span></a><a class="plogo" href="https://x.com/_ahacreator" target="_blank" title="AhaCreator on X"><img loading="lazy" src="https://unavatar.io/x/_ahacreator" alt="AhaCreator" onerror="this.style.visibility='hidden'"><span>AhaCreator</span></a></div>
 <footer>Pick your own builders. Read AI like a magazine.<br>
 <a href="https://github.com/7amberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="https://x.com/hiamberhuang_ai" target="_blank">@amber</a> · <a href="manual.html">how to file this in Obsidian</a></footer>
 </div>
-<div id="pet" title="drag me 🐾"><img src="cat.png" alt="" draggable="false"></div>
+<div id="pet" title="戳我 / 拖我 🐾"><div id="petlean"><img src="cat.png" alt="" draggable="false"></div></div>
 <style>
-#pet{position:fixed;right:14px;bottom:10px;z-index:60;width:94px;cursor:grab;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 6px 9px rgba(0,0,0,.22))}
-#pet img{width:100%;display:block;pointer-events:none;transform-origin:bottom center;animation:breathe 3.8s ease-in-out infinite}
-@keyframes breathe{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(-1.5deg)}}
+#pet{position:fixed;right:16px;bottom:10px;z-index:60;width:64px;cursor:grab;user-select:none;-webkit-user-select:none}
+#petlean{transform-origin:bottom center;transition:transform .4s cubic-bezier(.34,1.4,.64,1);will-change:transform}
+#pet img{width:100%;display:block;pointer-events:none;transform-origin:bottom center;filter:drop-shadow(0 6px 9px rgba(0,0,0,.22));animation:breathe 3.8s ease-in-out infinite;will-change:transform}
+@keyframes breathe{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-3px) scale(1.012,.99)}}
+#pet.stretch img{animation:stretch 1.5s ease-in-out}
+@keyframes stretch{0%,100%{transform:translateY(0) scale(1,1)}28%{transform:translateY(2px) scale(1.13,.85)}55%{transform:translateY(-6px) scale(.9,1.13)}78%{transform:translateY(0) scale(1.05,.97)}}
+#pet.hop img{animation:hop .7s ease-out}
+@keyframes hop{0%{transform:translateY(0) scale(1,1)}20%{transform:translateY(0) scale(1.16,.84)}46%{transform:translateY(-26px) scale(.9,1.12)}72%{transform:translateY(0) scale(1.16,.84)}100%{transform:translateY(0) scale(1,1)}}
+#pet.walk img{animation:walk 3.2s ease-in-out}
+@keyframes walk{0%{transform:translateX(0) translateY(0)}12%{transform:translateX(-12px) translateY(-2px) rotate(-3deg)}26%{transform:translateX(-36px) translateY(0)}42%{transform:translateX(-60px) translateY(-2px) rotate(-3deg)}50%{transform:translateX(-66px) translateY(0) scaleX(-1)}62%{transform:translateX(-44px) translateY(-2px) scaleX(-1) rotate(3deg)}82%{transform:translateX(-14px) translateY(0) scaleX(-1)}92%{transform:translateX(-3px) translateY(-2px) scaleX(-1) rotate(3deg)}100%{transform:translateX(0) translateY(0)}}
+#pet.pounce img{animation:pounce .55s ease-out}
+@keyframes pounce{0%{transform:translateY(0) scale(1,1)}30%{transform:translateY(2px) scale(1.18,.82)}60%{transform:translateY(-15px) scale(.87,1.15) rotate(6deg)}100%{transform:translateY(0) scale(1,1)}}
 #pet.grab{cursor:grabbing}
-#pet.grab img{animation:none;transform:rotate(-5deg) scale(1.05)}
-#pet.wig img{animation:wig .45s}
-@keyframes wig{0%,100%{transform:rotate(0)}25%{transform:rotate(9deg)}75%{transform:rotate(-9deg)}}
+#pet.grab img{animation:none;transform:rotate(-5deg) scale(1.06)}
 </style>
 <script>
-(function(){var pet=document.getElementById('pet');
+(function(){var pet=document.getElementById('pet'),lean=document.getElementById('petlean');
 var s=localStorage.getItem('frontier-pet-pos');if(s){try{var q=JSON.parse(s);pet.style.left=q.x+'px';pet.style.top=q.y+'px';pet.style.right='auto';pet.style.bottom='auto';}catch(e){}}
-var drag=false,moved=false,ox=0,oy=0;
-pet.addEventListener('mousedown',function(e){drag=true;moved=false;pet.classList.add('grab');var r=pet.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;e.preventDefault();});
-document.addEventListener('mousemove',function(e){if(!drag)return;moved=true;pet.style.left=(e.clientX-ox)+'px';pet.style.top=(e.clientY-oy)+'px';pet.style.right='auto';pet.style.bottom='auto';});
-document.addEventListener('mouseup',function(){if(!drag)return;drag=false;pet.classList.remove('grab');var r=pet.getBoundingClientRect();localStorage.setItem('frontier-pet-pos',JSON.stringify({x:Math.round(r.left),y:Math.round(r.top)}));if(!moved){pet.classList.add('wig');setTimeout(function(){pet.classList.remove('wig')},460);}});
+var drag=false,moved=false,ox=0,oy=0,busy=false;
+function play(cls,ms){if(busy||drag)return;busy=true;pet.classList.add(cls);setTimeout(function(){pet.classList.remove(cls);busy=false;},ms);}
+var tx=0,ty=0,raf=0;
+function applyLean(){raf=0;if(drag){return;}lean.style.transform='rotate('+(tx*7).toFixed(1)+'deg) translateX('+(tx*4).toFixed(1)+'px) translateY('+(ty*-2).toFixed(1)+'px)';}
+document.addEventListener('mousemove',function(e){
+  if(drag){moved=true;pet.style.left=(e.clientX-ox)+'px';pet.style.top=(e.clientY-oy)+'px';pet.style.right='auto';pet.style.bottom='auto';return;}
+  var r=pet.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+  tx=Math.max(-1,Math.min(1,(e.clientX-cx)/320));ty=Math.max(-1,Math.min(1,(e.clientY-cy)/420));
+  if(!raf)raf=requestAnimationFrame(applyLean);
+});
+pet.addEventListener('mousedown',function(e){drag=true;moved=false;pet.classList.add('grab');lean.style.transform='';var r=pet.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;e.preventDefault();});
+document.addEventListener('mouseup',function(){if(!drag)return;drag=false;pet.classList.remove('grab');var r=pet.getBoundingClientRect();localStorage.setItem('frontier-pet-pos',JSON.stringify({x:Math.round(r.left),y:Math.round(r.top)}));if(!moved)play('pounce',560);});
+var acts=[['stretch',1520],['hop',720],['walk',3220]];
+function idle(){var a=acts[Math.floor(Math.random()*acts.length)];play(a[0],a[1]);setTimeout(idle,8000+Math.random()*12000);}
+setTimeout(idle,6000+Math.random()*6000);
 })();
 </script>
 </body></html>

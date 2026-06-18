@@ -48,11 +48,20 @@ def summarize(name, title, transcript):
 
 字幕（可能有口语错字，按上下文理解）：
 {transcript[:14000]}"""
-    r = subprocess.run([CLAUDE, "-p", "--allowedTools", "", prompt],
-                       capture_output=True, text=True, timeout=200)
+    r = subprocess.run([CLAUDE, "-p", prompt], capture_output=True, text=True,
+                       timeout=240, stdin=subprocess.DEVNULL)
+    if not r.stdout.strip():
+        print(f"     (claude err: {r.stderr.strip()[:160]})")
     return r.stdout.strip()
 
-vids = json.load(open(HERE / "custom_feed.json")).get("youtube", [])[:MAX]
+_all = json.load(open(HERE / "custom_feed.json")).get("youtube", [])
+_seen, vids = set(), []
+for v in _all:                       # 每频道取一条，去重
+    if v["name"] in _seen:
+        continue
+    _seen.add(v["name"])
+    vids.append(v)
+vids = vids[:MAX]
 OUTDIR.mkdir(parents=True, exist_ok=True)
 blocks, feishu = [], []
 for v in vids:
