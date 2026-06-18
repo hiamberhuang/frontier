@@ -8,6 +8,7 @@ LOG="$HOME/Developer/frontier/.daily.log"
 echo "[$(date '+%F %T')] start" >> "$LOG"
 python3 fetch_sources.py          >> "$LOG" 2>&1
 python3 fetch_x_products.py       >> "$LOG" 2>&1   # TikHub 官号最新推（需 .tikhub_key）
+python3 fetch_x_builders.py       >> "$LOG" 2>&1   # TikHub builders 最新推（Builders on X 保新鲜）
 python3 build.py                  >> "$LOG" 2>&1
 git add -A >> "$LOG" 2>&1
 git commit -q -m "daily: $(date '+%Y-%m-%d') refresh" >> "$LOG" 2>&1
