@@ -78,3 +78,42 @@ bash frontier_daily.sh           # fetch -> build -> push -> digest -> Feishu
 
 The irreducible core that *always* works: **fetch AI-builder videos → you summarize
 them → deliver the summary to the user.** Build out from there.
+
+## Customize your X / Twitter sources (TikHub) — the heart of "your own feed"
+
+The whole point of Frontier is **your own sources**. X/Twitter is the one piece that
+needs a (cheap) managed API: the official X API is expensive + rate-limited, and
+reverse-engineering libraries (twikit etc.) get blocked. We use **TikHub**, a managed
+scraper, for it.
+
+### One-time setup (~5 min)
+1. Register at **https://tikhub.io** (email or Google).
+2. Top up a few dollars in the dashboard (X scraping is ~$0.0008 per account-fetch —
+   see cost table; $5 lasts ~a year).
+3. Dashboard → **API Keys** → create a key with Twitter / full access.
+4. In the repo: `echo 'YOUR_TIKHUB_KEY' > .tikhub_key`  (gitignored — never commit it).
+5. Verify: `python3 fetch_x_products.py` → prints "✓ <name>: N 赞 …".
+
+### Point it at YOUR sources
+- **Official product / lab accounts** → edit `ACCOUNTS` in `fetch_x_products.py`
+  (list of `("Display name", "x_handle")`). Confirm each handle on its real X page.
+- **Builders / people you follow** → create `my_builders.txt`, one handle per line
+  (or `Display Name|handle`). `fetch_x_builders.py` reads it; without it, it falls back
+  to the follow-builders central list.
+
+### Endpoint (to wire other X data yourself)
+`GET https://api.tikhub.io/api/v1/twitter/web/fetch_user_post_tweet?screen_name=<handle>`,
+Bearer auth → `data.timeline[]` (each: `text`, `favorites`, `views`, `media`, `tweet_id`,
+`entities.urls`). Quirks the scripts already handle: browser User-Agent, retry/backoff on
+400, `json.loads(strict=False)` for control chars. China: if `api.tikhub.io` is blocked,
+switch BASE to `https://api.tikhub.dev`.
+
+### Cost (measured on a live account, 2026-06)
+| Item | Cost |
+|---|---|
+| 1 account fetch | ~$0.0008 (≈¥0.006); re-reads within 24h cached/free |
+| 15 accounts/day (4 products + 11 builders) | ~$0.012/day (≈¥0.09) |
+| per month | ~$0.36 (≈¥2.6) |
+
+A fully personalized daily X feed costs **a few cents a month**; cost scales linearly
+with how many accounts you fetch per day.

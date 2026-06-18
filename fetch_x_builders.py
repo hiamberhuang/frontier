@@ -66,7 +66,19 @@ tok = key()
 if not tok:
     raise SystemExit("✗ 没找到 TikHub key：写进 .tikhub_key 或设 TIKHUB_KEY")
 
-builders = json.load(open(FB / "feed-x.json")).get("x", [])
+# 自定义你自己的 builders：在 my_builders.txt 每行写一个 X 用户名（@后面那串），
+# 可写 "显示名|handle"；# 开头是注释。没有这个文件就用 follow-builders 的默认名单。
+_my = HERE / "my_builders.txt"
+if _my.exists():
+    builders = []
+    for ln in _my.read_text(encoding="utf-8").splitlines():
+        ln = ln.strip()
+        if not ln or ln.startswith("#"):
+            continue
+        name, h = ln.split("|", 1) if "|" in ln else (ln, ln)
+        builders.append({"name": name.strip(), "handle": h.strip().lstrip("@")})
+else:
+    builders = json.load(open(FB / "feed-x.json")).get("x", [])
 out = []
 for b in builders:
     name, h = b.get("name", ""), b.get("handle", "")
