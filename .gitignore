@@ -7,3 +7,6 @@ product_feed.json
 .tikhub_key
 builders_feed.json
 .subscribers
+preview_feishu.md
+.preview_doc_token
+.preview_doc_url

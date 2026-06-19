@@ -24,6 +24,9 @@ def blocks():
 bs = blocks()
 today = datetime.date.today().isoformat()
 ob = "obsidian://open?vault=Brain&file=" + urllib.parse.quote(f"wiki/行业通用/每日预习/{today}")
+# 「看预习笔记」优先指向 digest 生成的飞书文档（订阅者不用装 Obsidian 也能看）；没有再退回 Obsidian
+_pdu = pathlib.Path(__file__).resolve().parent / ".preview_doc_url"
+preview_url = _pdu.read_text(encoding="utf-8").strip() if _pdu.exists() else ob
 
 # card body
 lines = [f"**{today}** · AI 已替你读完 **{len(bs)}** 条长视频，先看预习再决定深看 👇"]
@@ -44,7 +47,7 @@ card = {
             {"tag": "button", "text": {"tag": "plain_text", "content": "📖 看完整日报"},
              "type": "primary", "url": SITE},
             {"tag": "button", "text": {"tag": "plain_text", "content": "🧠 看预习笔记"},
-             "type": "default", "url": ob},
+             "type": "default", "url": preview_url},
         ]},
     ],
 }
