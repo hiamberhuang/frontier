@@ -28,11 +28,29 @@ ob = "obsidian://open?vault=Brain&file=" + urllib.parse.quote(f"wiki/行业通�
 _pdu = pathlib.Path(__file__).resolve().parent / ".preview_doc_url"
 preview_url = _pdu.read_text(encoding="utf-8").strip() if _pdu.exists() else ob
 
-# card body
-lines = [f"**{today}** · AI 已替你读完 **{len(bs)}** 条长视频，先看预习再决定深看 👇"]
-for title, src, one in bs:
-    lines.append(f"\n**{title}**  ·  _{src}_\n{one}")
-md = "\n".join(lines) if bs else f"**{today}** · 今日日报已更新。"
+# card body —— 永远有内容：列今日深度视频（custom_feed 每频道一条），有预习就带一句话
+preview_by_title = {t: one for t, s, one in bs}
+vids, seen = [], set()
+_cf = pathlib.Path(__file__).resolve().parent / "custom_feed.json"
+if _cf.exists():
+    for v in json.load(open(_cf)).get("youtube", []):
+        if v.get("name") in seen:
+            continue
+        seen.add(v["name"]); vids.append(v)
+    vids = vids[:4]
+
+head = (f"**{today}** · AI 已替你读完 **{len(bs)}** 条长视频，先看预习再决定深看 👇"
+        if bs else f"**{today}** · 今日 AI 日报已更新，下面是今日深度 👇")
+lines = [head]
+for v in vids:
+    ttl = v.get("title", "").split("|")[0].strip()
+    one = preview_by_title.get(ttl) or next(
+        (preview_by_title[t] for t in preview_by_title if ttl[:16] in t or t[:16] in ttl), "")
+    blk = f"\n**{ttl}**  ·  _{v.get('name','')}_"
+    if one:
+        blk += f"\n{one}"
+    lines.append(blk)
+md = "\n".join(lines) if vids else f"**{today}** · 今日 AI 日报已更新 → 点下方看完整日报。"
 
 card = {
     "config": {"wide_screen_mode": True},
@@ -47,7 +65,7 @@ card = {
             {"tag": "button", "text": {"tag": "plain_text", "content": "📖 看完整日报"},
              "type": "primary", "url": SITE},
             {"tag": "button", "text": {"tag": "plain_text", "content": "🧠 看预习笔记"},
-             "type": "default", "url": preview_url},
+             "type": "primary", "url": preview_url},
         ]},
     ],
 }

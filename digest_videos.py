@@ -52,7 +52,8 @@ def summarize(name, title, transcript):
             "rate limit", "529", "503", "internal server error")
     for attempt in range(4):              # 重试：claude -p 偶发空/超时/API错误，别让视频被静默丢掉
         try:
-            r = subprocess.run([CLAUDE, "-p", prompt], capture_output=True, text=True,
+            r = subprocess.run([CLAUDE, "--model", "claude-sonnet-4-6", "-p", prompt],
+                               capture_output=True, text=True,
                                timeout=300, stdin=subprocess.DEVNULL)
             out = r.stdout.strip()
             low = out.lower()
