@@ -12,6 +12,7 @@ YT_CHANNELS = [
     ("Lenny's Podcast", "https://www.youtube.com/@LennysPodcast/videos"),
     ("a16z", "https://www.youtube.com/@a16z/videos"),
     ("Uncapped", "https://www.youtube.com/@uncappedpod/videos"),
+    ("Y Combinator", "https://www.youtube.com/@ycombinator/videos"),
 ]
 PER_CHANNEL = 2
 

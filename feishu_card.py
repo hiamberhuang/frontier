@@ -12,13 +12,22 @@ NOTE = (pathlib.Path.home() / "Documents/Brain/wiki/行业通用/每日预习"
 SITE = "https://hiamberhuang.github.io/frontier/"
 
 def blocks():
+    """逐节解析预习笔记，避免跨节误匹配；「一句话」文字在冒号后或下一行都能抓。"""
     if not NOTE.exists():
         return []
     t = NOTE.read_text(encoding="utf-8")
     out = []
-    for title, src, one in re.findall(r"## (.+?)\n\*(.+?)\*.*?🎯 \*\*一句话\*\*：(.+)", t, re.S):
-        out.append((title.split("|")[0].strip(), src.strip(),
-                    one.strip().splitlines()[0]))
+    for sec in re.split(r"(?=^## )", t, flags=re.M):
+        if not sec.startswith("## "):
+            continue
+        title = sec.splitlines()[0][3:].split("|")[0].strip()
+        ms = re.search(r"^\*(.+?)\*\s*·", sec, re.M)          # *来源* · [看视频]
+        src = ms.group(1).strip() if ms else ""
+        m = (re.search(r"🎯\s*\*\*一句话\*\*[：:]\s*(\S.*)", sec)        # 冒号后同行
+             or re.search(r"🎯\s*\*\*一句话\*\*[：:]?\s*\n+\s*(\S.*)", sec))  # 或下一行
+        one = m.group(1).strip() if m else ""
+        if title:
+            out.append((title, src, one))
     return out
 
 bs = blocks()
