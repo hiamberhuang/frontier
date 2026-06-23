@@ -107,7 +107,9 @@ def editor_note(title):
 
 pods = json.load(open(FB / "feed-podcasts.json")).get("podcasts", [])
 _bf = OUT / "builders_feed.json"     # fresh via TikHub (fetch_x_builders.py); else stale central feed
-xs = json.load(open(_bf)).get("x", []) if _bf.exists() else json.load(open(FB / "feed-x.json")).get("x", [])
+xs = json.load(open(_bf)).get("x", []) if _bf.exists() else []
+if not xs:                           # TikHub 当天挂了/空 → 回退中心 feed（虽旧但不空，Builders on X 不留白）
+    xs = json.load(open(FB / "feed-x.json")).get("x", [])
 gen = datetime.date.today().isoformat()      # 这期日报的发布日 = 今天
 
 # Fresh first: Amber's custom YouTube sources (yt-dlp, fetched today) lead the edition;

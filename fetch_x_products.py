@@ -110,5 +110,8 @@ for name, handle in ACCOUNTS:
 
 # sort by engagement
 items.sort(key=lambda x: -(x.get("likes") or 0))
-json.dump({"product": items}, open(OUT, "w"), ensure_ascii=False, indent=2)
-print(f"✓ {len(items)} 官号 → {OUT}")
+if items:                                # 同理：空就别覆盖上次的好数据
+    json.dump({"product": items}, open(OUT, "w"), ensure_ascii=False, indent=2)
+    print(f"✓ {len(items)} 官号 → {OUT}")
+else:
+    print("⚠ 0 官号（TikHub 临时挂？）→ 保留上次数据，不覆盖")

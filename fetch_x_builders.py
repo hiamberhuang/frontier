@@ -98,5 +98,8 @@ for b in builders:
     except Exception as ex:
         print(f"  ✗ @{h}: {ex}")
 
-json.dump({"x": out}, open(OUT, "w"), ensure_ascii=False, indent=2)
-print(f"✓ {len(out)} builders → {OUT}")
+if out:                                  # 只在抓到东西时才写，避免 TikHub 当天挂了用空数据覆盖上次的好数据
+    json.dump({"x": out}, open(OUT, "w"), ensure_ascii=False, indent=2)
+    print(f"✓ {len(out)} builders → {OUT}")
+else:
+    print("⚠ 0 builders（TikHub 临时挂？）→ 保留上次数据，不覆盖；build 会回退中心 feed")

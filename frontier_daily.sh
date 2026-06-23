@@ -10,9 +10,23 @@ python3 fetch_sources.py          >> "$LOG" 2>&1
 python3 fetch_x_products.py       >> "$LOG" 2>&1   # TikHub 官号最新推（需 .tikhub_key）
 python3 fetch_x_builders.py       >> "$LOG" 2>&1   # TikHub builders 最新推（Builders on X 保新鲜）
 python3 build.py                  >> "$LOG" 2>&1
+
+# 推送前 review 门禁：站点必须有实质内容才推，避免空站/坏站覆盖线上
+REVIEW_OK=1
+[ -s index.html ] && [ "$(wc -c < index.html)" -gt 4000 ] && grep -q '<h1>' index.html || REVIEW_OK=0
+grep -q 'class="xc"' index.html || echo "[$(date '+%F %T')] ⚠ review: Builders on X 空（TikHub？）" >> "$LOG"
+
 git add -A >> "$LOG" 2>&1
 git commit -q -m "daily: $(date '+%Y-%m-%d') refresh" >> "$LOG" 2>&1
-git push -q >> "$LOG" 2>&1 && PUSH="✓ pushed" || PUSH="⚠ push failed (本地已更新)"
+if [ "$REVIEW_OK" = 1 ]; then
+  PUSH="⚠ push failed (本地已更新)"
+  for i in 1 2 3; do                              # push 自动重试，扛偶发网络
+    if git push -q >> "$LOG" 2>&1; then PUSH="✓ pushed"; break; fi
+    sleep $((i * 8))
+  done
+else
+  PUSH="⛔ review 未通过（站点内容异常）→ 跳过 push，保留线上旧版"
+fi
 echo "[$(date '+%F %T')] $PUSH" >> "$LOG"
 
 # 视频预习：抓 Deep-dive 字幕 → claude 蒸馏成"预习" → 写进 Brain
