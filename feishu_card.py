@@ -33,6 +33,19 @@ def blocks():
     return out
 
 
+def trim(s, n=46):
+    """把预习一句话压到差不多长度，尽量在标点处断 + …，让 3 列高度整齐。"""
+    s = (s or "").strip()
+    if len(s) <= n:
+        return s
+    cut = s[:n]
+    for p in ("。", "——", "，", "、"):
+        i = cut.rfind(p)
+        if i >= n * 0.55:
+            return cut[:i].rstrip("，、—— ") + "…"
+    return cut.rstrip("，、—— ") + "…"
+
+
 def upload_thumb(vid):
     """下载 YouTube 缩略图 → 上传飞书拿 image_key（失败返回 ''，卡片自动退化为纯文字列）。"""
     p = HERE / f"_t_{vid}.jpg"
@@ -80,7 +93,7 @@ for v in vids:
     yurl = f"https://www.youtube.com/watch?v={v['vid']}"
     body = f"[**{ttl}**]({yurl})\n_{v.get('name','')}_"
     if one:
-        body += f"\n\n{one}"
+        body += f"\n\n{trim(one)}"
     body += f"\n\n[▶ 看视频]({yurl})"
     elems.append({"tag": "div", "text": {"tag": "lark_md", "content": body}})
     cols.append({"tag": "column", "width": "weighted", "weight": 1,
