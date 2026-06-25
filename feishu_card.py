@@ -34,12 +34,12 @@ def blocks():
 
 
 def trim(s, n=46):
-    """把预习一句话压到差不多长度，尽量在标点处断 + …，让 3 列高度整齐。"""
+    """压到差不多长度，尽量在标点/空格处断 + …，让 3 列高度（和「看视频」位置）整齐。"""
     s = (s or "").strip()
     if len(s) <= n:
         return s
     cut = s[:n]
-    for p in ("。", "——", "，", "、"):
+    for p in ("。", "——", "，", "、", " "):      # 末尾加空格 → 英文标题在词边界断
         i = cut.rfind(p)
         if i >= n * 0.55:
             return cut[:i].rstrip("，、—— ") + "…"
@@ -91,9 +91,10 @@ for v in vids:
         elems.append({"tag": "img", "img_key": ik, "alt": {"tag": "plain_text", "content": ""},
                       "mode": "fit_horizontal"})
     yurl = f"https://www.youtube.com/watch?v={v['vid']}"
-    body = f"[**{ttl}**]({yurl})\n_{v.get('name','')}_"
+    # 标题 cap ~40、预习 cap ~30 → 每列大致 2 行标题 + 2 行预习，"看视频"基本同一行
+    body = f"[**{trim(ttl, 40)}**]({yurl})\n_{v.get('name','')}_"
     if one:
-        body += f"\n\n{trim(one)}"
+        body += f"\n\n{trim(one, 30)}"
     body += f"\n\n[▶ 看视频]({yurl})"
     elems.append({"tag": "div", "text": {"tag": "lark_md", "content": body}})
     cols.append({"tag": "column", "width": "weighted", "weight": 1,
