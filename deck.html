@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frontier 日报 · cobalt-grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Hanken+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F0EBDE; --ink:#1F2BE0; --grid:rgba(31,43,224,.10); --faint:rgba(31,43,224,.18);
+  --serif:'Newsreader','Noto Serif SC',Georgia,serif;
+  --sans:'Hanken Grotesk','Noto Serif SC',sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#bdb9ad}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:#bdb9ad}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--paper)}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;background:var(--paper);visibility:hidden;opacity:0;transition:opacity .28s}
+.slide.active{visibility:visible;opacity:1}
+.slide::before{content:"";position:absolute;inset:0;background-image:linear-gradient(to right,var(--grid) 1px,transparent 1px),linear-gradient(to bottom,var(--grid) 1px,transparent 1px);background-size:40px 40px;z-index:0}
+.hair{position:absolute;left:80px;right:80px;height:1.5px;background:var(--ink);z-index:2;transform-origin:left}
+.hair.t{top:54px}.hair.b{bottom:44px}
+.pg{position:absolute;right:80px;bottom:72px;font-family:var(--mono);font-size:22px;color:var(--ink);letter-spacing:.06em;z-index:4}
+.nav{position:absolute;left:80px;bottom:72px;font-family:var(--mono);font-size:18px;color:var(--ink);letter-spacing:.08em;opacity:.4;z-index:4}
+.cont{position:absolute;inset:120px 80px 130px;z-index:3}
+
+.kick{font-family:var(--sans);font-weight:600;font-size:22px;color:var(--ink);letter-spacing:.16em;text-transform:uppercase}
+.kick .cn{text-transform:none;letter-spacing:.02em}
+.lab{font-family:var(--mono);font-size:22px;color:var(--ink);letter-spacing:.06em}
+.serif{font-family:var(--serif);font-weight:400;color:var(--ink)}
+.cnserif{font-family:var(--serif);font-weight:700;color:var(--ink);letter-spacing:0}
+
+.topbar{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.5px solid var(--ink);padding-bottom:20px}
+.topbar h2{font-family:var(--serif);font-weight:700;font-size:64px;color:var(--ink);letter-spacing:0;line-height:1.1;max-width:1300px}
+.topbar .lab{padding-bottom:8px;white-space:nowrap}
+
+.rows{margin-top:30px}
+.row{display:grid;grid-template-columns:84px 1fr;gap:28px;padding:17px 0;border-bottom:1px solid var(--faint);align-items:baseline}
+.row .nt{font-family:var(--mono);font-size:27px;color:var(--ink)}
+.row .rh{font-family:var(--serif);font-weight:700;font-size:40px;color:var(--ink);letter-spacing:0;margin-bottom:5px}
+.row .rd{font-family:var(--sans);font-size:23px;color:var(--ink);line-height:1.5}
+
+.cmp{margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:0}
+.cmp .col{padding:8px 60px 0 0;border-right:1px solid var(--faint)}
+.cmp .col:last-child{padding:8px 0 0 60px;border-right:0}
+.cmp .ct{font-family:var(--serif);font-weight:700;font-size:54px;color:var(--ink);margin:16px 0 30px}
+.cmp ul{list-style:none}
+.cmp li{font-family:var(--sans);font-size:28px;color:var(--ink);line-height:1.55;margin-bottom:20px;padding-left:30px;position:relative}
+.cmp li::before{content:"—";position:absolute;left:0;opacity:.5}
+
+.stats{margin-top:50px;display:grid;grid-template-columns:1fr 1fr 1fr}
+.stats .st{padding-right:40px}
+.stats .n{font-family:var(--serif);font-weight:700;font-size:170px;color:var(--ink);line-height:.9;letter-spacing:-.01em}
+.stats .l{font-family:var(--sans);font-weight:600;font-size:24px;color:var(--ink);letter-spacing:.1em;text-transform:uppercase;margin-top:14px}
+.stats .l .cn{text-transform:none;letter-spacing:0}
+.stats .d{font-family:var(--sans);font-size:23px;color:var(--ink);opacity:.7;margin-top:10px}
+/* source preview */
+.srcprev{margin-top:54px;display:grid;grid-template-columns:1fr 1fr;gap:60px;border-top:1px solid var(--faint);padding-top:34px}
+.srcprev .kick{margin-bottom:18px}
+.srcprev .list{font-family:var(--mono);font-size:25px;color:var(--ink);line-height:1.85}
+.srcprev .list a{color:inherit;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px}
+a.docl{font-family:var(--mono);font-size:24px;color:var(--ink);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px}
+
+.cells{position:absolute;z-index:1;display:grid;gap:8px;pointer-events:none}
+.cells i{width:32px;height:32px;background:var(--grid)}
+.cells i.on{background:var(--ink)}
+
+.cover .kick{position:absolute;left:80px;top:150px;z-index:3}
+.cover h1{position:absolute;left:74px;top:210px;font-family:var(--serif);font-weight:700;font-size:200px;color:var(--ink);line-height:.88;letter-spacing:-.01em;z-index:3}
+.cover h1 .cn{letter-spacing:0}
+.cover .sub{position:absolute;left:80px;top:720px;font-family:var(--serif);font-weight:400;font-size:46px;color:var(--ink);max-width:1150px;line-height:1.3;z-index:3}
+.cover .tags{position:absolute;left:80px;bottom:140px;display:flex;z-index:3;font-family:var(--mono);font-size:24px;color:var(--ink)}
+.cover .tags span{padding:0 26px;border-left:1.5px solid var(--ink)}
+.cover .tags span:first-child{padding-left:0;border-left:0}
+
+.mani{position:absolute;left:80px;right:420px;top:300px;z-index:3}
+.mani .big{font-family:var(--serif);font-weight:400;font-size:104px;color:var(--ink);line-height:1.06;letter-spacing:0}
+.mani .rule{border-top:1px solid var(--ink);margin-top:48px;padding-top:30px}
+.mani .re{font-family:var(--serif);font-weight:400;font-size:46px;color:var(--ink);line-height:1.4;max-width:1150px}
+.mani .re b{font-weight:700}
+.close{position:absolute;right:80px;bottom:150px;text-align:right;z-index:3;max-width:1300px}
+.close .big{font-family:var(--serif);font-weight:700;font-size:130px;color:var(--ink);line-height:1.02;letter-spacing:0}
+.close .cta{font-family:var(--mono);font-size:26px;color:var(--ink);margin-top:36px}
+
+/* contact */
+.contact{position:absolute;inset:120px 80px 130px;z-index:3}
+.contact h2{font-family:var(--serif);font-weight:700;font-size:120px;color:var(--ink);line-height:.95;margin-bottom:6px}
+.contact .sub{font-family:var(--sans);font-size:28px;color:var(--ink);opacity:.75;margin-bottom:56px}
+.clinks{display:grid;grid-template-columns:1fr 1fr;gap:40px 70px;max-width:1500px}
+.clink{display:flex;align-items:baseline;gap:24px;border-bottom:1px solid var(--faint);padding-bottom:26px}
+.clink .t{font-family:var(--sans);font-weight:600;font-size:20px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);width:150px;flex:none}
+.clink .v{font-family:var(--mono);font-size:24px;color:var(--ink)}
+a.v{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px;cursor:pointer}
+.install{margin-top:64px;border:1.5px solid var(--ink);padding:28px 34px;max-width:1500px}
+.install .h{font-family:var(--sans);font-weight:600;font-size:21px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:14px}
+.install code{font-family:var(--mono);font-size:25px;color:var(--ink);display:block;line-height:1.7}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.slide .topbar,.slide .cmp .col,.slide .mani,.slide .close,.slide .srcprev,.slide .contact,
+.cover .kick,.cover h1,.cover .sub,.cover .tags,.slide .row,.slide .st,.slide .cells i,.slide .kick.solo{opacity:0}
+.slide.play .topbar{animation:fu .55s ease both}
+.slide.play .cmp .col{animation:fu .55s ease both}.slide.play .cmp .col:nth-child(2){animation-delay:.16s}
+.slide.play .mani{animation:fu .6s ease both}
+.slide.play .close{animation:fu .6s ease .1s both}
+.slide.play .contact{animation:fu .55s ease both}
+.slide.play .srcprev{animation:fu .55s ease .35s both}
+.slide.play .kick.solo{animation:fu .5s ease both}
+.cover.play .kick{animation:fu .5s ease both}
+.cover.play h1{animation:fu .7s ease .08s both}
+.cover.play .sub{animation:fu .6s ease .26s both}
+.cover.play .tags{animation:fu .6s ease .4s both}
+.slide.play .row{animation:fu .5s ease both}
+.slide.play .row:nth-child(1){animation-delay:.12s}.slide.play .row:nth-child(2){animation-delay:.22s}.slide.play .row:nth-child(3){animation-delay:.32s}.slide.play .row:nth-child(4){animation-delay:.42s}.slide.play .row:nth-child(5){animation-delay:.52s}
+.slide.play .st{animation:fu .55s ease both}
+.slide.play .st:nth-child(2){animation-delay:.13s}.slide.play .st:nth-child(3){animation-delay:.26s}
+@keyframes cellpop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+.slide.play .cells i{animation:cellpop .45s ease both;animation-delay:var(--cd,0s)}
+.slide.play .hair{animation:draw .7s ease both}.slide.play .hair.b{animation-delay:.1s}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important}}
+</style>
+</head>
+<body><div class="deck-viewport"><div class="deck-stage" id="stage">
+
+  <!-- 1 COVER -->
+  <section class="slide active cover">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="kick">AI WORKFLOW <span class="cn">/ 前沿信息流</span></div>
+    <h1>Frontier<br><span class="cn">日报</span></h1>
+    <div class="sub">让 AI 替我读遍前沿，<br>我只学最值得的那部分。</div>
+    <div class="tags"><span>19 YouTube · 36 X · 12 B站</span><span>飞书 · OBSIDIAN</span></div>
+    <div class="cells" data-cols="8" data-rows="18" style="right:80px;top:150px"></div>
+    <div class="nav">← → / SPACE</div><div class="pg">01 / 10</div>
+  </section>
+
+  <!-- 2 WHY -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="cont">
+      <div class="topbar"><h2>信息在爆炸，人的时间却没变多</h2><span class="lab">01 — WHY</span></div>
+      <div class="cmp">
+        <div class="col"><div class="kick"><span class="cn">旧工作流</span> / OLD</div><div class="ct">我去找信息</div><ul><li>人肉刷 YouTube、X、Newsletter</li><li>浅尝辄止，永远怕漏</li><li>时间花在"找"，不在"学"</li></ul></div>
+        <div class="col"><div class="kick"><span class="cn">新工作流</span> / NEW</div><div class="ct">AI 喂我精华</div><ul><li>AI 全覆盖爬取 + 自动总结</li><li>我只对值得的做深度学习</li><li>信息顺手沉淀成资产</li></ul></div>
+      </div>
+    </div>
+    <div class="nav">← → / SPACE</div><div class="pg">02 / 10</div>
+  </section>
+
+  <!-- 3 THESIS -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="cont">
+      <div class="topbar"><h2>让 AI 持续学前沿，并不断沉淀</h2><span class="lab">02 — THESIS</span></div>
+      <div class="rows">
+        <div class="row"><div class="nt">01</div><div><div class="rh">AI 全覆盖爬取</div><div class="rd">替我读遍 67 个精选源的高光内容</div></div></div>
+        <div class="row"><div class="nt">02</div><div><div class="rh">人做精华学习</div><div class="rd">只把时间投到真正值得深读的那几条</div></div></div>
+        <div class="row"><div class="nt">03</div><div><div class="rh">系统持续沉淀</div><div class="rd">每一条都变成日后可查的资产</div></div></div>
+      </div>
+      <div class="srcprev" style="border:0;padding:0;grid-template-columns:1fr;margin-top:40px"><div><span class="serif" style="font-size:60px">AI 负责广度，人负责深度。</span></div></div>
+    </div>
+    <div class="nav">← → / SPACE</div><div class="pg">03 / 10</div>
+  </section>
+
+  <!-- 4 FEYNMAN -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="kick solo" style="position:absolute;left:80px;top:150px;z-index:3">03 — 费曼学习法 / FEYNMAN</div>
+    <div class="mani">
+      <div class="big">真正的学习是深度理解，<br>不是信息堆积。</div>
+      <div class="rule"><div class="re">不是跳过学习——把<b>找信息的苦工</b>交给 AI，把<b>深度学习</b>留给自己。从信息的搬运工，变成精华的学习者。</div></div>
+    </div>
+    <div class="cells" data-cols="6" data-rows="10" style="right:80px;top:320px"></div>
+    <div class="nav">← → / SPACE</div><div class="pg">04 / 10</div>
+  </section>
+
+  <!-- 5 LIVE + source preview -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="cont">
+      <div class="topbar"><h2>已跑通：每日早上推送高光</h2><span class="lab">04 — LIVE</span></div>
+      <div class="stats">
+        <div class="st"><div class="n" data-num="19">19</div><div class="l">YouTube · <span class="cn">播客</span></div><div class="d">Latent Space · Lenny's · a16z…</div></div>
+        <div class="st"><div class="n" data-num="36">36</div><div class="l">X · <span class="cn">builders</span></div><div class="d">研究 / 创始 / 工程 / 投资</div></div>
+        <div class="st"><div class="n" data-num="12">12</div><div class="l">B站 · <span class="cn">AI 区</span></div><div class="d">十字路口 · 林亦 · 秋叶…</div></div>
+      </div>
+      <div class="srcprev">
+        <div><div class="kick">包括这些 YouTube · <span class="cn">播客</span></div><div class="list"><a href="https://www.latent.space" target="_blank">Latent Space</a> · <a href="https://www.youtube.com/@LennysPodcast" target="_blank">Lenny's Podcast</a> · <a href="https://www.youtube.com/@NoPriorsPodcast" target="_blank">No Priors</a><br><a href="https://www.youtube.com/@a16z" target="_blank">a16z</a> · <a href="https://www.xiaoyuzhoufm.com/podcast/60502e253c92d4f62c2a9577" target="_blank">十字路口 Crossing</a> · …</div></div>
+        <div><div class="kick">包括这些 X <span class="cn">builders</span></div><div class="list"><a href="https://x.com/karpathy" target="_blank">@karpathy</a> · <a href="https://x.com/swyx" target="_blank">@swyx</a> · <a href="https://x.com/levelsio" target="_blank">@levelsio</a><br><a href="https://x.com/hwchase17" target="_blank">@hwchase17</a> · <a href="https://x.com/sama" target="_blank">@sama</a> · …</div></div>
+      </div>
+      <div style="margin-top:26px"><a class="docl" href="https://my.feishu.cn/base/EafabyUjJaEsD1s6heCc2ii0nLf" target="_blank">→ 前沿 AI 新闻来源(多维表格 · 持续更新)↗</a></div>
+    </div>
+    <div class="nav">← → / SPACE</div><div class="pg">05 / 10</div>
+  </section>
+
+  <!-- 6 PIPELINE -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="cont">
+      <div class="topbar"><h2>全覆盖爬取 → 总结 → 推送 → 沉淀</h2><span class="lab">05 — PIPELINE</span></div>
+      <div class="rows">
+        <div class="row"><div class="nt">01</div><div><div class="rh">信息源</div><div class="rd">YouTube · X · B站，自己挑的前沿源，持续更新</div></div></div>
+        <div class="row"><div class="nt">02</div><div><div class="rh">TikHub 爬取</div><div class="rd">抓取账号高光内容，绕开 API 限制</div></div></div>
+        <div class="row"><div class="nt">03</div><div><div class="rh">AI 总结</div><div class="rd">压缩成结构化日报与笔记</div></div></div>
+        <div class="row"><div class="nt">04</div><div><div class="rh">飞书推送</div><div class="rd">每日早上富文本卡片到手</div></div></div>
+        <div class="row"><div class="nt">05</div><div><div class="rh">Obsidian 沉淀</div><div class="rd">同步存成可查知识库</div></div></div>
+      </div>
+    </div>
+    <div class="nav">← → / SPACE</div><div class="pg">06 / 10</div>
+  </section>
+
+  <!-- 7 DIFFERENT -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="cont">
+      <div class="topbar"><h2>信息源，可以自定义</h2><span class="lab">06 — DIFFERENT</span></div>
+      <div class="cmp">
+        <div class="col"><div class="kick"><span class="cn">别人</span> · API</div><div class="ct">信息源锁死</div><ul><li>受 X 官方 API 限制</li><li>没法自己加想要的源</li><li>给你的是"固定频道"</li></ul></div>
+        <div class="col"><div class="kick">Frontier <span class="cn">日报</span></div><div class="ct">信息源你说了算</div><ul><li>任意加你想关注的 YT / X 账号</li><li>跟着你的关注随时调整</li><li>给你的是"你自己的前沿"</li></ul></div>
+      </div>
+    </div>
+    <div class="nav">← → / SPACE</div><div class="pg">07 / 10</div>
+  </section>
+
+  <!-- 8 EXPERIENCE -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="cont">
+      <div class="topbar"><h2>读了是学习，不读也是资产</h2><span class="lab">07 — EXPERIENCE</span></div>
+      <div class="rows">
+        <div class="row"><div class="nt">01</div><div><div class="rh">飞书卡片</div><div class="rd">每天早上富文本卡片到手</div></div></div>
+        <div class="row"><div class="nt">02</div><div><div class="rh">看 · 或不看</div><div class="rd">点开完整日报或笔记，决定是否细读</div></div></div>
+        <div class="row"><div class="nt">03</div><div><div class="rh">已入 Obsidian</div><div class="rd">即便不读，也已沉淀进知识库</div></div></div>
+        <div class="row"><div class="nt">04</div><div><div class="rh">日后 support</div><div class="rd">工作要查时，直接拿 AI 一手信息</div></div></div>
+      </div>
+    </div>
+    <div class="nav">← → / SPACE</div><div class="pg">08 / 10</div>
+  </section>
+
+  <!-- 9 TAKEAWAY -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="kick solo" style="position:absolute;right:80px;top:150px;text-align:right;z-index:3">08 — TAKEAWAY</div>
+    <div class="cells" data-cols="6" data-rows="12" style="left:80px;top:180px"></div>
+    <div class="close">
+      <div class="big">把信息采集交给 AI，<br>把深度学习留给自己。</div>
+      <div class="cta">这就是我理解的 AI 时代工作流 ↘</div>
+    </div>
+    <div class="nav">← → / SPACE</div><div class="pg">09 / 10</div>
+  </section>
+
+  <!-- 10 CONTACT -->
+  <section class="slide">
+    <div class="hair t"></div><div class="hair b"></div>
+    <div class="contact">
+      <div class="kick">GET IN TOUCH <span class="cn">/ 找到我 · 用起来</span></div>
+      <h2 style="margin-top:14px">Contact</h2>
+      <div class="sub">关注我，看一个普通人怎么用 AI 重做工作流。</div>
+      <div class="clinks">
+        <div class="clink"><span class="t">Website</span><a class="v" href="https://amberhuang.world" target="_blank">amberhuang.world</a></div>
+        <div class="clink"><span class="t">小红书</span><span class="v">@加七个七</span></div>
+        <div class="clink"><span class="t">GitHub</span><a class="v" href="https://github.com/hiamberhuang" target="_blank">github.com/hiamberhuang</a></div>
+        <div class="clink"><span class="t">日报仓库</span><a class="v" href="https://github.com/hiamberhuang/frontier" target="_blank">github.com/hiamberhuang/frontier</a></div>
+      </div>
+      <div class="install">
+        <div class="h">自己跑一份 · 开源 Python,零依赖</div>
+        <code>git clone github.com/hiamberhuang/frontier<br>改 SOURCES.md → python3 build.py → 部署任意静态托管</code>
+      </div>
+    </div>
+    <div class="nav">← → / SPACE</div><div class="pg">10 / 10</div>
+  </section>
+
+</div></div>
+<script>
+document.querySelectorAll('.cells').forEach(function(grid){var cols=+grid.dataset.cols,rows=+grid.dataset.rows;grid.style.gridTemplateColumns='repeat('+cols+',32px)';for(var r=0;r<rows;r++){for(var c=0;c<cols;c++){var cell=document.createElement('i');if(Math.random()<0.4)cell.className='on';cell.style.setProperty('--cd',((r+c)*0.03+Math.random()*0.05)+'s');grid.appendChild(cell);}}});
+var stage=document.getElementById('stage');
+function fit(){var s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate('+((innerWidth-1920*s)/2)+'px,'+((innerHeight-1080*s)/2)+'px) scale('+s+')';}
+addEventListener('resize',fit);fit();
+var sl=[...document.querySelectorAll('.slide')],i=0;
+function countup(s){s.querySelectorAll('.n[data-num]').forEach(function(el){var t=+el.dataset.num,t0=performance.now();function step(now){var p=Math.min((now-t0)/900,1);el.textContent=Math.round(t*(p<1?(1-Math.pow(1-p,3)):1));if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);});}
+function play(s){s.classList.remove('play');void s.offsetWidth;s.classList.add('play');countup(s);}
+function go(n){i=Math.max(0,Math.min(sl.length-1,n));sl.forEach(function(s,k){s.classList.toggle('active',k===i)});play(sl[i]);}
+addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key===' ')go(i+1);if(e.key==='ArrowLeft')go(i-1);});
+addEventListener('click',function(e){if(e.target.closest('a'))return;if(e.clientX<innerWidth*0.22)go(i-1);else go(i+1);});
+play(sl[0]);
+</script>
+</body></html>
