@@ -103,7 +103,7 @@ for v in vids:
 _pdu = HERE / ".preview_doc_url"
 preview_url = _pdu.read_text(encoding="utf-8").strip() if _pdu.exists() else SITE
 _WD = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"][datetime.date.today().weekday()]
-func = f"`{today} · {_WD}`"
+func = f"**{today} · {_WD}**"
 q = {}
 _qf = HERE / ".quote.json"
 if _qf.exists():
