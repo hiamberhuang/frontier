@@ -2,7 +2,7 @@
 
 > 策展原则:**builders not influencers**。
 > 这份 = Frontier 的**完整信息源**,与飞书多维表格同步(多维表格已 close,以本文件为准)。
-> 计数:**YouTube 19 · Twitter/X 36 · B站 15 · 小红书 16**。
+> 计数:**YouTube 19 · Twitter/X 36 · B站 12 · 小红书 16**。
 > 自动抓取状态:X = `my_builders.txt` ✓ · YouTube = `fetch_sources.py` + Zara feed(部分)· B站 yt-dlp 待修 · 小红书 暂未接入(作为关注/选题 roster)。
 
 ---
@@ -70,7 +70,7 @@ Zara Zhang 张咋啦 @zarazhangrui — 文科转 AI · build in public
 
 ---
 
-## B站(15)
+## B站(12)
 
 > yt-dlp bilibili 抓取待修复(TODO)。空间链接如下。
 
@@ -86,9 +86,6 @@ Zara Zhang 张咋啦 @zarazhangrui — 文科转 AI · build in public
 - 十字路口 Crossing · https://space.bilibili.com/505301413 — Koji 杨远骋的 AI 一线视频播客
 - 秋芝2046 · https://space.bilibili.com/385670211 — AIGC 影像创作,AI 电影/工作流
 - Xuan_酱 · https://space.bilibili.com/14848367 — 沉迷 AI,爱折腾各类工具应用
-- 青时晚 · (空间待确认) — AI 区 UP 主
-- 不高兴就喝水 · (空间待确认) — AI 区 UP 主
-- 陈昕昕 · (空间待确认) — AI 区 UP 主
 
 ---
 
@@ -116,7 +113,6 @@ Zara Zhang 张咋啦 @zarazhangrui — 文科转 AI · build in public
 ---
 
 ## 待办
-- [ ] B站 yt-dlp 抓取修复 + 把 15 个 UID 接入 build.py
-- [ ] 青时晚 / 不高兴就喝水 / 陈昕昕 三个 B站空间链接待确认
+- [ ] B站 yt-dlp 抓取修复 + 把 12 个 UID 接入 build.py
 - [ ] 小红书是否接入自动抓取(目前仅作 roster)
 - [ ] YouTube 19 全量接入 fetch_sources.py(当前仅部分 + Zara feed)
