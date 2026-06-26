@@ -1,6 +1,6 @@
-# Frontier 的 builder 信源池 —— builders not influencers。
-# 格式：显示名|handle（@后面那串）；# 开头是注释。脚本会自动跳过抓不到的。
-# 分四类：研究/labs · 创始/产品 · 工程/写作 · 投资&操盘。
+# Frontier 的 X / Twitter 信源池 —— builders not influencers。
+# 与飞书多维表格(权威版)对齐:当前启用 36 个。
+# 格式：显示名|handle（@后面那串）；# 开头是注释，脚本自动跳过。
 
 # ── 研究 / Labs ──
 Andrej Karpathy|karpathy
@@ -11,56 +11,73 @@ Andrew Ng|AndrewYNg
 Jim Fan|DrJimFan
 Fei-Fei Li|drfeifei
 Demis Hassabis|demishassabis
-Jeff Dean|JeffDean
-Oriol Vinyals|OriolVinyalsML
 Noam Brown|polynoamial
-Mira Murati|miramurati
-Logan Kilpatrick|OfficialLoganK
-Thibault Sottiaux|thsottiaux
-Sholto Douglas|_sholtodouglas
 Nathan Lambert|natolambert
 Ethan Mollick|emollick
-Riley Goodside|goodside
-Lucas Beyer|giffmana
-Clement Delangue|ClementDelangue
-Julien Chaumond|julien_c
 
-# ── 创始 / 产品 ──
-Amjad Masad|amasad
-Guillermo Rauch|rauchg
+# ── 模型公司 / 官方 ──
+DeepSeek|deepseek_ai
+MiniMax|MiniMax__AI
+
+# ── 创始 / 产品 CEO ──
 Aravind Srinivas|AravSrinivas
-Harrison Chase|hwchase17
-Jerry Liu|jerryjliu0
-Michael Truell|mntruell
+Amjad Masad|amasad
 Alexandr Wang|alexandr_wang
+Clement Delangue|ClementDelangue
+Harrison Chase|hwchase17
+Michael Truell|mntruell
+Guillermo Rauch|rauchg
 Bret Taylor|btaylor
-Dylan Field|zoink
-Pieter Levels|levelsio
-Mckay Wrigley|mckaywrigley
-Paul Copplestone|kiwicopple
-Varun Mohan|_mohansolo
+Mira Murati|miramurati
 
-# ── 工程 / 写作 / 内容 ──
+# ── GTM / 增长 / 出海 ──
+Lenny Rachitsky|lennysan
+Greg Isenberg|gregisenberg
+Peter Yang|petergyang
+Pieter Levels|levelsio
+
+# ── demo / builder 高产 ──
+AK|_akhaliq
+Mckay Wrigley|mckaywrigley
+Bilawal Sidhu|bilawalsidhu
+Riley Brown|rileybrown_ai
+
+# ── 工程 / 写作 ──
 swyx|swyx
 Simon Willison|simonw
-Theo Browne|theo
-Jared Palmer|jaredpalmer
-Peter Yang|petergyang
-Dan Shipper|danshipper
-Nan Yu|thenanyu
-Zara Zhang|zarazhangrui
-Peter Steinberger|steipete
-Bilawal Sidhu|bilawalsidhu
-Geoffrey Litt|geoffreylitt
-Rowan Cheung|rowancheung
-Ben Tossell|bentossell
 
 # ── 投资 & 操盘 ──
 Garry Tan|garrytan
-Aaron Levie|levie
-Elad Gil|eladgil
 Sarah Guo|saranormous
 Martin Casado|martin_casado
-Sarah Tavel|sarahtavel
-Tomasz Tunguz|ttunguz
-Lenny Rachitsky|lennysan
+
+# ── 业内 influencer / 对标 ──
+Zara Zhang|zarazhangrui
+
+# ════════════════════════════════════════════════════════════
+# 旧池备选（暂关 —— 去掉行首 # 即可恢复抓取）
+# 早期 50 人池里、未进多维表格权威版的账号，保留以便随时启用。
+# Jeff Dean|JeffDean
+# Oriol Vinyals|OriolVinyalsML
+# Logan Kilpatrick|OfficialLoganK
+# Thibault Sottiaux|thsottiaux
+# Sholto Douglas|_sholtodouglas
+# Riley Goodside|goodside
+# Lucas Beyer|giffmana
+# Julien Chaumond|julien_c
+# Jerry Liu|jerryjliu0
+# Dylan Field|zoink
+# Paul Copplestone|kiwicopple
+# Varun Mohan|_mohansolo
+# Theo Browne|theo
+# Jared Palmer|jaredpalmer
+# Dan Shipper|danshipper
+# Nan Yu|thenanyu
+# Peter Steinberger|steipete
+# Geoffrey Litt|geoffreylitt
+# Rowan Cheung|rowancheung
+# Ben Tossell|bentossell
+# Aaron Levie|levie
+# Elad Gil|eladgil
+# Sarah Tavel|sarahtavel
+# Tomasz Tunguz|ttunguz
