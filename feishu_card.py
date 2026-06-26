@@ -111,8 +111,14 @@ if _qf.exists():
         q = json.load(open(_qf))
     except Exception:
         q = {}
-# 顶部「今日金句」= 真·当日 builder 推文（pick_quote.py 校验过原话），每天不一样
-intro = (f"💬 *“{q['quote']}”* —— **{q['author']}**\n\n{func}") if q.get("quote") else func
+# 顶部「今日金句」= 真·当日最火 builder 推文：金句→点进推文，作者→点进主页关注
+if q.get("quote"):
+    h, tid = q.get("handle", ""), q.get("tweet_id", "")
+    qtxt = f"[“{q['quote']}”](https://x.com/{h}/status/{tid})" if (h and tid) else f"“{q['quote']}”"
+    auth = f"[{q['author']}](https://x.com/{h})" if h else q['author']
+    intro = f"💬 *{qtxt}* —— **{auth}**\n\n{func}"
+else:
+    intro = func
 
 card = {
     "config": {"wide_screen_mode": True},

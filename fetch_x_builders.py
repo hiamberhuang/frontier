@@ -53,14 +53,14 @@ def substantive(text):
     return not any(body.lower().startswith(x) for x in REACTION)
 
 def best_tweet(tl):
-    """Latest substantive original (no RT / no reply); fall back to latest original."""
+    """最近最火：在最近的原创推（非 RT/非回复）里挑点赞最高的那条。"""
     orig = [t for t in tl if (t.get("text") or "").strip()
             and not t.get("text", "").lstrip().startswith("RT @")
             and not t.get("reply_to")]
     pool = orig or [t for t in tl if (t.get("text") or "").strip()]
-    subs = [t for t in pool[:15] if substantive(t.get("text", ""))]
-    cand = subs or pool
-    return cand[0] if cand else None
+    subs = [t for t in pool[:18] if substantive(t.get("text", ""))] or pool
+    subs.sort(key=lambda t: -num(t.get("favorites")))      # 高赞优先 = 最近最火
+    return subs[0] if subs else None
 
 tok = key()
 if not tok:
@@ -92,7 +92,8 @@ for b in builders:
             print(f"  ✗ @{h}: 没抓到原创推")
             continue
         out.append({"name": name, "handle": h,
-                    "tweets": [{"text": t.get("text", ""), "id": t.get("tweet_id", "")}]})
+                    "tweets": [{"text": t.get("text", ""), "id": t.get("tweet_id", ""),
+                                "favorites": num(t.get("favorites")), "views": num(t.get("views"))}]})
         print(f"  ✓ @{h}: {num(t.get('favorites'))}赞 — {(t.get('text') or '')[:45]}")
         time.sleep(1.1)          # 给 TikHub 喘口气
     except Exception as ex:

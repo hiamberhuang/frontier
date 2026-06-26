@@ -1,0 +1,66 @@
+# Frontier 的 builder 信源池 —— builders not influencers。
+# 格式：显示名|handle（@后面那串）；# 开头是注释。脚本会自动跳过抓不到的。
+# 分四类：研究/labs · 创始/产品 · 工程/写作 · 投资&操盘。
+
+# ── 研究 / Labs ──
+Andrej Karpathy|karpathy
+Sam Altman|sama
+Greg Brockman|gdb
+Yann LeCun|ylecun
+Andrew Ng|AndrewYNg
+Jim Fan|DrJimFan
+Fei-Fei Li|drfeifei
+Demis Hassabis|demishassabis
+Jeff Dean|JeffDean
+Oriol Vinyals|OriolVinyalsML
+Noam Brown|polynoamial
+Mira Murati|miramurati
+Logan Kilpatrick|OfficialLoganK
+Thibault Sottiaux|thsottiaux
+Sholto Douglas|_sholtodouglas
+Nathan Lambert|natolambert
+Ethan Mollick|emollick
+Riley Goodside|goodside
+Lucas Beyer|giffmana
+Clement Delangue|ClementDelangue
+Julien Chaumond|julien_c
+
+# ── 创始 / 产品 ──
+Amjad Masad|amasad
+Guillermo Rauch|rauchg
+Aravind Srinivas|AravSrinivas
+Harrison Chase|hwchase17
+Jerry Liu|jerryjliu0
+Michael Truell|mntruell
+Alexandr Wang|alexandr_wang
+Bret Taylor|btaylor
+Dylan Field|zoink
+Pieter Levels|levelsio
+Mckay Wrigley|mckaywrigley
+Paul Copplestone|kiwicopple
+Varun Mohan|_mohansolo
+
+# ── 工程 / 写作 / 内容 ──
+swyx|swyx
+Simon Willison|simonw
+Theo Browne|theo
+Jared Palmer|jaredpalmer
+Peter Yang|petergyang
+Dan Shipper|danshipper
+Nan Yu|thenanyu
+Zara Zhang|zarazhangrui
+Peter Steinberger|steipete
+Bilawal Sidhu|bilawalsidhu
+Geoffrey Litt|geoffreylitt
+Rowan Cheung|rowancheung
+Ben Tossell|bentossell
+
+# ── 投资 & 操盘 ──
+Garry Tan|garrytan
+Aaron Levie|levie
+Elad Gil|eladgil
+Sarah Guo|saranormous
+Martin Casado|martin_casado
+Sarah Tavel|sarahtavel
+Tomasz Tunguz|ttunguz
+Lenny Rachitsky|lennysan
