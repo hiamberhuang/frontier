@@ -4,7 +4,7 @@ each Deep-dive video is a column (cover thumbnail + title + source + AI one-line
 + 看视频 button), then bottom buttons (看完整日报 / 看预习笔记).
 Run after digest_videos.py + build.py.
 """
-import json, re, subprocess, datetime, urllib.request, pathlib
+import json, re, subprocess, datetime, urllib.request, pathlib, math
 
 HERE = pathlib.Path(__file__).resolve().parent
 OID = "ou_e71b8550edc0acc975ef9682aa3a0bc6"
@@ -33,24 +33,42 @@ def blocks():
     return out
 
 
-def trim(s, n=46):
-    """压到差不多长度，尽量在标点/空格处断 + …，让 3 列高度（和「看视频」位置）整齐。"""
+def _dw(s):
+    """显示宽度：CJK/全角 ≈ 2，拉丁/数字 ≈ 1。"""
+    return sum(2 if ord(c) > 0x2E80 else 1 for c in s)
+
+
+def trim_w(s, max_units=34):
+    """按显示宽度截断（≈2 行），尽量在标点/空格断 + …。"""
     s = (s or "").strip()
-    if len(s) <= n:
+    if _dw(s) <= max_units:
         return s
-    cut = s[:n]
-    for p in ("。", "——", "，", "、", " "):      # 末尾加空格 → 英文标题在词边界断
-        i = cut.rfind(p)
-        if i >= n * 0.55:
-            return cut[:i].rstrip("，、—— ") + "…"
-    return cut.rstrip("，、—— ") + "…"
+    out, w = "", 0
+    for c in s:
+        cw = 2 if ord(c) > 0x2E80 else 1
+        if w + cw > max_units - 1:          # 留位给 …
+            break
+        out += c; w += cw
+    for p in ("。", "——", "，", "、", " "):
+        i = out.rfind(p)
+        if i >= len(out) * 0.5:
+            out = out[:i]; break
+    return out.rstrip("，、—— ") + "…"
+
+
+CAP = 18            # 3 列宽屏卡片：每列每行大致容纳的显示宽度（经验值）
+ZWS = "​"      # 零宽空格，用来垫“看不见但不会被折叠”的空行
+
+
+def _nlines(s):
+    return max(1, math.ceil(_dw(s) / CAP))
 
 
 def upload_thumb(vid):
     """下载 YouTube 缩略图 → 上传飞书拿 image_key（失败返回 ''，卡片自动退化为纯文字列）。"""
     p = HERE / f"_t_{vid}.jpg"
     try:
-        for q in ("maxresdefault", "hqdefault"):
+        for q in ("maxresdefault", "mqdefault"):   # 都是 16:9，避免 4:3 的 hqdefault 撑高某列
             try:
                 urllib.request.urlretrieve(f"https://img.youtube.com/vi/{vid}/{q}.jpg", p)
                 if p.stat().st_size > 3000:
@@ -80,21 +98,29 @@ if cf.exists():
         seen.add(v["name"]); vids.append(v)
     vids = vids[:3]
 
-cols = []
+# 第一遍：抓数据 + 按显示宽度截断 + 估算每列内容行数
+rows = []
 for v in vids:
     ttl = v.get("title", "").split("|")[0].strip()
     one = preview_by_title.get(ttl) or next(
         (preview_by_title[t] for t in preview_by_title if ttl[:16] in t or t[:16] in ttl), "")
     ik = upload_thumb(v["vid"])
+    yurl = f"https://www.youtube.com/watch?v={v['vid']}"
+    ttl_t = trim_w(ttl, 34)                          # 标题 ≤ 2 行
+    desc_str = trim_w(one, 52) if one else ZWS       # 预习 ≤ 3 行；无预习占 1 行（垫平逻辑负责对齐，可放宽保留内容）
+    content_lines = _nlines(ttl_t) + 1 + _nlines(desc_str)   # 标题 + 来源(1) + 预习
+    rows.append((ttl_t, v.get("name", ""), desc_str, yurl, ik, content_lines))
+
+# 第二遍：垫平到最高列 → 三个「看视频」落同一行
+M = max((r[5] for r in rows), default=0)
+cols = []
+for ttl_t, name, desc_str, yurl, ik, cl in rows:
     elems = []
     if ik:
         elems.append({"tag": "img", "img_key": ik, "alt": {"tag": "plain_text", "content": ""},
                       "mode": "fit_horizontal"})
-    yurl = f"https://www.youtube.com/watch?v={v['vid']}"
-    # 标题 cap ~40、预习 cap ~30 → 每列大致 2 行标题 + 2 行预习，"看视频"基本同一行
-    body = f"[**{trim(ttl, 40)}**]({yurl})\n_{v.get('name','')}_"
-    if one:
-        body += f"\n\n{trim(one, 30)}"
+    body = f"[**{ttl_t}**]({yurl})\n_{name}_\n\n{desc_str}"
+    body += ("\n" + ZWS) * (M - cl)                  # 补隐形空行，垫平高度
     body += f"\n\n[▶ 看视频]({yurl})"
     elems.append({"tag": "div", "text": {"tag": "lark_md", "content": body}})
     cols.append({"tag": "column", "width": "weighted", "weight": 1,
