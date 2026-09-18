@@ -1,0 +1,30 @@
+{
+  "llm": {
+    "provider": "none",
+    "model": "",
+    "command": [],
+    "timeout_sec": 300
+  },
+  "vault": {
+    "enabled": false,
+    "path": "~/Documents/YourVault",
+    "notes_subdir": "wiki/daily-preview",
+    "vault_name": "YourVault",
+    "git_commit": false
+  },
+  "feishu": {
+    "enabled": false,
+    "receiver_id": "",
+    "lark_cli": ""
+  },
+  "site": {
+    "url": "https://YOURNAME.github.io/frontier/",
+    "twitter": "",
+    "portfolio": "",
+    "author": "Your Name",
+    "repo": "https://github.com/YOURNAME/frontier"
+  },
+  "sources": {
+    "follow_builders_dir": "~/.claude/skills/follow-builders"
+  }
+}

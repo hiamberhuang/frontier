@@ -4,13 +4,32 @@ For each Deep-dive YouTube video: grab auto-captions (fast, no whisper) →
 claude distills a knowledge-ified preview → write one daily note into Brain.
 Prints a short Feishu-ready preview to stdout. Run after build.py.
 """
-import json, subprocess, pathlib, tempfile, re, datetime, urllib.parse, time, shutil
+import json, subprocess, pathlib, tempfile, re, datetime, urllib.parse, time, sys
+from frontier_config import CFG, llm_argv, lark_cli, path as cfg_path
 
 HERE = pathlib.Path(__file__).resolve().parent
-BRAIN = pathlib.Path.home() / "Documents/Brain"
-OUTDIR = BRAIN / "wiki/行业通用/每日预习"
-CLAUDE = str(pathlib.Path.home() / ".local/bin/claude")
+VAULT_ON = bool(CFG["vault"].get("enabled"))
+BRAIN = cfg_path("vault", "path") or (pathlib.Path.home() / "Documents/Brain")
+OUTDIR = BRAIN / CFG["vault"].get("notes_subdir", "wiki/daily-preview")
+VAULT_NAME = CFG["vault"].get("vault_name", "Brain")
+TIMEOUT = int(CFG["llm"].get("timeout_sec", 300))
 MAX = 4
+
+# No LLM configured (provider "none", or the CLI isn't installed)? Then there is
+# nothing for this script to do — the daily still builds, it just ships without
+# AI previews. Exit clean so frontier_daily.sh carries on.
+if llm_argv("probe") is None:
+    print("· 未配置 LLM（config.json → llm.provider）→ 跳过 AI 预习，日报照常构建")
+    sys.exit(0)
+
+
+def llm(prompt, timeout=None):
+    """One-shot LLM call through whichever CLI is configured (claude / codex / custom)."""
+    argv = llm_argv(prompt)
+    if argv is None:
+        return None
+    return subprocess.run(argv, capture_output=True, text=True,
+                          timeout=timeout or TIMEOUT, stdin=subprocess.DEVNULL)
 TODAY = datetime.date.today().isoformat()
 
 def captions(vid):
@@ -50,20 +69,18 @@ def summarize(name, title, transcript):
 {transcript[:14000]}"""
     ERRS = ("api error", "connection closed", "try again", "overloaded",
             "rate limit", "529", "503", "internal server error")
-    for attempt in range(4):              # 重试：claude -p 偶发空/超时/API错误，别让视频被静默丢掉
+    for attempt in range(4):              # 重试：LLM 偶发空/超时/API错误，别让视频被静默丢掉
         try:
-            r = subprocess.run([CLAUDE, "--model", "claude-sonnet-4-6", "-p", prompt],
-                               capture_output=True, text=True,
-                               timeout=300, stdin=subprocess.DEVNULL)
+            r = llm(prompt)
             out = r.stdout.strip()
             low = out.lower()
             # 有效总结：含模板标记或足够长，且不是 API 错误串（错误串会被当成正文写进去，这正是之前的 bug）
             if out and ("🎯" in out or "一句话" in out or len(out) > 200) \
                     and not any(e in low for e in ERRS):
                 return out
-            print(f"     (claude 无效输出，重试 {attempt+1}/4：{(out or r.stderr.strip())[:110]})")
+            print(f"     (LLM 无效输出，重试 {attempt+1}/4：{(out or r.stderr.strip())[:110]})")
         except subprocess.TimeoutExpired:
-            print(f"     (claude 超时，重试 {attempt+1}/4)")
+            print(f"     (LLM 超时，重试 {attempt+1}/4)")
         time.sleep(4 * (attempt + 1))     # 退避：连接被掐/过载时多等一会
     return ""
 
@@ -75,8 +92,7 @@ def editor_en(v, tr):
          f"Video: {v['title']}\nTranscript:\n{tr[:9000]}")
     for _ in range(2):
         try:
-            r = subprocess.run([CLAUDE, "--model", "claude-sonnet-4-6", "-p", p],
-                               capture_output=True, text=True, timeout=180, stdin=subprocess.DEVNULL)
+            r = llm(p, timeout=min(TIMEOUT, 180))
         except subprocess.TimeoutExpired:
             time.sleep(4); continue
         out = r.stdout.strip(); low = out.lower()
@@ -95,7 +111,8 @@ for v in _all:                       # 每频道取一条，去重
     _seen.add(v["name"])
     vids.append(v)
 vids = vids[:MAX]
-OUTDIR.mkdir(parents=True, exist_ok=True)
+if VAULT_ON:
+    OUTDIR.mkdir(parents=True, exist_ok=True)
 blocks, feishu, hero_en = [], [], {}
 for v in vids:
     tr = captions(v["vid"])
@@ -119,15 +136,19 @@ for v in vids:
 
 note = OUTDIR / f"{TODAY}.md"
 front = f"---\ntitle: 每日预习 {TODAY}\ncategory: synthesis\ntags: [general-ai, ai-workflow]\ndate: {TODAY}\n---\n\n# 📖 每日预习 · {TODAY}\n\n> AI 已帮你读完今天的长视频。先看这个再决定要不要花一小时沉浸看。\n\n"
-note.write_text(front + "\n---\n\n".join(blocks) + "\n\n→ 回 [[输入体系]]", encoding="utf-8")
-subprocess.run(["git", "-C", str(BRAIN), "add", "-A"], capture_output=True)
-subprocess.run(["git", "-C", str(BRAIN), "commit", "-q", "-m", f"每日预习 {TODAY}"], capture_output=True)
+if VAULT_ON:
+    note.write_text(front + "\n---\n\n".join(blocks) + "\n\n→ 回 [[输入体系]]", encoding="utf-8")
+    print(f"  ✓ 写入 vault：{note}")
+    if CFG["vault"].get("git_commit") and (BRAIN / ".git").exists():
+        subprocess.run(["git", "-C", str(BRAIN), "add", "-A"], capture_output=True)
+        subprocess.run(["git", "-C", str(BRAIN), "commit", "-q", "-m", f"每日预习 {TODAY}"],
+                       capture_output=True)
 
 # 同步生成「飞书预习文档」——订阅者不用装 Obsidian 也能看；滚动覆盖同一篇，URL 不变，落自己飞书云空间。
 # Fork 的人各自生成自己的文档（信源/播客可本地化），所以这步跑在每个人本地。
-LARKCLI = shutil.which("lark-cli") or str(pathlib.Path.home() / ".local/share/fnm/node-versions/v24.15.0/installation/bin/lark-cli")
+LARKCLI = lark_cli()
 preview_url = ""
-if blocks:
+if blocks and CFG["feishu"].get("enabled") and LARKCLI:
     fmd = (f"# 📖 Frontier 每日预习 · {TODAY}\n\n"
            "> AI 已替你读完今天的长视频。先看这页，再决定要不要花一小时深看。\n\n"
            + "\n\n---\n\n".join(blocks))
@@ -154,7 +175,8 @@ if blocks:
         print(f"  ✗ 飞书文档生成失败：{str(ex)[:120]}")
 
 # Feishu-ready preview + 链接（优先飞书文档，退回 obsidian）
-rel = f"wiki/行业通用/每日预习/{TODAY}"
-ob = "obsidian://open?vault=Brain&file=" + urllib.parse.quote(rel)
+rel = f"{CFG['vault'].get('notes_subdir','wiki/daily-preview')}/{TODAY}"
+ob = (f"obsidian://open?vault={urllib.parse.quote(VAULT_NAME)}&file="
+      + urllib.parse.quote(rel)) if VAULT_ON else ""
 print("---FEISHU---")
 print(f"📖 今日预习（AI 已读完 {len(blocks)} 条长视频）：\n" + "\n".join(feishu) + f"\n\n看预习笔记 → {preview_url or ob}")

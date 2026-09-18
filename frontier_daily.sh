@@ -1,19 +1,31 @@
 #!/usr/bin/env bash
-# Frontier 日更：抓源 → build → push → 本地通知。launchd 每天 10:00 触发。
+# Frontier 日更：抓源 → build → push → 通知。由 launchd/cron 每天触发。
+# 路径无关：脚本从自身位置推断仓库根，放哪儿都能跑。
 set -uo pipefail
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin:$HOME/.local/share/fnm/node-versions/v24.15.0/installation/bin"
-cd "$HOME/Developer/frontier" || exit 1
-LOG="$HOME/Developer/frontier/.daily.log"
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$HERE" || exit 1
+LOG="$HERE/.daily.log"
+
+# 把常见的用户级 bin 目录都加进 PATH —— launchd 给的 PATH 极简，
+# 不补的话 yt-dlp / claude / lark-cli 全都找不到。
+_add_path() { [ -d "$1" ] && case ":$PATH:" in *":$1:"*) ;; *) PATH="$1:$PATH";; esac; }
+for d in /opt/homebrew/bin /usr/local/bin "$HOME/.local/bin" "$HOME/bin"; do _add_path "$d"; done
+# fnm/nvm 装的 node 工具（lark-cli）：版本号会变，所以用通配而不是写死
+for d in "$HOME"/.local/state/fnm_multishells/*/bin "$HOME"/.local/share/fnm/node-versions/*/installation/bin \
+         "$HOME"/.nvm/versions/node/*/bin; do _add_path "$d"; done
+export PATH
+
+PY="$(command -v python3 || echo python3)"
 
 echo "[$(date '+%F %T')] start" >> "$LOG"
-python3 fetch_sources.py          >> "$LOG" 2>&1
-python3 fetch_x_products.py       >> "$LOG" 2>&1   # TikHub 官号最新推（需 .tikhub_key）
-python3 fetch_x_builders.py       >> "$LOG" 2>&1   # TikHub builders 最新推（Builders on X 保新鲜）
-python3 pick_quote.py             >> "$LOG" 2>&1   # 今日金句：从 builder 推文挑真·原话（校验防篡改）
-# 先预习：AI 读完长视频 → 写 Brain + 生成头条英文 Editor's note（build 要用）+ 飞书预习文档
-python3 digest_videos.py          >> "$LOG" 2>&1
+"$PY" fetch_sources.py            >> "$LOG" 2>&1   # YouTube 信源（必需）
+"$PY" fetch_x_products.py         >> "$LOG" 2>&1   # TikHub 官号最新推（需 .tikhub_key，可选）
+"$PY" fetch_x_builders.py         >> "$LOG" 2>&1   # TikHub builders 最新推（可选）
+"$PY" pick_quote.py               >> "$LOG" 2>&1   # 今日金句（可选）
+"$PY" digest_videos.py            >> "$LOG" 2>&1   # AI 预习 + 头条 Editor's note（可选，见 config.llm）
 echo "[$(date '+%F %T')] preview done" >> "$LOG"
-python3 build.py                  >> "$LOG" 2>&1
+"$PY" build.py                    >> "$LOG" 2>&1   # 生成 index.html（必需）
 
 # 推送前 review 门禁：站点必须有实质内容才推，避免空站/坏站覆盖线上
 REVIEW_OK=1
@@ -33,7 +45,9 @@ else
 fi
 echo "[$(date '+%F %T')] $PUSH" >> "$LOG"
 
-osascript -e 'display notification "今日 AI 日报 + 预习已更新" with title "Frontier 📰" sound name "Glass"' 2>/dev/null
+# 桌面通知（macOS only，其他系统静默跳过）
+command -v osascript >/dev/null && \
+  osascript -e 'display notification "今日 AI 日报已更新" with title "Frontier 📰" sound name "Glass"' 2>/dev/null
 
-# 飞书推送：交互卡片（红色 header + 预习 + 看日报/看预习 按钮）
-python3 feishu_card.py >> "$LOG" 2>&1 || true
+# 飞书推送（可选，见 config.feishu）
+"$PY" feishu_card.py >> "$LOG" 2>&1 || true

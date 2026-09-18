@@ -4,11 +4,31 @@ Real images (YouTube maxres thumbnails + X avatars), builder field tags,
 Editor's Choice notes. No deps, stdlib only.  Run: python3 build.py
 """
 import json, re, html, pathlib, datetime
+from frontier_config import CFG, path as cfg_path
 
-FB = pathlib.Path.home() / ".claude/skills/follow-builders"
+# follow-builders (Zara Zhang) central feed — OPTIONAL. Absent => Frontier builds
+# from your own YouTube roster alone instead of crashing. See SETUP.md.
+FB = cfg_path("sources", "follow_builders_dir")
 OUT = pathlib.Path(__file__).resolve().parent
-PORTFOLIO = "https://amberhuang.world/"
-TWITTER = "https://x.com/hiamberhuang_ai"
+PORTFOLIO = CFG["site"].get("portfolio") or "https://amberhuang.world/"
+AUTHOR = CFG["site"].get("author") or "Amber Huang"
+TWITTER = CFG["site"].get("twitter") or ""
+REPO = CFG["site"].get("repo") or "https://github.com/hiamberhuang/frontier"
+
+
+def load_fb(fname, key):
+    """Read one follow-builders feed file. Never fatal: a fork without the skill
+    installed still gets a working daily, just without this feed."""
+    if not FB:
+        return []
+    f = FB / fname
+    if not f.exists():
+        return []
+    try:
+        return json.load(open(f, encoding="utf-8")).get(key, []) or []
+    except Exception as e:
+        print(f"⚠ {fname} 读不了({e}) → 跳过该 feed")
+        return []
 
 # Builder field tags — so readers know who's who (handle -> "field · who")
 BUILDER_FIELDS = {
@@ -112,12 +132,13 @@ def editor_note(hero):
         return {}
     return d if (d.get("note") and d.get("vid") == (hero or {}).get("vid")) else {}
 
-pods = json.load(open(FB / "feed-podcasts.json")).get("podcasts", [])
+pods = load_fb("feed-podcasts.json", "podcasts")
 _bf = OUT / "builders_feed.json"     # fresh via TikHub (fetch_x_builders.py); else stale central feed
 xs = json.load(open(_bf)).get("x", []) if _bf.exists() else []
 if not xs:                           # TikHub 当天挂了/空 → 回退中心 feed（虽旧但不空，Builders on X 不留白）
-    xs = json.load(open(FB / "feed-x.json")).get("x", [])
+    xs = load_fb("feed-x.json", "x")
 gen = datetime.date.today().isoformat()      # 这期日报的发布日 = 今天
+_x_link = f' · <a href="{TWITTER}" target="_blank">follow on X</a>' if TWITTER else ""
 
 # Fresh first: Amber's custom YouTube sources (yt-dlp, fetched today) lead the edition;
 # the follow-builders central feed (refreshed less often) fills in behind them.
@@ -283,7 +304,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 <body><div class="wrap">
 <header><div class="mast">Frontier</div>
 <div class="tag">AI news, curated from builders — not influencers</div>
-<div class="byl">{esc(gen)} · created by <a href="{PORTFOLIO}" target="_blank">Amber Huang</a> · <a href="{TWITTER}" target="_blank">follow on X</a></div></header>
+<div class="byl">{esc(gen)} · created by <a href="{PORTFOLIO}" target="_blank">{esc(AUTHOR)}</a>{_x_link}</div></header>
 {hero_html}
 <div class="sec">Deep dives</div>
 {('<div class="pods">' + ''.join(pod_card(p) for p in rest_pods) + '</div>') if rest_pods else '<div class="empty">Quiet feed today — only the Editor\'s choice above. More as builders publish.</div>'}
@@ -291,7 +312,7 @@ footer a{{color:var(--accent);text-decoration:none}}
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
 {('<div class="sec" style="margin-top:48px">Products on X</div><div class="plogos">' + ''.join(prod_chip(p) for p in prod) + '</div>') if prod else ''}
 <footer>Pick your own builders. Read AI like a magazine.<br>
-<a href="https://github.com/hiamberhuang/frontier" target="_blank">fork it on GitHub</a> · <a href="manual.html">store it in Obsidian</a></footer>
+<a href="{REPO}" target="_blank">fork it on GitHub</a> · <a href="manual.html">store it in Obsidian</a></footer>
 </div>{CAT}</body></html>"""
 
 (OUT / "index.html").write_text(page, encoding="utf-8")
@@ -363,7 +384,7 @@ body{{margin:0;background:#dccfa8;color:#2c2114;font-family:'IM Fell English',Ge
 <div class="pcols">{''.join(prophet_pod(p) for p in rest_pods)}</div>
 <div class="psec">✦ Owl Post from the Builders ✦</div>
 <div class="powls">{''.join(prophet_x(b) for b in x_items)}</div>
-<div class="pfoot">Mischief managed. · <a href="index.html">← back to the Muggle edition</a> · <a href="{PORTFOLIO}" target="_blank">Amber Huang</a></div>
+<div class="pfoot">Mischief managed. · <a href="index.html">← back to the Muggle edition</a> · <a href="{PORTFOLIO}" target="_blank">{esc(AUTHOR)}</a></div>
 </div>{CAT}</body></html>"""
 
 # Daily Prophet edition removed per user request (2026-06-17) — generation skipped.

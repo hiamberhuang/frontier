@@ -1,0 +1,10 @@
+# Frontier 的依赖。README 以前写 "stdlib only" —— 那是不准确的，实际需要下面这些。
+#
+# 必需（没有它抓不到信源）。pip 或 brew 二选一，装完 `yt-dlp` 要在 PATH 上：
+#   pip3 install -r requirements.txt     或   brew install yt-dlp
+yt-dlp>=2026.1.1
+#
+# 以下是**命令行工具**，不走 pip，按需装（都可选，缺了只是少一个板块）：
+#   lark-cli    飞书推送 + 预习文档   npm i -g @larksuite/lark-cli
+#   claude      AI 预习 / 策展理由    https://claude.com/claude-code
+#   codex       同上，二选一          npm i -g @openai/codex

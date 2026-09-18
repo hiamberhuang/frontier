@@ -4,15 +4,29 @@ each Deep-dive video is a column (cover thumbnail + title + source + AI one-line
 + 看视频 button), then bottom buttons (看完整日报 / 看预习笔记).
 Run after digest_videos.py + build.py.
 """
-import json, re, subprocess, datetime, urllib.request, pathlib, math
+import json, re, subprocess, datetime, urllib.request, pathlib, math, sys
+from frontier_config import CFG, lark_cli, path as cfg_path
 
 HERE = pathlib.Path(__file__).resolve().parent
-OID = "ou_e71b8550edc0acc975ef9682aa3a0bc6"
-LARK = str(pathlib.Path.home() / ".local/share/fnm/node-versions/v24.15.0/installation/bin/lark-cli")
-NOTE = (pathlib.Path.home() / "Documents/Brain/wiki/行业通用/每日预习"
+OID = CFG["feishu"].get("receiver_id", "")
+LARK = lark_cli()
+_vault = cfg_path("vault", "path") or (pathlib.Path.home() / "Documents/Brain")
+NOTE = (_vault / CFG["vault"].get("notes_subdir", "wiki/daily-preview")
         / f"{datetime.date.today().isoformat()}.md")
-SITE = "https://hiamberhuang.github.io/frontier/"
+SITE = CFG["site"].get("url", "")
 today = datetime.date.today().isoformat()
+
+# Feishu push is opt-in. Without it the daily still builds and pushes to Pages —
+# you just don't get the card in your IM. Exit clean so frontier_daily.sh carries on.
+if not CFG["feishu"].get("enabled"):
+    print("· 未开启飞书推送（config.json → feishu.enabled）→ 跳过")
+    sys.exit(0)
+if not LARK:
+    print("· 找不到 lark-cli → 跳过飞书推送（装它见 SETUP.md）")
+    sys.exit(0)
+if not (OID or (HERE / ".subscribers").exists()):
+    print("· 未配置 feishu.receiver_id 也没有 .subscribers → 跳过飞书推送")
+    sys.exit(0)
 
 
 def blocks():
@@ -166,7 +180,8 @@ card = {
 content = json.dumps(card, ensure_ascii=False)
 subs = HERE / ".subscribers"
 recips = ([l.strip() for l in subs.read_text(encoding="utf-8").splitlines()
-           if l.strip() and not l.startswith("#")] if subs.exists() else [OID])
+           if l.strip() and not l.startswith("#")] if subs.exists() else
+          ([OID] if OID else []))
 for rid in recips:
     flag = "--chat-id" if rid.startswith("oc_") else "--user-id"
     r = subprocess.run([LARK, "im", "+messages-send", flag, rid,
