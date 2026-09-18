@@ -30,6 +30,13 @@
 <img src="docs/pipeline-obsidian.png" width="900" alt="Frontier 管线：信源 → 构建 → 三个出口（GitHub Pages / Obsidian 库 / 飞书卡片）">
 </div>
 
+三个出口里，飞书那条长这样 —— 每天早上一张多栏卡片：当日金句、每条长视频的封面和 AI 一句话，
+底下两个按钮直接跳完整日报和预习笔记。
+
+<div align="center">
+<img src="docs/feishu-card.png" width="760" alt="Frontier 每日飞书卡片：金句 + 三栏视频预览 + 看完整日报/看预习笔记按钮">
+</div>
+
 ## 跟了谁
 
 **四个平台 84 个信源**，全部手挑。名单本身就是观点 —— 每个名字、链接、以及为什么在名单里，

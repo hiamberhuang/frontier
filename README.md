@@ -30,6 +30,13 @@ you lose that output, not the daily.
 <img src="docs/pipeline-obsidian.png" width="900" alt="Frontier pipeline: sources to build to three outputs — GitHub Pages, Obsidian vault, Feishu card">
 </div>
 
+Here's the Feishu one — a multi-column card every morning: the day's quote, a cover and a
+one-line AI take per long video, and two buttons straight to the full daily and the notes.
+
+<div align="center">
+<img src="docs/feishu-card.png" width="760" alt="Frontier daily Feishu card: quote, three-column video previews, and buttons to the full daily and preview notes">
+</div>
+
 ## Who it follows
 
 **84 sources across four platforms**, picked by hand. The list *is* the opinion — see every name,
