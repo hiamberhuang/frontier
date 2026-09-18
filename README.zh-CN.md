@@ -22,6 +22,14 @@
 <img src="docs/screenshot-site.png" width="760" alt="Frontier 日报页面 —— 杂志式排版，含 Editor's Choice 与 Deep dives">
 </div>
 
+## 怎么跑起来的
+
+跑一次，出三个出口。除「核心」外每一层都可以关掉 —— 关掉只是少一个出口，日报照常出。
+
+<div align="center">
+<img src="docs/pipeline-obsidian.png" width="900" alt="Frontier 管线：信源 → 构建 → 三个出口（GitHub Pages / Obsidian 库 / 飞书卡片）">
+</div>
+
 ## 跟了谁
 
 **四个平台 84 个信源**，全部手挑。名单本身就是观点 —— 每个名字、链接、以及为什么在名单里，
@@ -108,22 +116,6 @@
 | [深思圈](https://www.xiaohongshu.com/user/profile/625eb64900000000210210ea) | AI 行业洞察 |
 
 </details>
-
-## 怎么跑起来的
-
-跑一次，出三个出口。除「核心」外每一层都可以关掉 —— 关掉只是少一个出口，日报照常出。
-
-<div align="center">
-<img src="docs/pipeline-obsidian.png" width="900" alt="Frontier 管线：信源 → 构建 → 三个出口（GitHub Pages / Obsidian 库 / 飞书卡片）">
-</div>
-
-| 层 | 给你什么 | 需要 | 不装的后果 |
-|---|---|---|---|
-| **核心** | YouTube 信源 → 杂志风网页 | Python 3 + yt-dlp | — |
-| X 板块 | Builders on X 最新推 | TikHub key 或 follow-builders skill | 少「Builders on X」一块 |
-| AI 策展 | 头条编辑理由 + 长视频预习 | `claude` 或 `codex` CLI | 页面照常，但没有 AI 总结 |
-| 飞书推送 | 每天一张卡片推到 IM | lark-cli + 飞书自建应用 | 只能自己去看网页 |
-| Obsidian | 预习笔记落进你的库 | 一个 Obsidian vault | 不写笔记 |
 
 ## 五分钟跑起来
 

@@ -21,6 +21,15 @@ matters, builders tagged by field, real cover images. Not a wall of links.
 <img src="docs/screenshot-site.png" width="760" alt="Frontier daily — magazine-style layout with Editor's Choice and Deep dives">
 </div>
 
+## How it works
+
+Three outputs from one daily run. Everything except the core is optional — turn a layer off and
+you lose that output, not the daily.
+
+<div align="center">
+<img src="docs/pipeline-obsidian.png" width="900" alt="Frontier pipeline: sources to build to three outputs — GitHub Pages, Obsidian vault, Feishu card">
+</div>
+
 ## Who it follows
 
 **84 sources across four platforms**, picked by hand. The list *is* the opinion — see every name,
@@ -107,23 +116,6 @@ The Chinese-language sources (bilibili / Xiaohongshu) are a separate tier: they 
 | [深思圈](https://www.xiaohongshu.com/user/profile/625eb64900000000210210ea) | AI 行业洞察 |
 
 </details>
-
-## How it works
-
-Three outputs from one daily run. Everything except the core is optional — turn a layer off and
-you lose that output, not the daily.
-
-<div align="center">
-<img src="docs/pipeline-obsidian.png" width="900" alt="Frontier pipeline: sources to build to three outputs — GitHub Pages, Obsidian vault, Feishu card">
-</div>
-
-| Layer | What you get | Needs | Without it |
-|---|---|---|---|
-| **Core** | YouTube sources → magazine page | Python 3 + yt-dlp | — |
-| X feed | Builders on X, freshest posts | TikHub key *or* follow-builders skill | no "Builders on X" block |
-| AI curation | Editor's note + long-video previews | `claude` or `codex` CLI | page still builds, no AI summaries |
-| Feishu push | A card in your IM every morning | lark-cli + a Feishu app | read it on the web instead |
-| Obsidian | Preview notes into your vault | an Obsidian vault | no notes written |
 
 ## Quick start
 
