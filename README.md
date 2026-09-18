@@ -33,13 +33,36 @@ with links and a line on why it's there, in **[`SOURCES.md`](SOURCES.md)**.
 | **bilibili** | 12 | ⏳ pending (yt-dlp extractor) | [`SOURCES.md`](SOURCES.md) |
 | **Xiaohongshu** | 16 | ⏸ watch list only | [`SOURCES.md`](SOURCES.md) |
 
-A few of the 20 YouTube channels: [Sequoia](https://www.youtube.com/@sequoiacapital/videos) ·
-[a16z](https://www.youtube.com/@a16z/videos) · [Y Combinator](https://www.youtube.com/@ycombinator/videos) ·
-[Anthropic](https://www.youtube.com/@anthropic-ai/videos) · [Karpathy](https://www.youtube.com/@AndrejKarpathy/videos) ·
-[Latent Space](https://www.youtube.com/@LatentSpacePod/videos) · [Lenny's](https://www.youtube.com/@LennysPodcast/videos) ·
-[No Priors](https://www.youtube.com/@NoPriorsPodcast/videos) — and on X:
-[@karpathy](https://x.com/karpathy) · [@swyx](https://x.com/swyx) · [@simonw](https://x.com/simonw) ·
-[@levelsio](https://x.com/levelsio) · [@lennysan](https://x.com/lennysan).
+<details open>
+<summary><b>YouTube — all 20 channels</b></summary>
+
+| Category | n | Channels |
+|---|---|---|
+| **VC firms** | 4 | [Sequoia Capital](https://www.youtube.com/@sequoiacapital/videos) · [a16z](https://www.youtube.com/@a16z/videos) · [Y Combinator](https://www.youtube.com/@ycombinator/videos) · [Redpoint AI](https://www.youtube.com/@redpointai/videos) |
+| **AI labs · official** | 5 | [OpenAI](https://www.youtube.com/@OpenAI/videos) · [Anthropic](https://www.youtube.com/@anthropic-ai/videos) · [Google DeepMind](https://www.youtube.com/@googledeepmind/videos) · [HeyGen](https://www.youtube.com/@HeyGen_Official/videos) · [Notion](https://www.youtube.com/@Notion/videos) |
+| **Researchers · long-form** | 2 | [Andrej Karpathy](https://www.youtube.com/@AndrejKarpathy/videos) · [Lex Fridman](https://www.youtube.com/@lexfridman/videos) |
+| **Podcasts · eng & product** | 4 | [Latent Space](https://www.youtube.com/@LatentSpacePod/videos) · [Lenny's Podcast](https://www.youtube.com/@LennysPodcast/videos) · [No Priors](https://www.youtube.com/@NoPriorsPodcast/videos) · [Uncapped with Jack Altman](https://www.youtube.com/@uncappedpod/videos) |
+| **Explainers · breadth** | 5 | [Two Minute Papers](https://www.youtube.com/@TwoMinutePapers/videos) · [AI Explained](https://www.youtube.com/@aiexplained-official/videos) · [Matthew Berman](https://www.youtube.com/@matthew_berman/videos) · [AI Jason](https://www.youtube.com/@AIJasonZ/videos) · [bycloud](https://www.youtube.com/@bycloudAI/videos) |
+
+</details>
+
+<details>
+<summary><b>X / Twitter — all 36 builders</b></summary>
+
+| Category | n | Accounts |
+|---|---|---|
+| **Research / Labs** | 11 | [Andrej Karpathy](https://x.com/karpathy) · [Sam Altman](https://x.com/sama) · [Greg Brockman](https://x.com/gdb) · [Yann LeCun](https://x.com/ylecun) · [Andrew Ng](https://x.com/AndrewYNg) · [Jim Fan](https://x.com/DrJimFan) · [Fei-Fei Li](https://x.com/drfeifei) · [Demis Hassabis](https://x.com/demishassabis) · [Noam Brown](https://x.com/polynoamial) · [Nathan Lambert](https://x.com/natolambert) · [Ethan Mollick](https://x.com/emollick) |
+| **Model companies** | 2 | [DeepSeek](https://x.com/deepseek_ai) · [MiniMax](https://x.com/MiniMax__AI) |
+| **Founders / product CEOs** | 9 | [Aravind Srinivas](https://x.com/AravSrinivas) · [Amjad Masad](https://x.com/amasad) · [Alexandr Wang](https://x.com/alexandr_wang) · [Clement Delangue](https://x.com/ClementDelangue) · [Harrison Chase](https://x.com/hwchase17) · [Michael Truell](https://x.com/mntruell) · [Guillermo Rauch](https://x.com/rauchg) · [Bret Taylor](https://x.com/btaylor) · [Mira Murati](https://x.com/miramurati) |
+| **GTM / growth** | 4 | [Lenny Rachitsky](https://x.com/lennysan) · [Greg Isenberg](https://x.com/gregisenberg) · [Peter Yang](https://x.com/petergyang) · [Pieter Levels](https://x.com/levelsio) |
+| **Prolific builders** | 4 | [AK](https://x.com/_akhaliq) · [Mckay Wrigley](https://x.com/mckaywrigley) · [Bilawal Sidhu](https://x.com/bilawalsidhu) · [Riley Brown](https://x.com/rileybrown_ai) |
+| **Engineering / writing** | 2 | [swyx](https://x.com/swyx) · [Simon Willison](https://x.com/simonw) |
+| **Investors & operators** | 3 | [Garry Tan](https://x.com/garrytan) · [Sarah Guo](https://x.com/saranormous) · [Martin Casado](https://x.com/martin_casado) |
+| **Benchmark influencer** | 1 | [Zara Zhang 张咋啦](https://x.com/zarazhangrui) |
+
+</details>
+
+> bilibili (12) and Xiaohongshu (16) are listed in [`SOURCES.md`](SOURCES.md) — neither is auto-fetched yet.
 
 ## How it works
 
