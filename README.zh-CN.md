@@ -36,13 +36,6 @@
 
 中文源（bilibili / 小红书）单独一档，看的是**国内怎么落地、工具怎么实操**，和英文源看的东西不一样，所以不混在一起排。
 
-| 平台 | 数量 | 抓取状态 | 改哪个文件 |
-|---|---|---|---|
-| **YouTube** | 20 | ✅ 全量自动抓取 | [`fetch_sources.py`](fetch_sources.py) → `YT_CHANNELS` |
-| **X / Twitter** | 36 | ✅ 自动抓取（需 TikHub key） | [`my_builders.txt`](my_builders.txt) |
-| **bilibili** | 12 | ⏳ 待接入（空间列表能抓，单视频元数据被限制） | [`SOURCES.md`](SOURCES.md) |
-| **小红书** | 16 | ⏸ 仅作关注 / 选题池 | [`SOURCES.md`](SOURCES.md) |
-
 <details open>
 <summary><b>YouTube —— 全部 20 个频道</b></summary>
 
@@ -73,7 +66,7 @@
 </details>
 
 <details>
-<summary><b>bilibili —— 全部 12 个 UP 主</b></summary>
+<summary><b>bilibili —— 全部 12 个 UP 主（暂未自动抓取）</b></summary>
 
 | UP 主 | 在做什么 |
 |---|---|
@@ -115,7 +108,6 @@
 | [深思圈](https://www.xiaohongshu.com/user/profile/625eb64900000000210210ea) | AI 行业洞察 |
 
 </details>
-
 
 ## 怎么跑起来的
 

@@ -35,13 +35,6 @@ with links and a line on why it's there, in **[`SOURCES.md`](SOURCES.md)**.
 
 The Chinese-language sources (bilibili / Xiaohongshu) are a separate tier: they track **how this lands in China and how the tooling is actually used** — a different question from the English sources, so they aren't ranked together.
 
-| Platform | Count | Status | Edit it in |
-|---|---|---|---|
-| **YouTube** | 20 | ✅ auto-fetched | [`fetch_sources.py`](fetch_sources.py) → `YT_CHANNELS` |
-| **X / Twitter** | 36 | ✅ auto-fetched *(TikHub key)* | [`my_builders.txt`](my_builders.txt) |
-| **bilibili** | 12 | ⏳ pending (space listing works, per-video metadata blocked) | [`SOURCES.md`](SOURCES.md) |
-| **Xiaohongshu** | 16 | ⏸ watch list only | [`SOURCES.md`](SOURCES.md) |
-
 <details open>
 <summary><b>YouTube — all 20 channels</b></summary>
 
@@ -72,7 +65,7 @@ The Chinese-language sources (bilibili / Xiaohongshu) are a separate tier: they 
 </details>
 
 <details>
-<summary><b>bilibili — all 12 creators</b></summary>
+<summary><b>bilibili — all 12 creators (not auto-fetched yet)</b></summary>
 
 | Creator | What they do |
 |---|---|
@@ -114,7 +107,6 @@ The Chinese-language sources (bilibili / Xiaohongshu) are a separate tier: they 
 | [深思圈](https://www.xiaohongshu.com/user/profile/625eb64900000000210210ea) | AI 行业洞察 |
 
 </details>
-
 
 ## How it works
 
