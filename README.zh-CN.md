@@ -27,11 +27,20 @@
 **四个平台 84 个信源**，全部手挑。名单本身就是观点 —— 每个名字、链接、以及为什么在名单里，
 都在 **[`SOURCES.md`](SOURCES.md)**。
 
+**怎么挑的。** 一条线：**这个人是在造东西，还是在转述别人造的东西。**具体四问 ——
+
+1. **是不是第一手？** 自己发模型、发产品、写代码、跑增长的人优先；二手解读的往后排。
+2. **有没有自己的判断？** 同一条新闻，他说的和别人说的不一样，才值得占一个位置。
+3. **覆盖不覆盖全链条？** 名单刻意从研究 → 模型公司 → 创始人 → GTM → 投资铺开，只看研究会漏掉钱怎么流，只看 GTM 会漏掉技术边界在哪。
+4. **对标位留几个。** 少数几个"解读型"账号是故意留的，用来看**一个叙事是怎么被传播的** —— 这是观察对象，不是信息源。
+
+中文源（bilibili / 小红书）单独一档，看的是**国内怎么落地、工具怎么实操**，和英文源看的东西不一样，所以不混在一起排。
+
 | 平台 | 数量 | 抓取状态 | 改哪个文件 |
 |---|---|---|---|
 | **YouTube** | 20 | ✅ 全量自动抓取 | [`fetch_sources.py`](fetch_sources.py) → `YT_CHANNELS` |
 | **X / Twitter** | 36 | ✅ 自动抓取（需 TikHub key） | [`my_builders.txt`](my_builders.txt) |
-| **bilibili** | 12 | ⏳ 待接入（yt-dlp 抽取器待修） | [`SOURCES.md`](SOURCES.md) |
+| **bilibili** | 12 | ⏳ 待接入（空间列表能抓，单视频元数据被限制） | [`SOURCES.md`](SOURCES.md) |
 | **小红书** | 16 | ⏸ 仅作关注 / 选题池 | [`SOURCES.md`](SOURCES.md) |
 
 <details open>
@@ -63,7 +72,50 @@
 
 </details>
 
-> bilibili（12）和小红书（16）在 [`SOURCES.md`](SOURCES.md) 里，这两个平台目前都还没自动抓取。
+<details>
+<summary><b>bilibili —— 全部 12 个 UP 主</b></summary>
+
+| UP 主 | 在做什么 |
+|---|---|
+| [秋叶aaaki](https://space.bilibili.com/12566101) | AI 绘画头部,SD/ComfyUI 整合包与教学 |
+| [林亦LYi](https://space.bilibili.com/4401694) | AI 科普 + 硬核上手实测 |
+| [老麦的工具库](https://space.bilibili.com/486989780) | 时效最快的 AI 工具速递盘点 |
+| [图灵的猫](https://space.bilibili.com/371846699) | AI 原理通识科普 |
+| [GenJi是真想教会你](https://space.bilibili.com/49746395) | 手把手 AI 开发与应用教学 |
+| [Jack-Cui](https://space.bilibili.com/331507846) | 算法工程师讲 AI + 编程实战 |
+| [git源宝](https://space.bilibili.com/38061207) | AI 挖掘机,工具盘点 + 热点鉴定 |
+| [玄离199](https://space.bilibili.com/67079745) | AI 工具与 MCP,让设备更好用 |
+| [Unitree 宇树科技](https://space.bilibili.com/521974986) | 国产机器人官号,人形/四足发布 |
+| [十字路口 Crossing](https://space.bilibili.com/505301413) | Koji 杨远骋的 AI 一线视频播客 |
+| [秋芝2046](https://space.bilibili.com/385670211) | AIGC 影像创作,AI 电影/工作流 |
+| [Xuan_酱](https://space.bilibili.com/14848367) | 沉迷 AI,爱折腾各类工具应用 |
+
+</details>
+
+<details>
+<summary><b>小红书 —— 全部 16 个账号（关注 / 选题池）</b></summary>
+
+| 账号 | 方向 |
+|---|---|
+| [十字路口 Crossing(Koji杨远骋)](https://www.xiaohongshu.com/user/profile/548251dce779893bcf3f77bc) | AI 媒体/播客 |
+| [周末Zomo](https://www.xiaohongshu.com/user/profile/5a051c124eacab39ed6500ff) | 设计 / vibecoding |
+| [几口酱聊AI](https://www.xiaohongshu.com/user/profile/656daf47000000002002d20f) | AI 广告 / agent |
+| [西里森森](https://www.xiaohongshu.com/user/profile/6244a8f7000000001000ada3) | AI 设计 / 网站 |
+| [丝诺姐姐](https://www.xiaohongshu.com/user/profile/55f920a9c2bdeb18338ab696) | AI 产品经理 / 公司观察 |
+| [数字生命卡兹克](https://www.xiaohongshu.com/user/profile/62c98736000000001501e075) | AIGC 头部 KOL |
+| [归藏的AI工具箱(歸藏)](https://www.xiaohongshu.com/user/profile/5c696b98000000001003043b) | AI 设计 / 工具 |
+| [Simon_阿文](https://www.xiaohongshu.com/user/profile/5b72992cf7e8b94cea514695) | AI 设计 / 信息图 |
+| [海辛Hyacinth](https://www.xiaohongshu.com/user/profile/648a5137000000002a0360e5) | AIGC 视觉创作 |
+| [哥飞](https://www.xiaohongshu.com/user/profile/5b683c2cc39aaf0001b06269) | 出海 / 独立开发 |
+| [刘小排r](https://www.xiaohongshu.com/user/profile/69afc806000000003202c458) | AI 产品 / 超级个体 |
+| [AI产品黄叔](https://www.xiaohongshu.com/user/profile/5bbd6615c91fa10001591b7e) | AI 产品 |
+| [漫士沉思录](https://www.xiaohongshu.com/user/profile/64100336000000001002bfc7) | AI 技术科普 |
+| [赛博禅心](https://www.xiaohongshu.com/user/profile/5b6bee5a6b58b7037ebad058) | AI 资讯 / 深度 |
+| [花叔(AI进化论-花生)](https://www.xiaohongshu.com/user/profile/5abc6f17e8ac2b109179dfdf) | AI 超级个体 / builder |
+| [深思圈](https://www.xiaohongshu.com/user/profile/625eb64900000000210210ea) | AI 行业洞察 |
+
+</details>
+
 
 ## 怎么跑起来的
 

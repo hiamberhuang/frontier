@@ -26,11 +26,20 @@ matters, builders tagged by field, real cover images. Not a wall of links.
 **84 sources across four platforms**, picked by hand. The list *is* the opinion — see every name,
 with links and a line on why it's there, in **[`SOURCES.md`](SOURCES.md)**.
 
+**How the list is picked.** One line: **is this person building, or relaying what someone else built?** Four questions —
+
+1. **First-hand?** People shipping models, products, code or growth come first; second-hand commentary ranks lower.
+2. **Own judgment?** On the same news, if they say what everyone else says, they don't earn a slot.
+3. **Full chain covered?** The list deliberately spans research → model companies → founders → GTM → investors. Research alone misses where the money moves; GTM alone misses where the technical ceiling is.
+4. **A few benchmarks on purpose.** A handful of commentary accounts are kept to watch **how a narrative spreads** — they're subjects of observation, not sources.
+
+The Chinese-language sources (bilibili / Xiaohongshu) are a separate tier: they track **how this lands in China and how the tooling is actually used** — a different question from the English sources, so they aren't ranked together.
+
 | Platform | Count | Status | Edit it in |
 |---|---|---|---|
 | **YouTube** | 20 | ✅ auto-fetched | [`fetch_sources.py`](fetch_sources.py) → `YT_CHANNELS` |
 | **X / Twitter** | 36 | ✅ auto-fetched *(TikHub key)* | [`my_builders.txt`](my_builders.txt) |
-| **bilibili** | 12 | ⏳ pending (yt-dlp extractor) | [`SOURCES.md`](SOURCES.md) |
+| **bilibili** | 12 | ⏳ pending (space listing works, per-video metadata blocked) | [`SOURCES.md`](SOURCES.md) |
 | **Xiaohongshu** | 16 | ⏸ watch list only | [`SOURCES.md`](SOURCES.md) |
 
 <details open>
@@ -62,7 +71,50 @@ with links and a line on why it's there, in **[`SOURCES.md`](SOURCES.md)**.
 
 </details>
 
-> bilibili (12) and Xiaohongshu (16) are listed in [`SOURCES.md`](SOURCES.md) — neither is auto-fetched yet.
+<details>
+<summary><b>bilibili — all 12 creators</b></summary>
+
+| Creator | What they do |
+|---|---|
+| [秋叶aaaki](https://space.bilibili.com/12566101) | AI 绘画头部,SD/ComfyUI 整合包与教学 |
+| [林亦LYi](https://space.bilibili.com/4401694) | AI 科普 + 硬核上手实测 |
+| [老麦的工具库](https://space.bilibili.com/486989780) | 时效最快的 AI 工具速递盘点 |
+| [图灵的猫](https://space.bilibili.com/371846699) | AI 原理通识科普 |
+| [GenJi是真想教会你](https://space.bilibili.com/49746395) | 手把手 AI 开发与应用教学 |
+| [Jack-Cui](https://space.bilibili.com/331507846) | 算法工程师讲 AI + 编程实战 |
+| [git源宝](https://space.bilibili.com/38061207) | AI 挖掘机,工具盘点 + 热点鉴定 |
+| [玄离199](https://space.bilibili.com/67079745) | AI 工具与 MCP,让设备更好用 |
+| [Unitree 宇树科技](https://space.bilibili.com/521974986) | 国产机器人官号,人形/四足发布 |
+| [十字路口 Crossing](https://space.bilibili.com/505301413) | Koji 杨远骋的 AI 一线视频播客 |
+| [秋芝2046](https://space.bilibili.com/385670211) | AIGC 影像创作,AI 电影/工作流 |
+| [Xuan_酱](https://space.bilibili.com/14848367) | 沉迷 AI,爱折腾各类工具应用 |
+
+</details>
+
+<details>
+<summary><b>Xiaohongshu — all 16 accounts (watch list)</b></summary>
+
+| Account | Focus |
+|---|---|
+| [十字路口 Crossing(Koji杨远骋)](https://www.xiaohongshu.com/user/profile/548251dce779893bcf3f77bc) | AI 媒体/播客 |
+| [周末Zomo](https://www.xiaohongshu.com/user/profile/5a051c124eacab39ed6500ff) | 设计 / vibecoding |
+| [几口酱聊AI](https://www.xiaohongshu.com/user/profile/656daf47000000002002d20f) | AI 广告 / agent |
+| [西里森森](https://www.xiaohongshu.com/user/profile/6244a8f7000000001000ada3) | AI 设计 / 网站 |
+| [丝诺姐姐](https://www.xiaohongshu.com/user/profile/55f920a9c2bdeb18338ab696) | AI 产品经理 / 公司观察 |
+| [数字生命卡兹克](https://www.xiaohongshu.com/user/profile/62c98736000000001501e075) | AIGC 头部 KOL |
+| [归藏的AI工具箱(歸藏)](https://www.xiaohongshu.com/user/profile/5c696b98000000001003043b) | AI 设计 / 工具 |
+| [Simon_阿文](https://www.xiaohongshu.com/user/profile/5b72992cf7e8b94cea514695) | AI 设计 / 信息图 |
+| [海辛Hyacinth](https://www.xiaohongshu.com/user/profile/648a5137000000002a0360e5) | AIGC 视觉创作 |
+| [哥飞](https://www.xiaohongshu.com/user/profile/5b683c2cc39aaf0001b06269) | 出海 / 独立开发 |
+| [刘小排r](https://www.xiaohongshu.com/user/profile/69afc806000000003202c458) | AI 产品 / 超级个体 |
+| [AI产品黄叔](https://www.xiaohongshu.com/user/profile/5bbd6615c91fa10001591b7e) | AI 产品 |
+| [漫士沉思录](https://www.xiaohongshu.com/user/profile/64100336000000001002bfc7) | AI 技术科普 |
+| [赛博禅心](https://www.xiaohongshu.com/user/profile/5b6bee5a6b58b7037ebad058) | AI 资讯 / 深度 |
+| [花叔(AI进化论-花生)](https://www.xiaohongshu.com/user/profile/5abc6f17e8ac2b109179dfdf) | AI 超级个体 / builder |
+| [深思圈](https://www.xiaohongshu.com/user/profile/625eb64900000000210210ea) | AI 行业洞察 |
+
+</details>
+
 
 ## How it works
 

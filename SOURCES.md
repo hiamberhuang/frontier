@@ -9,7 +9,7 @@
 |---|---|---|---|
 | YouTube | 20 | ✅ 全量自动抓取 | `fetch_sources.py` → `YT_CHANNELS` |
 | X / Twitter | 36 | ✅ 自动抓取（需 TikHub key） | `my_builders.txt` |
-| bilibili | 12 | ⏳ 待接入（yt-dlp 抽取器待修） | 本文件 |
+| bilibili | 12 | ⏳ 待接入（空间列表能抓，单视频元数据被限制） | 本文件 |
 | 小红书 | 16 | ⏸ 仅作关注 / 选题池 | 本文件 |
 
 > 改名单只要改上面那两个文件，改完重跑 `python3 fetch_sources.py && python3 build.py`。
@@ -90,7 +90,9 @@
 
 ## bilibili（12）
 
-> yt-dlp 的 bilibili 抽取器当前报 NoneType，抓取待修复。空间链接如下，修好后接进 `build.py`。
+> 状态（2026-09-18 实测，yt-dlp 2026.03.17）：`space.bilibili.com/<uid>` 的**列表能抓**，返回 BV 号；
+> 但逐个视频取标题会失败（`This video may be deleted or geo-restricted` / `Unable to download JSON metadata`）。
+> 也就是说卡点已经不是当初那个 NoneType，而是**单视频元数据拿不到** —— 大概率要带 cookie 或换出口。
 
 | UP 主 | 在做什么 |
 |---|---|
