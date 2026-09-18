@@ -1,12 +1,12 @@
 <div align="center">
 
-**English** · [简体中文](README.zh-CN.md)
-
 # Frontier
 
 ### An AI daily, curated from builders — not influencers.
 
 [**Live site**](https://hiamberhuang.github.io/frontier/) · [Setup guide](SETUP.md) · [Full source list](SOURCES.md)
+
+**English** · [简体中文](README.zh-CN.md)
 
 </div>
 

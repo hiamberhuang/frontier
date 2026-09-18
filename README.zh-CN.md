@@ -1,12 +1,14 @@
 <div align="center">
 
-[English](README.md) · **简体中文**
-
 # Frontier
 
-### 一份 AI 日报 —— 只跟造东西的人，不跟蹭热点的人。
+### An AI daily, curated from builders — not influencers.
+
+**一份 AI 日报 —— 只跟造东西的人，不跟蹭热点的人。**
 
 [**在线看**](https://hiamberhuang.github.io/frontier/) · [部署指南](SETUP.md) · [完整信源清单](SOURCES.md)
+
+[English](README.md) · **简体中文**
 
 </div>
 
