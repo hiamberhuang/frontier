@@ -156,12 +156,16 @@ if blocks and CFG["feishu"].get("enabled") and LARKCLI:
     tokf, urlf = HERE / ".preview_doc_token", HERE / ".preview_doc_url"
     try:
         if tokf.exists():                       # 已有滚动文档 → 覆盖（URL 不变）
-            subprocess.run([LARKCLI, "docs", "+update", "--api-version", "v2", "--as", "user",
-                            "--doc", tokf.read_text().strip(), "--command", "overwrite",
-                            "--doc-format", "markdown", "--content", "@preview_feishu.md"],
-                           cwd=HERE, capture_output=True, text=True, timeout=120)
-            preview_url = urlf.read_text().strip() if urlf.exists() else ""
-        else:                                   # 第一次 → 新建并记住 token + url
+            r = subprocess.run([LARKCLI, "docs", "+update", "--api-version", "v2", "--as", "user",
+                                "--doc", tokf.read_text().strip(), "--command", "overwrite",
+                                "--doc-format", "markdown", "--content", "@preview_feishu.md"],
+                               cwd=HERE, capture_output=True, text=True, timeout=120)
+            if '"ok": true' in r.stdout:
+                preview_url = urlf.read_text().strip() if urlf.exists() else ""
+            else:                               # 覆盖失败（多半换了飞书租户/没权限）→ 丢掉旧 token，下面新建
+                print(f"  ⚠ 覆盖旧预习文档失败，改为新建：{(r.stdout or r.stderr).strip()[:160]}")
+                tokf.unlink(missing_ok=True); urlf.unlink(missing_ok=True)
+        if not tokf.exists():                   # 第一次 / 旧文档失效 → 新建并记住 token + url
             r = subprocess.run([LARKCLI, "docs", "+create", "--api-version", "v2", "--as", "user",
                                 "--doc-format", "markdown", "--parent-position", "my_library",
                                 "--content", "@preview_feishu.md"],
