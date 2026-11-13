@@ -4,6 +4,7 @@ Real images (YouTube maxres thumbnails + X avatars), builder field tags,
 Editor's Choice notes. No deps, stdlib only.  Run: python3 build.py
 """
 import json, re, html, pathlib, datetime
+from urllib.parse import urlsplit
 from frontier_config import CFG, path as cfg_path
 
 # follow-builders (Zara Zhang) central feed — OPTIONAL. Absent => Frontier builds
@@ -223,6 +224,35 @@ def x_card(b):
       <div><div class="xn">{esc(b['name'])} <span>@{esc(b['handle'])}</span></div>{field}
       <p>{esc(b['tweet'])}</p><a href="{esc(b['url'])}" target="_blank">read on X →</a></div></div>"""
 
+
+def x_highlights():
+    """Render the latest published, dated X edition on the Frontier homepage."""
+    editions = sorted((OUT / "daily").glob("????-??-??.json"), reverse=True)
+    if not editions:
+        return ""
+    edition = json.loads(editions[0].read_text(encoding="utf-8"))
+    stories = []
+    for story in edition["stories"][:10]:
+        url = urlsplit(story["post_url"])
+        if (url.scheme != "https" or url.netloc not in {"x.com", "twitter.com"}
+                or not re.fullmatch(r"/[A-Za-z0-9_]+/status/\d+", url.path)):
+            raise ValueError(f"Invalid X post URL in {editions[0].name}")
+        links = f'<a href="{esc(story["post_url"])}" target="_blank" rel="noopener">Read on X →</a>'
+        source_url = story.get("source_url", "")
+        if urlsplit(source_url).scheme == "https":
+            links += f' · <a href="{esc(source_url)}" target="_blank" rel="noopener">Official source ↗</a>'
+        stories.append(f'<li><h3>{esc(story["title"])}</h3>'
+                       f'<p>{esc(story["summary"])}</p>'
+                       f'<p class="x-insight"><strong>Why it matters.</strong> {esc(story["insight"])}</p>'
+                       f'{links}</li>')
+    if not stories:
+        return ""
+    return ('<section id="x-highlights" aria-labelledby="x-highlights-title">'
+            f'<h2 class="sec" id="x-highlights-title">X highlights · Top {len(stories)}</h2>'
+            f'<p class="x-date">{esc(edition["coverage"])}</p>'
+            f'<ol class="x-highlights">{"".join(stories)}</ol></section>')
+
+
 # Product / lab updates (official blogs via RSS → fetch_products.py)
 prod = []
 _pf = OUT / "product_feed.json"
@@ -254,6 +284,8 @@ _cmf = OUT / "cat_maps.json"
 _cm = json.load(open(_cmf)) if _cmf.exists() else {"fps": 16, "n1": 1, "c1ToC2": [0], "c2ToC1": [0]}
 CAT = CAT.replace("/*__MAPS__*/", f"var FPS={_cm['fps']},N={_cm['n1']},C1TOC2={_cm['c1ToC2']},C2TOC1={_cm['c2ToC1']};")
 
+pods_html = ('<div class="pods">' + ''.join(pod_card(p) for p in rest_pods) + '</div>'
+             if rest_pods else '<div class="empty">Quiet feed today — only the Editor\'s choice above. More as builders publish.</div>')
 page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Frontier · AI daily</title>
@@ -292,6 +324,16 @@ header{{text-align:center;border-bottom:2px solid var(--ink);padding:30px 0 16px
 .field{{font-size:11px;color:var(--accent);margin:1px 0 5px}}
 .xc p{{font-size:14px;line-height:1.55;color:#333;margin:0 0 4px}}
 .xc a{{font-size:12px;color:var(--accent);text-decoration:none}}
+#x-highlights{{margin:0 0 48px;scroll-margin-top:20px}}
+#x-highlights .sec{{margin-bottom:8px}}
+.x-date{{margin:0 0 6px;color:var(--muted);font-size:13px}}
+.x-highlights{{margin:0;padding-left:2.1rem}}
+.x-highlights li{{padding:12px 0 12px 6px;border-bottom:1px solid var(--line)}}
+.x-highlights li::marker{{color:var(--accent);font-weight:700}}
+.x-highlights h3{{font-family:Georgia,serif;font-size:20px;line-height:1.3;margin:0}}
+.x-highlights p{{font-size:14px;margin:4px 0}}
+.x-highlights .x-insight{{color:var(--muted)}}
+.x-highlights a{{font-size:13px;color:var(--accent)}}
 .plogos{{display:flex;flex-wrap:wrap;gap:12px}}
 .plogo{{display:flex;align-items:center;gap:9px;text-decoration:none;border:1px solid var(--line);border-radius:26px;padding:5px 16px 5px 5px;background:#fff;transition:border-color .15s,transform .15s}}
 .plogo:hover{{border-color:var(--accent);transform:translateY(-1px)}}
@@ -307,7 +349,8 @@ footer a{{color:var(--accent);text-decoration:none}}
 <div class="byl">{esc(gen)} · created by <a href="{PORTFOLIO}" target="_blank">{esc(AUTHOR)}</a>{_x_link}</div></header>
 {hero_html}
 <div class="sec">Deep dives</div>
-{('<div class="pods">' + ''.join(pod_card(p) for p in rest_pods) + '</div>') if rest_pods else '<div class="empty">Quiet feed today — only the Editor\'s choice above. More as builders publish.</div>'}
+{pods_html}
+{x_highlights()}
 <div class="sec">Builders on X</div>
 <div class="xs">{''.join(x_card(b) for b in x_items)}</div>
 {('<div class="sec" style="margin-top:48px">Products on X</div><div class="plogos">' + ''.join(prod_chip(p) for p in prod) + '</div>') if prod else ''}

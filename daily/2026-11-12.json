@@ -1,0 +1,74 @@
+{
+  "coverage": "November 10–11, 2026 · Pacific time",
+  "stories": [
+    {
+      "title": "Claude brings spreadsheets and whiteboards into chat",
+      "summary": "Claude Sheets and Whiteboards enter beta, while Claude Data becomes generally available. Teams can edit spreadsheets, organize discussions and share data inside Claude.",
+      "post_url": "https://x.com/claudeai/status/2120206365759094857",
+      "insight": "Try moving an event retrospective from a shared board into an action tracker. The test is whether teammates can take over the same artifact.",
+      "source_url": "https://claude.com/resources/articles/sheets-whiteboards-data"
+    },
+    {
+      "title": "Adobe Firefly puts more design work on one canvas",
+      "summary": "Firefly Design enters beta with vector, raster, motion, 3D and print tools in one workspace. Adobe also showed how its Creative Agent can coordinate tools.",
+      "post_url": "https://x.com/AdobeFirefly/status/2120168286461546659",
+      "insight": "A shared canvas could make it easier to adapt a campaign's visual identity across social and print.",
+      "source_url": "https://news.adobe.com/news/2026/11/adobe-firefly-expands"
+    },
+    {
+      "title": "MiniMax releases H3-Image weights",
+      "summary": "The model generates and edits images with up to 16 references. MiniMax showed how the same product could appear across several campaign settings.",
+      "post_url": "https://x.com/MiniMax_AI/status/2120179737695826420",
+      "insight": "A practical test is whether packaging text, logos and product shape stay consistent across ad variations.",
+      "source_url": "https://huggingface.co/MiniMaxAI/MiniMax-H3-Image"
+    },
+    {
+      "title": "ChatGPT Business usage extends to outside tools",
+      "summary": "OpenAI says supported tools include Notion, v0 and Amp. Workspace admins can enable access and set usage limits.",
+      "post_url": "https://x.com/OpenAIDevs/status/2120212596850663712",
+      "insight": "Teams can test whether a shared plan makes usage easier to manage across the tools they already use."
+    },
+    {
+      "title": "Gemini Live comes to Apple CarPlay",
+      "summary": "Google is rolling out hands-free Gemini conversations on CarPlay. Users can resume a conversation from their phone or ask for calendar and email catch-ups.",
+      "post_url": "https://x.com/GeminiApp/status/2120626195033473228",
+      "insight": "Continuing the same conversation across devices gives voice assistants a more natural place in daily routines.",
+      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-on-apple-carplay/"
+    },
+    {
+      "title": "Google opens Gemini 4 Carbon to developers and enterprises",
+      "summary": "Google is making Carbon available through its API and previewing coordinated agents in Antigravity, where Carbon can plan or review work handled in parallel.",
+      "post_url": "https://x.com/GoogleDeepMind/status/2120219371473617099",
+      "insight": "For real work with multiple steps, compare the time saved with the number of fixes still needed from a person.",
+      "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/"
+    },
+    {
+      "title": "Mistral puts live transcription to work on a conference stage",
+      "summary": "Mistral used Voxtral to transcribe the main stage at AI Engineer Paris, giving it speaker names and technical terms from the agenda to improve recognition.",
+      "post_url": "https://x.com/MistralAI/status/2120489851615084876",
+      "insight": "A glossary of names and technical terms can make live captions and event notes easier to use.",
+      "source_url": "https://docs.mistral.ai/studio/audio/speech-to-text/bias-context-and-vocabulary"
+    },
+    {
+      "title": "Expo brings cross-platform UI testing to coding agents",
+      "summary": "Expo's Exact project lets agents drive and inspect web, macOS and iOS interfaces using a common set of operations and screenshots.",
+      "post_url": "https://x.com/expo/status/2120553608873680981",
+      "insight": "A team can reuse the same user journey to check a prototype on desktop and mobile.",
+      "source_url": "https://github.com/expo/exact"
+    },
+    {
+      "title": "Gemini Robotics 2.5 sorts parts on a Mercedes-Benz production line",
+      "summary": "Google DeepMind, Apptronik and Mercedes-Benz tested whether a humanoid robot could arrange car parts into trays in assembly order.",
+      "post_url": "https://x.com/GoogleDeepMind/status/2120169787896525104",
+      "insight": "The useful next measure is how often a person needs to step in when parts or shifts change.",
+      "source_url": "https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/"
+    },
+    {
+      "title": "DeepMind uses AI to verify key properties of Signal's encryption code",
+      "summary": "AlphaProof Code produced machine-checkable proofs for specific security properties of Signal's core cryptographic implementation, under specifications reviewed by researchers.",
+      "post_url": "https://x.com/GoogleDeepMind/status/2120484246401777737",
+      "insight": "Independent tools can check the proof alongside the result, a useful standard for AI-assisted verification.",
+      "source_url": "https://deepmind.google/blog/introducing-alphaproof-code/"
+    }
+  ]
+}
