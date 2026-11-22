@@ -1,0 +1,74 @@
+{
+  "coverage": "November 18–19, 2026 · Pacific time",
+  "stories": [
+    {
+      "title": "Gemini starts operating Mac apps in the background",
+      "summary": "Google is rolling out computer use in its Mac app to eligible paid users in the U.S., initially in English. A separate background window handles clicks and typing across apps, files and websites.",
+      "insight": "A workflow spanning campaign files and browser tabs is a practical test of where human intervention is still needed.",
+      "post_url": "https://x.com/GeminiApp/status/2123513203745538423",
+      "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/computer-use-mac/"
+    },
+    {
+      "title": "HeyGen connects Ideogram 4.6 images to Avatar 6",
+      "summary": "HeyGen says Ideogram 4.6 is available for image generation and targeted edits, with a path from the edited image into Avatar 6 animation.",
+      "insight": "Teams can test whether a character stays consistent as its clothing, scene and motion change.",
+      "post_url": "https://x.com/HeyGen/status/2123470876977090871"
+    },
+    {
+      "title": "OpenAI explains how GPT-6.2 preserves reasoning across calls",
+      "summary": "Reasoning items in the Responses API are tied to the preceding conversation. OpenAI advises appending turns instead of editing the earlier history, which can invalidate later reasoning items.",
+      "insight": "Teams running long agent workflows can review history handling before comparing cache hits and task costs.",
+      "post_url": "https://x.com/OpenAIDevs/status/2123566018866151579",
+      "source_url": "https://developers.openai.com/api/docs/guides/reasoning"
+    },
+    {
+      "title": "Genie 4 brings editable worlds to Project Genie",
+      "summary": "Eligible Google AI Ultra subscribers can use Genie 4 through Project Genie, with native audio, live environment edits, a creation assistant and a gallery for sharing and remixing.",
+      "insight": "For interactive campaign prototypes, edit latency and reproducibility matter alongside the initial visual impression.",
+      "post_url": "https://x.com/GoogleDeepMind/status/2123117733709586849",
+      "source_url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/genie-4-now-available-project-genie/"
+    },
+    {
+      "title": "Gemini 4 Neon targets faster completion of complex work",
+      "summary": "Google is rolling out Neon across its API and eligible Gemini and Antigravity plans, positioning it for demanding coding, knowledge and science workflows.",
+      "insight": "A representative task with several revisions can reveal more about delivery quality and cost than a standalone benchmark score.",
+      "post_url": "https://x.com/GoogleDeepMind/status/2123167884411077030",
+      "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
+    },
+    {
+      "title": "Mistral highlights local and cloud coding in Vibe Desktop",
+      "summary": "Mistral's desktop app supports macOS and Windows, bringing local repository sessions and remote coding environments into one interface for following and reviewing agent work.",
+      "insight": "Connection to existing tooling, review quality and recovery after interruption are useful criteria for a team trial.",
+      "post_url": "https://x.com/MistralAI/status/2123073168659141119",
+      "source_url": "https://docs.mistral.ai/vibe/code/desktop/overview"
+    },
+    {
+      "title": "OpenAI and AMD report model-assisted chip design gains",
+      "summary": "OpenAI describes using models to revise hardware descriptions and evaluate power, performance and area trade-offs on AMD designs and its own inference chip, with conventional engineering checks.",
+      "insight": "The workflow illustrates how specialist verification tools can turn generated proposals into reviewable engineering results.",
+      "post_url": "https://x.com/OpenAI/status/2123100386638877054",
+      "source_url": "https://openai.com/index/advancing-chip-design-with-our-models/"
+    },
+    {
+      "title": "OpenAI publishes an update on AI-assisted research",
+      "summary": "OpenAI's internal measurements show agents tackling longer research tasks while people remain involved in the development process. The report also tracks growing human effort on safety and alignment.",
+      "insight": "Independent completion rates and the human review budget should be measured together when evaluating workplace automation.",
+      "post_url": "https://x.com/OpenAI/status/2123191365983248653",
+      "source_url": "https://openai.com/index/research-acceleration-jagged-frontier/"
+    },
+    {
+      "title": "Anthropic begins Nasdaq trading and reiterates its mission",
+      "summary": "Anthropic started Nasdaq trading on November 19. In remarks that day, CEO Dario Amodei discussed scientific applications, public benefit and the company's approach to safe development and deployment.",
+      "insight": "Future disclosures offer a way to follow how commercial expansion, research spending and stated commitments evolve.",
+      "post_url": "https://x.com/AnthropicAI/status/2123461658890686863",
+      "source_url": "https://www.anthropic.com/news/ipo-close"
+    },
+    {
+      "title": "HeyGen shares a blinded comparison of avatar providers",
+      "summary": "HeyGen reports that Avatar 6 led its comparison of personal and stock avatars, in which creators watched matching scripts without seeing the provider names. The result is a vendor-reported evaluation.",
+      "insight": "A blinded test with a brand's own script can help assess movement and lip sync on the work it actually needs.",
+      "post_url": "https://x.com/HeyGen/status/2123583975105143228",
+      "source_url": "https://www.heygen.com/models/heygen-avatar-6"
+    }
+  ]
+}
