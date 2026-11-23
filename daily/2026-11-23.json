@@ -1,0 +1,75 @@
+{
+  "coverage": "November 20–21, 2026 · Pacific time",
+  "stories": [
+    {
+      "title": "fal offers a limited Seedance 2.5 trial",
+      "summary": "Recent fal accounts can claim five free 10-second, 480p videos until November 22 at 11:59 PM PST. The offer covers designated playground and agent interfaces. API requests remain paid.",
+      "insight": "Use one campaign brief across text, image and reference inputs, then compare character consistency and usable shots.",
+      "post_url": "https://x.com/fal/status/2124230539544871333",
+      "source_url": "https://fal.ai/seedance-2.5"
+    },
+    {
+      "title": "Gemini adds GIF creation",
+      "summary": "Google announced GIF creation in Gemini using Omni 1.2 Flash. The help page describes a gradual rollout for Google AI plan users in Australia, Canada, France, Germany, Japan, Korea, the U.K. and the U.S.",
+      "insight": "A small set of branded reaction GIFs can test loop quality, text rendering and character consistency.",
+      "post_url": "https://x.com/GeminiApp/status/2123813017855103449",
+      "source_url": "https://support.google.com/gemini/answer/14286560?hl=en"
+    },
+    {
+      "title": "OpenAI announces broader access to business agents",
+      "summary": "In a November 20 post, OpenAI said ecommerce and online service businesses outside the U.S. can now claim their business and publish agents in ChatGPT. Eligibility and verification still apply.",
+      "insight": "Check Business Hub eligibility before preparing product and policy data. Claiming a business does not guarantee placement or sales.",
+      "post_url": "https://x.com/OpenAI/status/2123861461877588180",
+      "source_url": "https://openai.com/business/businesses-in-chatgpt/"
+    },
+    {
+      "title": "A developer compares Gemini reasoning effort and cost",
+      "summary": "Simon Willison published an SVG test across Gemini 4 models and effort levels. In his Hydrogen example, high cost 3.99 cents and xhigh cost 23.61 cents. This is a single task, not a general benchmark.",
+      "insight": "Compare effort level, latency and output quality on representative work before choosing a model configuration.",
+      "post_url": "https://x.com/simonw/status/2124217876777464269",
+      "source_url": "https://static.simonwillison.net/static/2026/gemini-4-carbon-neon-hydrogen-with-xhigh.html"
+    },
+    {
+      "title": "Runway demonstrates conversational video creation",
+      "summary": "Runway shared a demonstration of making videos through a short conversation with Runway Agent. The post focuses on the workflow and does not specify new pricing or universal availability.",
+      "insight": "Try a real brand story and follow how the agent handles the brief, shot planning and revisions.",
+      "post_url": "https://x.com/runwayml/status/2123813588666134696",
+      "source_url": "https://x.com/runwayml/status/2123813588666134696"
+    },
+    {
+      "title": "Runway explains how it reviews agent-written changes",
+      "summary": "Runway says agents have written nearly every merged App Studio pull request since October. Its engineering write-up describes review, browser testing and escalation of high-risk decisions to engineers.",
+      "insight": "Automated work needs explicit acceptance criteria, visible test evidence and a clear point for human decisions.",
+      "post_url": "https://x.com/runwayml/status/2123875791566168423",
+      "source_url": "https://runway.com/news/engineering/building-a-software-factory"
+    },
+    {
+      "title": "Google shares a Gemini-built ski simulator",
+      "summary": "Google DeepMind demonstrated a Mont Blanc ski simulator coded with Gemini 4 Neon in Antigravity. The team says it uses custom shaders and no pre-made 3D models, and links to an interactive version.",
+      "insight": "Interactive campaign prototypes should be judged on controls and runtime stability as well as the first visual impression.",
+      "post_url": "https://x.com/GoogleDeepMind/status/2123826572385833119",
+      "source_url": "https://aistudio.google.com/apps/bundled/chamonix_ski_sim/"
+    },
+    {
+      "title": "OpenAI introduces MedChemBench",
+      "summary": "The benchmark contains 99 problems drawn from published medicinal chemistry research. It separates molecular reconstruction, explanation, compound selection and property prediction. OpenAI says the results do not establish real-world drug discovery ability.",
+      "insight": "Break specialist evaluation into distinct capabilities so an aggregate score does not hide weaknesses in consequential choices.",
+      "post_url": "https://x.com/OpenAI/status/2123856316187975756",
+      "source_url": "https://openai.com/index/introducing-medchembench/"
+    },
+    {
+      "title": "Vercel completes AI management system certification",
+      "summary": "Vercel announced ISO/IEC 42001:2023 certification for its AI management system, including core products such as AI Gateway, Vercel Agent and v0, alongside relevant people and processes.",
+      "insight": "Enterprise buyers may ask for evidence of impact assessment, governance ownership and continuing review alongside product capabilities.",
+      "post_url": "https://x.com/Vercel/status/2123852179345969470",
+      "source_url": "https://vercel.com/blog/vercel-completes-iso-iec-42001-2023-certification"
+    },
+    {
+      "title": "Adobe shares a fictional iced-tea brand concept",
+      "summary": "Adobe Firefly highlighted Bleek Studio’s floral visual concept for a mock iced-tea brand called San Capri. The post presents creative work and does not report campaign or conversion results.",
+      "insight": "A concept can inform packaging and visual direction while commercial impact still needs separate evidence.",
+      "post_url": "https://x.com/AdobeFirefly/status/2123838875504185832",
+      "source_url": "https://x.com/AdobeFirefly/status/2123838875504185832"
+    }
+  ]
+}
