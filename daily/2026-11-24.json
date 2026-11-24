@@ -1,0 +1,33 @@
+{
+  "coverage": "November 21–22, 2026 · Pacific time · 4 verified weekend picks",
+  "stories": [
+    {
+      "title": "OpenRouter removes providers after data-handling findings",
+      "summary": "OpenRouter says it off-boarded three providers, removed 125 endpoints from zero-data-retention eligibility and notified potentially affected customers. The findings concern upstream providers and do not show a breach of OpenRouter itself.",
+      "insight": "For enterprise workflows, trace the actual provider route, endpoint privacy settings and relevant incident notices.",
+      "post_url": "https://x.com/OpenRouter/status/2124315081899200715",
+      "source_url": "https://openrouter.ai/blog/announcements/data-processing-incidents-on-inference-providers/"
+    },
+    {
+      "title": "Sarvam releases a new 105B checkpoint for high-volume agents",
+      "summary": "Sarvam released 105B-1711 with BF16 and NVFP4 weights, targeting customer support, voice agents, tool use and Indian languages. Existing sarvam-105b API IDs now use the new weights without changing request formats.",
+      "insight": "Evaluate multi-turn instruction following, tool-call success and cost on the languages and tasks the business needs.",
+      "post_url": "https://x.com/SarvamAI/status/2124532170505273661",
+      "source_url": "https://www.sarvam.ai/blogs/sarvam-105b-1711"
+    },
+    {
+      "title": "Tencent Hy4 becomes available on Ollama Cloud",
+      "summary": "Ollama announced Hy4 on its cloud service with image understanding, tool use and long-context support, accessible as hy4:cloud. Ollama describes the service as U.S.-hosted with zero data retention.",
+      "insight": "Test a screenshot-based office task and measure tool use, task completion, cost and human corrections together.",
+      "post_url": "https://x.com/ollama/status/2124669766723920377",
+      "source_url": "https://ollama.com/library/hy4"
+    },
+    {
+      "title": "OpenAI proposes shared safety limits informed by perplexity",
+      "summary": "Chief scientist Jakub Pachocki shared OpenAI pretraining measurements and proposed common development limits informed by perplexity and other metrics. The essay discusses comparability and post-training limitations. This is a proposal rather than an adopted industry standard.",
+      "insight": "Distinguish pretraining metrics, downstream capabilities and acceptance tests for the work a model will actually perform.",
+      "post_url": "https://x.com/merettm/status/2124549218995949967",
+      "source_url": "https://openai.com/index/perplexity-and-intelligence/"
+    }
+  ]
+}
