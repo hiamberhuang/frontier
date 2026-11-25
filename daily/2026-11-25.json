@@ -1,0 +1,75 @@
+{
+  "coverage": "November 23, 2026 · Pacific time",
+  "stories": [
+    {
+      "title": "Claude unifies connectors and skills under Plugins",
+      "summary": "Claude announced a unified Plugins experience for connectors, skills and plugins, available on Free, Pro, Max and Ultra. Team and Enterprise rollouts follow later.",
+      "insight": "Package a recurring workflow with its tool access and instructions, then check how permissions behave when shared.",
+      "post_url": "https://x.com/claudeai/status/2124970294523945328",
+      "source_url": "https://support.claude.com/en/articles/17740565-manage-plugins-skills-and-connectors-from-one-plugins-page"
+    },
+    {
+      "title": "Figma brings its agent to FigJam and Slides",
+      "summary": "The Figma agent can use connectors and attachments to organize existing material on a FigJam board or turn documents into a draft presentation, with further brand-based refinement.",
+      "insight": "Try a campaign brief through a workshop board and deck, checking information selection and brand consistency.",
+      "post_url": "https://x.com/Figma/status/2124927673109762185",
+      "source_url": "https://www.figma.com/blog/introducing-figma-agent-in-figjam-and-slides/"
+    },
+    {
+      "title": "fal adds Recraft image generation and vectorization",
+      "summary": "fal announced Recraft V4.1 Flash V2 and Vectorize Pro for image generation and raster-to-SVG conversion, highlighting text-heavy designs and detailed shapes. These are vendor-described capabilities.",
+      "insight": "Check typography, curves and editability on actual brand assets before using the output for print or motion.",
+      "post_url": "https://x.com/fal/status/2125009867324715057",
+      "source_url": "https://fal.ai/models/recraft/vectorize/pro"
+    },
+    {
+      "title": "Google expands personal context in AI Mode",
+      "summary": "Google is beginning an opt-in rollout connecting Wallet to Personal Intelligence in Search, with Drive and Gemini connections following in coming weeks. Wallet access is read-only.",
+      "insight": "Record account and connection settings when evaluating search visibility, since personalized results can differ between users.",
+      "post_url": "https://x.com/Google/status/2124981145922146739",
+      "source_url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/"
+    },
+    {
+      "title": "Z.ai introduces GLM-5.4 for visual coding",
+      "summary": "GLM-5.4 introduces a looped architecture and vision capabilities for coding and broader creation tasks. It is available through Coding Plan. Z.ai says API access awaits safety evaluation and weights will be released separately.",
+      "insight": "Compare working results on a task with screenshots and verify availability in the coding tool being used.",
+      "post_url": "https://x.com/zai_org/status/2124811995912286352",
+      "source_url": "https://z.ai/blog/glm-5.4"
+    },
+    {
+      "title": "OpenAI launches OpenWorks for U.S. small businesses",
+      "summary": "OpenWorks funds local AI partners to help independently owned U.S. small businesses implement projects and build skills. The pilot is free for participating businesses, with in-person work and workshops expected from partners.",
+      "insight": "The program offers a reference for teaching through concrete business tasks and measuring independent use after support ends.",
+      "post_url": "https://x.com/OpenAI/status/2124922133545714160",
+      "source_url": "https://openai.com/openworks/"
+    },
+    {
+      "title": "Simon Willison releases datasette-charts",
+      "summary": "The new Datasette charting plugin aims to select appropriate visualizations automatically. Willison provides a browser demo and describes building the initial prototype with assistance from Claude Fable 5.2.",
+      "insight": "Use campaign data to inspect aggregation, units and missing values before relying on an automatically selected chart.",
+      "post_url": "https://x.com/simonw/status/2125007029442114041",
+      "source_url": "https://simonwillison.net/2026/Nov/23/datasette-charts/"
+    },
+    {
+      "title": "Sarvam launches a context-aware dictation API",
+      "summary": "Sarvam Dictate combines speech transcription with text refinement for English and 22 Indian languages, and accepts contextual names and specialized vocabulary from the calling application.",
+      "insight": "Test dictated briefs for proper nouns, numbers, negations and self-corrections to check whether the intended meaning survives.",
+      "post_url": "https://x.com/SarvamAI/status/2124893117069570473",
+      "source_url": "https://www.sarvam.ai/blogs/sarvam-dictate"
+    },
+    {
+      "title": "Vercel introduces Audited ZDR on AI Gateway",
+      "summary": "The new label requires independent testing of a provider’s zero-data-retention claims and publication of the audit report. Vercel says launch partners Baseten, Modal and Wafer have begun audits.",
+      "insight": "Check the specific provider, endpoint and report status to understand whether the route in use is covered.",
+      "post_url": "https://x.com/rauchg/status/2124860284863209732",
+      "source_url": "https://vercel.com/blog/introducing-audited-zdr-on-ai-gateway"
+    },
+    {
+      "title": "DeepMind pairs agent teams with formal verification",
+      "summary": "Gemini agent teams proposed quantum-algorithm improvements checked with Lean. DeepMind is releasing the library and verified solutions. The results concern estimated resources for future quantum computations.",
+      "insight": "The workflow illustrates how generated proposals can travel with checkable evidence and reusable verification artifacts.",
+      "post_url": "https://x.com/GoogleDeepMind/status/2124911073266413634",
+      "source_url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/"
+    }
+  ]
+}
