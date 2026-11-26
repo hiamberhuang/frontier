@@ -1,0 +1,75 @@
+{
+  "coverage": "November 24, 2026 · Pacific time",
+  "stories": [
+    {
+      "title": "Runway connects ad briefs to creative production",
+      "summary": "Runway highlighted a workflow connecting an everyday agent to its creative tools for video, motion graphics and static ads, with connection options including ChatGPT, Grok Bot and Muse.",
+      "insight": "Try one campaign brief across formats and check character, copy and aspect-ratio consistency.",
+      "post_url": "https://x.com/runwayml/status/2125246332642427088",
+      "source_url": "https://runway.com/mcp"
+    },
+    {
+      "title": "fal adds ByteDance Seed TTS 3.0",
+      "summary": "fal announced Seed TTS 3.0 with selectable voices and controls for delivery, pace, pitch and volume. Its announcement describes support for more than 100 languages and language variants.",
+      "insight": "Test one ad script across languages for names, tone and timing, then compare how much editing is needed.",
+      "post_url": "https://x.com/fal/status/2125294102300307663",
+      "source_url": "https://fal.ai/models/bytedance/seed-tts/v3"
+    },
+    {
+      "title": "Google demonstrates a searchable footage-studio prototype",
+      "summary": "Google shared a Gemini 4 Neon and Antigravity prototype that indexes footage, organizes scenes and produces rough edits with transitions and captions from a story prompt. This is a prototype demonstration.",
+      "insight": "Define useful search labels and shot criteria before measuring how much of a generated rough cut can be used.",
+      "post_url": "https://x.com/Google/status/2125261986690703620",
+      "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
+    },
+    {
+      "title": "Sarvam adds document extraction with source locations",
+      "summary": "Sarvam Extract returns structured values with page locations, bounding boxes and confidence scores. The API is available to users in India and the U.S. and supports English and 22 Indian languages.",
+      "insight": "Review extracted values alongside their source locations, with separate checks for cross-page tables and conflicting values.",
+      "post_url": "https://x.com/SarvamAI/status/2125258873699442823",
+      "source_url": "https://www.sarvam.ai/blogs/extract-api"
+    },
+    {
+      "title": "NVIDIA shares Pixel as Code for visual creation",
+      "summary": "Nemotron-Labs-VisualCreation combines image generation with editable program-based artifacts. The initial release includes the 30B-A3B image model and inference code. The broader harness and VisionCode await later release.",
+      "insight": "Assess visual quality, targeted repairs and editability as separate parts of a creative workflow.",
+      "post_url": "https://x.com/_akhaliq/status/2125499465587208669",
+      "source_url": "https://huggingface.co/nvidia/Nemotron-Labs-Image-30B-A3B"
+    },
+    {
+      "title": "OCRia-1 brings document parsing to Ollama",
+      "summary": "LlamaIndex’s 4B OCRia-1 model is available on Ollama. It parses page images into Markdown and HTML tables, targeting complex tables, chart data and meaningful document formatting.",
+      "insight": "Test merged cells, heading structure and numbers on a difficult scan before feeding the result into a summary workflow.",
+      "post_url": "https://x.com/ollama/status/2125317662612041819",
+      "source_url": "https://ollama.com/llamaindex/ocria-1"
+    },
+    {
+      "title": "DeepMind shares an accessible-information co-creation case",
+      "summary": "Google DeepMind highlighted the Easy Read Co-Creator developed with Mencap and people with learning disabilities. The organizational pilot supports simpler text and images with human editing and review.",
+      "insight": "Evaluate factual fidelity and reader comprehension together, involving the intended audience in the review.",
+      "post_url": "https://x.com/GoogleDeepMind/status/2125201709852934598",
+      "source_url": "https://www.mencap.org.uk/what-we-do/accessibility/google-deepmind-easy-read-co-creator-tool"
+    },
+    {
+      "title": "Sakana announces Namazu Small for document and search work",
+      "summary": "Sakana announced a 30B model built on Nemotron 3 Nano through continued pretraining and post-training. It targets long-document reading, web research and everyday work. On-premises details are planned for early-to-mid December.",
+      "insight": "Use source-grounded and cross-document questions to evaluate enterprise knowledge workflows alongside aggregate benchmarks.",
+      "post_url": "https://x.com/SakanaAILabs/status/2125389733048291698",
+      "source_url": "https://sakana.ai/namazu-small/#English"
+    },
+    {
+      "title": "Anthropic studies sandbox escape with Siren",
+      "summary": "Siren evaluates whether agents reach outside deliberately weakened sandboxes when useful material is placed beyond them. Anthropic reports lower escape rates with explicit boundaries and rules, while noting these measures do not repair insecure sandboxes.",
+      "insight": "Check task instructions, tool permissions and environment isolation separately, with reviewable execution evidence.",
+      "post_url": "https://x.com/AnthropicAI/status/2125341904644763678",
+      "source_url": "https://safeguards.anthropic.com/2026/siren/"
+    },
+    {
+      "title": "OpenAI reports preliminary protein-design lab results",
+      "summary": "OpenAI’s preprint explores protein design with general-purpose models. Some resulting proteins showed binding in laboratory tests, and specialized models remained part of the pipeline. The work is a proof of concept, with functional validation still needed.",
+      "insight": "Keep generated proposals, experimental results and demonstrated practical function distinct when reviewing scientific AI claims.",
+      "post_url": "https://x.com/OpenAI/status/2125334383490105601",
+      "source_url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/"
+    }
+  ]
+}
