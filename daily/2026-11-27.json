@@ -1,0 +1,75 @@
+{
+  "coverage": "November 25, 2026 · Pacific time",
+  "stories": [
+    {
+      "title": "Sakana upgrades Marlin research modes and slides",
+      "summary": "Marlin adds Twilight 2.0 and Midnight 2.0 for faster multi-perspective analysis and broader investigation, alongside a refreshed PowerPoint export workflow.",
+      "insight": "Compare evidence coverage, completion time and slide usability on the same market-research brief.",
+      "post_url": "https://x.com/SakanaAILabs/status/2125824400935317763",
+      "source_url": "https://sakana.ai/marlin-update-2/"
+    },
+    {
+      "title": "Cloudflare introduces searchable websites for agents",
+      "summary": "Search for Agents creates an index and a discoverable search API under a site’s domain. It is available to Cloudflare customers, including Free plans, subject to usage limits and domain controls.",
+      "insight": "Check retrieval for product, pricing and FAQ questions, including whether results lead back to the correct original pages.",
+      "post_url": "https://x.com/Cloudflare/status/2125591595965702452",
+      "source_url": "https://blog.cloudflare.com/search-for-agents/"
+    },
+    {
+      "title": "Gemini announces Guided Vision on iOS",
+      "summary": "Google announced Guided Vision in Gemini Live on iOS, offering real-time help through a shared camera. The help page describes a gradual rollout.",
+      "insight": "Test text reading, camera positioning feedback and latency on real packaging, menus or everyday scenes.",
+      "post_url": "https://x.com/GeminiApp/status/2125685936344236471",
+      "source_url": "https://support.google.com/gemini/answer/18365638?hl=en"
+    },
+    {
+      "title": "fal demonstrates image generation inside Photoshop",
+      "summary": "fal shared a tutorial for its Agent plugin in Photoshop, showing how to generate and edit images within the creative workflow.",
+      "insight": "Use an actual poster to assess local edits, layer handling and preservation of brand elements.",
+      "post_url": "https://x.com/fal/status/2125683867310825821",
+      "source_url": "https://www.youtube.com/watch?v=hagXh0juYBc"
+    },
+    {
+      "title": "Gemini adds expressive voices with local accents",
+      "summary": "Google announced more than 60 expressive voices with local accents across the U.S., U.K., India, Indonesia, Korea and Brazil, selectable in Gemini settings.",
+      "insight": "Use real terminology and accent samples to assess pronunciation, listening comfort and conversational pacing.",
+      "post_url": "https://x.com/GeminiApp/status/2125629066006950339",
+      "source_url": "https://x.com/GeminiApp/status/2125629066006950339"
+    },
+    {
+      "title": "fal adds Microsoft MAI Image 2.7",
+      "summary": "fal announced availability of Microsoft’s MAI Image 2.7 and shared a narrative image-generation test on its video channel.",
+      "insight": "Evaluate visual storytelling with consistent character, product and scene constraints across several images.",
+      "post_url": "https://x.com/fal/status/2125621067725119910",
+      "source_url": "https://www.youtube.com/watch?v=9jvT3wsWvZI"
+    },
+    {
+      "title": "Together open-sources Hurdle for agent experience tests",
+      "summary": "Hurdle runs Claude Code and Codex against tasks involving a product’s APIs, documentation, MCPs and skills. Checks, guards and model judges score results by model and condition.",
+      "insight": "Turn lead research, report citations and file export into repeated tasks to identify where a workflow fails.",
+      "post_url": "https://x.com/togethercompute/status/2125709140425363612",
+      "source_url": "https://www.together.ai/blog/introducing-hurdle-run-agent-evals-on-your-api-skills-and-docs"
+    },
+    {
+      "title": "Anthropic explains verification during its Rust migration",
+      "summary": "Anthropic shared how it migrated the Messages API from Python to Rust, using the existing service to verify behavior and Claude agents to investigate and fix differences.",
+      "insight": "Establish expected behavior and acceptance criteria before replacing a workflow, including edge cases users depend on.",
+      "post_url": "https://x.com/AnthropicAI/status/2125627317263466739",
+      "source_url": "https://www.anthropic.com/research/migrating-api-to-rust"
+    },
+    {
+      "title": "Adobe shares a visual-first video-planning workflow",
+      "summary": "Adobe highlighted Jon Youshaei’s process for evaluating video ideas and openings, including planning visual anchors in Firefly Boards before scripting.",
+      "insight": "Use a concise visual plan to test whether an opening communicates the central idea before committing to production.",
+      "post_url": "https://x.com/AdobeFirefly/status/2125635699554578549",
+      "source_url": "https://www.youtube.com/watch?v=lY68hfm0PWM"
+    },
+    {
+      "title": "Vercel reduces orchestration overhead in Workflow 5.8",
+      "summary": "The new execution engine reduces step-to-step overhead in Vercel’s benchmarks and uses speculative execution for retryable steps.",
+      "insight": "Measure model time, tool time and orchestration time separately, while checking retry behavior.",
+      "post_url": "https://x.com/rauchg/status/2125685667833520237",
+      "source_url": "https://vercel.com/changelog/workflows-speculative-execution"
+    }
+  ]
+}
