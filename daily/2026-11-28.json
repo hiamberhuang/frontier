@@ -1,0 +1,26 @@
+{
+  "coverage": "November 26, 2026 · Pacific time · 3 selected updates on a quiet U.S. Thanksgiving",
+  "stories": [
+    {
+      "title": "Hermes highlights its official Obsidian integration",
+      "summary": "Nous Research highlighted its Obsidian integration for searching, reading and managing vault notes. The package provides skills; selected content can still be processed by the AI model in use.",
+      "insight": "Test retrieval, citations and edit history on a small set of non-sensitive notes before expanding access.",
+      "post_url": "https://x.com/NousResearch/status/2125989568721637578",
+      "source_url": "https://hermes-agent.nousresearch.com/marketplace/obsidian"
+    },
+    {
+      "title": "fal extends its Seedance 2.5 free-generation offer",
+      "summary": "fal announced that its Seedance 2.5 free-generation promotion runs through December 1. Account eligibility, quotas and supported entry points should be checked in the current offer.",
+      "insight": "Use the same product brief to compare shot ideas, usable-output rates and revision effort.",
+      "post_url": "https://x.com/fal/status/2126013950521434184",
+      "source_url": "https://x.com/fal/status/2126013950521434184"
+    },
+    {
+      "title": "Demo: Mistral Large 4 locates targets on maps",
+      "summary": "Mistral shared a visual-grounding demo showing Large 4 finding matches and outlining them on a map. This is a demonstration of an existing model, without a new benchmark table attached to the post.",
+      "insight": "Test localization and evidence on real floor plans or dense pages before relying on a promotional demonstration.",
+      "post_url": "https://x.com/MistralAI/status/2125915743212761359",
+      "source_url": "https://mistral.ai/news/mistral-large-4/"
+    }
+  ]
+}
